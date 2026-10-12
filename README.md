@@ -4,5 +4,5 @@
 
 - `index.html` : 사이트 전체 (한 페이지)
 - `assets/` : 캐릭터 시트(illust. @NEDH_NANA), 분위기 사진, 배경음악
-- `assets/fonts/` : 부크크 명조·고딕 (한글·영문만 남겨 웹용으로 줄인 파일)
+- `assets/fonts/` : 부크크 명조·고딕, Rasley Heights (웹용으로 줄인 파일. Rasley는 숫자가 워터마크라 숫자를 뺐음)
 - BGM : It Don't Mean a Thing (Duke Ellington), piano by Sangah Noona

@@ -10,6 +10,8 @@
 @font-face{font-family:"Bookk Myungjo";src:url(assets/fonts/BookkMyungjo-Bold.woff2) format("woff2");font-weight:700;font-display:swap}
 @font-face{font-family:"Bookk Gothic";src:url(assets/fonts/BookkGothic-Light.woff2) format("woff2");font-weight:300;font-display:swap}
 @font-face{font-family:"Bookk Gothic";src:url(assets/fonts/BookkGothic-Bold.woff2) format("woff2");font-weight:700;font-display:swap}
+/* 숫자는 워터마크 글리프라 제외: 숫자는 자동으로 다음 글꼴로 나온다 */
+@font-face{font-family:"Rasley Heights";src:url(assets/fonts/RasleyHeights.woff2) format("woff2");font-display:swap;unicode-range:U+0020-002F,U+003A-007E,U+00C0-00FF,U+2018-201D,U+2026,U+00B7}
 
 /* Layout: 무법도시 카지노의 밤. 검은 펠트 위에 영수증 한 장, 하우스 룰, 손님 명부, 세 번의 판. 금빛은 로랑의 눈 한쪽에서만 온다. */
 :root{
@@ -32,6 +34,8 @@
 
   --f-myungjo:"Bookk Myungjo","Nanum Myeongjo","Apple Myungjo",serif;
   --f-gothic:"Bookk Gothic","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-script:"Rasley Heights","Bookk Myungjo",cursive;
+  --blood:#8e2a22;
 
   --gutter:clamp(16px,5vw,48px);
   color-scheme:dark;
@@ -58,32 +62,32 @@ body::after{
 
 /* ───── loading ───── */
 #gate{
-  position:fixed;inset:0;z-index:8000;background:var(--ink);cursor:default;
-  display:grid;grid-template-rows:auto 1fr auto;padding:calc(22px + env(safe-area-inset-top,0px)) var(--gutter) calc(26px + env(safe-area-inset-bottom,0px));
-  clip-path:inset(0 0 0 0);transition:clip-path 1.2s cubic-bezier(.7,0,.2,1);
+  position:fixed;inset:0;z-index:8000;background:radial-gradient(ellipse at 50% 55%, #1c1611 0%, var(--ink) 62%);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+  padding:calc(24px + env(safe-area-inset-top,0px)) var(--gutter) calc(24px + env(safe-area-inset-bottom,0px));
+  transition:opacity 1s ease,visibility 1s ease;
 }
 #gate.ready{cursor:pointer}
-#gate.gone{clip-path:inset(0 0 100% 0)}
-.g-top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.g-top span{font-family:var(--f-gothic);font-size:11px;letter-spacing:.34em;color:var(--text-faint)}
-.g-mid{align-self:center;display:flex;flex-direction:column;gap:clamp(14px,3vw,26px)}
-.g-line{font-family:var(--f-myungjo);font-weight:300;font-size:clamp(46px,11vw,128px);line-height:1;letter-spacing:-.01em;color:var(--text)}
-.g-line .w{display:block;white-space:nowrap}
-.g-line .w:nth-child(2){padding-left:clamp(28px,12vw,180px);color:var(--gold-2)}
-.g-line .c{display:inline-block;opacity:0;transform:translateY(.35em);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
-.g-line.on .c{opacity:1;transform:none}
-.g-sub{font-family:var(--f-gothic);font-size:12px;letter-spacing:.28em;color:var(--text-dim);opacity:0;transition:opacity 1s ease 1.4s}
-.g-line.on + .g-sub{opacity:1}
-.g-bot{display:flex;flex-direction:column;gap:14px}
-.g-bar{height:1px;background:var(--line-soft);position:relative;overflow:hidden}
-.g-bar i{position:absolute;inset:0;background:var(--gold);transform-origin:left;transform:scaleX(0)}
-.g-row{display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:var(--f-gothic);font-size:11px;letter-spacing:.34em;color:var(--text-faint);font-variant-numeric:tabular-nums}
-.g-enter{
-  background:none;border:0;padding:6px 0;cursor:pointer;font-family:var(--f-gothic);font-weight:700;font-size:12px;letter-spacing:.4em;color:var(--gold-2);
-  opacity:0;pointer-events:none;transition:opacity .6s;
-}
-#gate.ready .g-enter{opacity:1;pointer-events:auto;animation:breathe 2.2s ease-in-out infinite}
-@keyframes breathe{50%{opacity:.4}}
+#gate.gone{opacity:0;visibility:hidden}
+#gateFx{position:absolute;inset:0;width:100%;height:100%}
+.g-frame{position:absolute;inset:clamp(12px,3vw,26px);border:1px solid var(--line-soft);pointer-events:none}
+.g-frame::before,.g-frame::after{content:"♠";position:absolute;font-size:11px;color:var(--gold);opacity:.6;line-height:1}
+.g-frame::before{top:10px;left:12px}
+.g-frame::after{content:"♦";bottom:10px;right:12px}
+.g-in{position:relative;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+.g-emblem{width:66px;height:66px;animation:emblem 14s linear infinite}
+.g-emblem circle,.g-emblem path{fill:none;stroke:var(--gold);stroke-width:.8}
+@keyframes emblem{to{transform:rotate(360deg)}}
+.g-title{font-family:var(--f-script);font-weight:400;font-size:clamp(46px,12vw,72px);line-height:1.1;color:var(--gold-2);
+  text-shadow:0 0 18px rgba(226,205,156,.35);animation:titleGlow 3s ease-in-out infinite;margin-top:4px}
+@keyframes titleGlow{50%{text-shadow:0 0 30px rgba(226,205,156,.6);opacity:.88}}
+.g-place{font-family:var(--f-myungjo);font-size:12.5px;letter-spacing:.22em;color:var(--text-dim)}
+.g-bar{width:min(200px,56vw);height:1px;background:var(--line-soft);position:relative;margin-top:10px}
+.g-bar i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--gold);box-shadow:0 0 8px var(--gold)}
+.g-bar i::after{content:"";position:absolute;right:-2px;top:-2px;width:5px;height:5px;border-radius:50%;background:var(--gold-2);box-shadow:0 0 10px var(--gold-2)}
+.g-sub{font-family:var(--f-gothic);font-size:10.5px;letter-spacing:.42em;color:var(--text-faint);text-transform:uppercase;min-height:1.6em}
+#gate.ready .g-sub{color:var(--gold-2);animation:breathe 2s ease-in-out infinite}
+@keyframes breathe{50%{opacity:.35}}
 
 /* ───── bar & menu ───── */
 .bar{
@@ -91,7 +95,7 @@ body::after{
   padding:calc(10px + env(safe-area-inset-top,0px)) var(--gutter) 10px;
   background:linear-gradient(rgba(13,11,9,.92),rgba(13,11,9,0));
 }
-.bar-logo{font-family:var(--f-myungjo);font-weight:700;letter-spacing:.32em;font-size:12px;text-decoration:none;color:var(--gold-2)}
+.bar-logo{font-family:var(--f-script);font-weight:400;font-size:24px;line-height:1;text-decoration:none;color:var(--gold-2)}
 .ham{width:42px;height:42px;background:none;border:0;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:flex-end;gap:6px}
 .ham i{display:block;height:1px;background:var(--gold-2);transition:.3s}
 .ham i:nth-child(1){width:24px}.ham i:nth-child(2){width:16px}
@@ -149,12 +153,16 @@ body::after{
 .hero-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center, rgba(13,11,9,.15), var(--ink) 78%)}
 .hero-in{display:flex;flex-direction:column;align-items:center;gap:24px}
 .hero-place{font-family:var(--f-myungjo);font-weight:300;font-size:clamp(14px,3.4vw,17px);letter-spacing:.24em;color:var(--gold-2)}
-.hero-title{font-family:var(--f-myungjo);font-weight:700;font-size:clamp(56px,14vw,148px);line-height:.95;letter-spacing:.02em}
+.hero-title{font-family:var(--f-script);font-weight:400;font-size:clamp(54px,14vw,128px);line-height:1.35;white-space:nowrap;margin-block:.1em .05em;color:var(--text);text-shadow:0 0 40px rgba(226,205,156,.18)}
 .hero-pair{font-family:var(--f-myungjo);font-weight:300;font-size:clamp(15px,3.6vw,19px);letter-spacing:.3em;color:var(--text-dim)}
 .hero-pair b{font-weight:300;color:var(--gold);margin:0 .5em}
-.hero-quote{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:22px}
-.hero-quote p{font-size:clamp(17px,3.8vw,22px)}
-.hero-quote small{font-family:var(--f-gothic);font-size:11px;letter-spacing:.24em;color:var(--text-faint)}
+.hero-talk{display:flex;flex-direction:column;gap:22px;margin-top:26px;max-width:560px;width:100%}
+.hero-talk div{display:flex;flex-direction:column;gap:6px}
+.hero-talk div:nth-child(1){align-items:flex-start;text-align:left}
+.hero-talk div:nth-child(2){align-items:flex-end;text-align:right}
+.hero-talk p{font-size:clamp(15px,3.6vw,19px);line-height:1.8}
+.hero-talk div:nth-child(2) p{color:var(--gold-2)}
+.hero-talk small{font-family:var(--f-gothic);font-size:10.5px;letter-spacing:.26em;color:var(--text-faint)}
 
 /* ───── section header ───── */
 .sec{padding-block:clamp(76px,12vw,140px);padding-inline:var(--gutter);position:relative}
@@ -162,7 +170,7 @@ body::after{
 .sh{display:grid;grid-template-columns:auto 1fr auto;align-items:end;gap:clamp(14px,3vw,28px);margin-bottom:clamp(36px,6vw,64px)}
 .sh h2{font-family:var(--f-myungjo);font-weight:700;font-size:clamp(28px,5.4vw,50px);line-height:1.1}
 .sh::after{content:"";grid-column:2;grid-row:1;height:1px;background:var(--line);align-self:center;margin-top:.6em}
-.sh .label{grid-column:3;grid-row:1;text-align:right;line-height:1.7}
+.sh .label{grid-column:3;grid-row:1;text-align:right;line-height:1.2;font-family:var(--f-script);text-transform:none;letter-spacing:0;font-size:clamp(24px,3.4vw,32px);color:var(--gold-2)}
 .sh-sub{grid-column:1/-1;font-size:14px;color:var(--text-dim);max-width:36em}
 @media (max-width:560px){
   .sh{grid-template-columns:1fr}
@@ -180,10 +188,25 @@ body::after{
 .cage-copy h2 em{font-style:normal;color:var(--gold-2)}
 .cage-copy p{font-size:15px;color:var(--text-dim);max-width:30em}
 .cage-copy p b{font-weight:700;color:var(--text)}
-.cage-hint{font-family:var(--f-gothic);font-size:11px;letter-spacing:.24em;color:var(--text-faint)}
+.cage-copy p.trail{color:var(--gold-2)}
+.cage-hint{align-self:flex-start;font-family:var(--f-gothic);font-size:11px;letter-spacing:.24em;color:var(--text-faint);animation:wobble 3.2s ease-in-out infinite}
+@keyframes wobble{0%,100%{transform:translate(0,0) rotate(0)}20%{transform:translate(.6px,-.4px) rotate(-.4deg)}40%{transform:translate(-.5px,.5px) rotate(.3deg)}60%{transform:translate(.4px,.3px) rotate(-.2deg)}80%{transform:translate(-.3px,-.3px) rotate(.2deg)}}
+
+/* glitch text */
+.glitch{position:relative;display:inline-block}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;left:0;top:0;width:100%;pointer-events:none;opacity:0}
+.glitch::before{color:var(--blood);animation:gA 3.4s infinite steps(1)}
+.glitch::after{color:var(--gold);animation:gB 3.4s infinite steps(1)}
+.glitch{animation:gBase 3.4s infinite steps(1)}
+@keyframes gBase{0%,84%,100%{transform:none}86%{transform:translateX(1px)}88%{transform:translateX(-1px) skewX(-6deg)}90%{transform:none}94%{transform:translateX(1.5px)}96%{transform:none}}
+@keyframes gA{0%,84%,100%{opacity:0}85%{opacity:.85;clip-path:inset(10% 0 60% 0);transform:translate(-2px,0)}88%{opacity:.85;clip-path:inset(55% 0 15% 0);transform:translate(2px,0)}91%{opacity:0}94%{opacity:.8;clip-path:inset(30% 0 40% 0);transform:translate(-3px,0)}96%{opacity:0}}
+@keyframes gB{0%,85%,100%{opacity:0}86%{opacity:.7;clip-path:inset(60% 0 5% 0);transform:translate(2px,0)}89%{opacity:.7;clip-path:inset(5% 0 70% 0);transform:translate(-2px,0)}92%{opacity:0}95%{opacity:.6;clip-path:inset(45% 0 30% 0);transform:translate(3px,0)}97%{opacity:0}}
+.cage-hint.glitch{animation:wobble 3.2s ease-in-out infinite}
+.cage-hint.glitch::after{color:var(--gold-2)}
 
 .receipt{
-  --edge:10px;position:relative;background:var(--paper);color:var(--ink-on-paper);
+  --edge:10px;position:relative;background:rgba(241,235,223,.8);color:var(--ink-on-paper);
+  -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
   font-family:var(--f-gothic);font-weight:300;font-size:12.5px;line-height:1.65;
   padding:calc(var(--edge) + 26px) clamp(20px,5vw,30px);transform:rotate(1.4deg);
   box-shadow:0 30px 60px rgba(0,0,0,.55);
@@ -195,26 +218,45 @@ body::after{
     radial-gradient(circle at 50% 100%, transparent 5px, #000 5.5px) bottom/var(--edge) 51% repeat-x;
 }
 .r-head{text-align:center;display:flex;flex-direction:column;gap:2px}
-.r-head b{font-family:var(--f-myungjo);font-weight:700;font-size:22px;letter-spacing:.3em}
+.r-head b{font-family:var(--f-script);font-weight:400;font-size:38px;line-height:1.1}
 .r-head span{font-size:11px;color:var(--dim-on-paper)}
 .r-cut{border:0;border-top:1px dashed var(--line-on-paper);margin:14px 0}
 .r-row{display:flex;justify-content:space-between;gap:12px;font-variant-numeric:tabular-nums}
 .r-row > :last-child{text-align:right}
 .r-k{font-weight:700;letter-spacing:.2em;font-size:10.5px}
 .r-dim{color:var(--dim-on-paper)}
-.r-who{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:2px 10px;margin-bottom:8px}
-.r-who b{font-family:var(--f-myungjo);font-weight:700;font-size:15px}
-.r-who .side-tag{font-weight:700;font-size:13px;color:var(--brass-on-paper)}
-.r-who .r-dim{grid-column:2/4;font-size:11px}
-.r-items{display:flex;flex-direction:column;gap:2px}
+.r-who{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:0 10px;margin-bottom:8px}
+.r-who b{font-family:var(--f-myungjo);font-weight:700;font-size:16px}
+.r-who .hv{font-family:var(--f-script);font-size:30px;line-height:1;color:var(--brass-on-paper);opacity:0;filter:blur(6px);grid-row:1/3;grid-column:2;align-self:center}
+.receipt.seen .hv{opacity:1;filter:blur(0);transition:opacity 10s ease,filter 10s ease}
+.r-who .r-dim{font-size:11.5px}
+.r-who .glitch::after{color:#4a6b70}
+.r-items{display:flex;flex-direction:column;gap:3px}
 .r-items .r-row span:first-child{min-width:0}
+.r-items .r-note{font-size:11px;color:rgba(26,22,18,.45);padding-left:10px;margin-top:-2px}
+.r-ex{font-family:var(--f-myungjo);font-weight:700;font-size:14px;margin-top:4px}
 .r-quote{font-family:var(--f-myungjo);font-size:12.5px;color:var(--dim-on-paper);margin-top:6px}
 .r-total{font-family:var(--f-myungjo);font-weight:700;font-size:15px}
+.r-names{display:flex;flex-direction:column;align-items:flex-end;gap:5px;margin-top:8px}
 .redact{
-  background:var(--ink-on-paper);color:transparent;border:0;padding:0 4px;cursor:pointer;border-radius:1px;
-  font:inherit;transition:background .4s,color .4s;
+  position:relative;background:var(--ink-on-paper);color:transparent;border:0;padding:0 6px;cursor:pointer;border-radius:1px;
+  font-family:var(--f-myungjo);font-size:14px;
 }
-.redact.open{background:transparent;color:var(--ink-on-paper)}
+.redact.glitching{animation:rGlitch .75s steps(1) forwards}
+.redact.open{background:transparent;color:var(--ink-on-paper);cursor:default}
+@keyframes rGlitch{
+  0%{transform:translate(0)}
+  10%{transform:translate(-3px,1px) skewX(14deg);clip-path:inset(0 0 55% 0)}
+  20%{transform:translate(4px,-1px);clip-path:inset(40% 0 0 0);background:var(--blood)}
+  30%{transform:translate(-2px,0) skewX(-10deg);clip-path:inset(20% 0 30% 0);background:var(--ink-on-paper)}
+  40%{transform:translate(5px,1px);clip-path:inset(60% 0 5% 0);color:var(--ink-on-paper)}
+  50%{transform:translate(-4px,-1px);clip-path:inset(0 0 70% 0);background:#4a6b70;color:transparent}
+  60%{transform:translate(2px,0) skewX(8deg);clip-path:inset(30% 0 20% 0);background:transparent;color:var(--blood)}
+  70%{transform:translate(-1px,0);clip-path:inset(0);background:var(--ink-on-paper);color:transparent}
+  80%{transform:translate(3px,0);clip-path:inset(10% 0 40% 0);background:transparent;color:var(--ink-on-paper)}
+  90%{transform:translate(-1px,0);clip-path:inset(0)}
+  100%{transform:none;clip-path:none;background:transparent;color:var(--ink-on-paper)}
+}
 .r-bar{height:42px;margin:16px auto 6px;max-width:240px;
   background:repeating-linear-gradient(90deg,var(--ink-on-paper) 0 2px,transparent 2px 4px,var(--ink-on-paper) 4px 5px,transparent 5px 8px,var(--ink-on-paper) 8px 11px,transparent 11px 12px,var(--ink-on-paper) 12px 13px,transparent 13px 17px)}
 .r-foot{text-align:center;font-size:10px;letter-spacing:.32em;font-weight:700}
@@ -294,7 +336,7 @@ body::after{
 .rounds{display:flex;flex-direction:column;gap:clamp(70px,11vw,120px)}
 .round{display:grid;grid-template-columns:120px minmax(0,1fr);gap:clamp(20px,4vw,48px)}
 .round-mark{display:flex;flex-direction:column;gap:6px;position:sticky;top:96px;align-self:start}
-.round-mark b{font-size:clamp(54px,8vw,84px);line-height:1;color:var(--gold);font-weight:300}
+.round-mark b{font-family:var(--f-script);font-size:clamp(58px,8vw,88px);line-height:1;color:var(--gold);font-weight:400}
 .round-body{display:flex;flex-direction:column;gap:20px;max-width:640px;min-width:0}
 .round-body h3{font-size:clamp(28px,4.6vw,40px);line-height:1.15}
 .round-body h3 small{display:block;font-weight:300;font-size:14px;color:var(--text-dim);letter-spacing:.06em;margin-top:10px}
@@ -342,7 +384,7 @@ body::after{
 .foot{padding-block:clamp(70px,10vw,110px) calc(96px + env(safe-area-inset-bottom,0px));padding-inline:var(--gutter);text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;border-top:1px solid var(--line-soft)}
 .foot-secret{background:none;border:0;cursor:pointer;font-size:22px;color:var(--gold);transition:transform .4s}
 .foot-secret:hover{transform:rotate(-14deg)}
-.foot-title{font-weight:700;letter-spacing:.32em;font-size:16px}
+.foot-title{font-family:var(--f-script);font-weight:400;font-size:40px;line-height:1.1;color:var(--gold-2)}
 .foot-credit{font-family:var(--f-gothic);font-size:11.5px;color:var(--text-faint);letter-spacing:.08em;line-height:2}
 
 .over{position:fixed;inset:0;z-index:7500;background:rgba(8,6,5,.97);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:32px var(--gutter);text-align:center;opacity:0;visibility:hidden;transition:opacity .8s,visibility .8s}
@@ -369,20 +411,23 @@ body::after{
 
 <!-- ─────────── loading ─────────── -->
 <div id="gate" role="dialog" aria-label="Loading">
-  <div class="g-top"><span>LE MIRAGE</span><span>LAWLESS CITY — AFTER MIDNIGHT</span></div>
-  <div class="g-mid">
-    <h1 class="g-line" id="gLine"><span class="w">The house</span><span class="w">always wins.</span></h1>
-    <p class="g-sub">Ladies and gentlemen, the table is open.</p>
-  </div>
-  <div class="g-bot">
+  <canvas id="gateFx" aria-hidden="true"></canvas>
+  <div class="g-frame" aria-hidden="true"></div>
+  <div class="g-in">
+    <svg class="g-emblem" viewBox="0 0 66 66" aria-hidden="true">
+      <circle cx="33" cy="33" r="31"/><circle cx="33" cy="33" r="24" stroke-dasharray="3 3"/><circle cx="33" cy="33" r="17"/>
+      <path d="M33 2v7M33 57v7M2 33h7M57 33h7M11 11l5 5M50 50l5 5M55 11l-5 5M16 50l-5 5"/>
+    </svg>
+    <div class="g-title">Le Mirage</div>
+    <div class="g-place">무법도시의, 카지노. 라미라주에서.</div>
     <div class="g-bar"><i id="gBar"></i></div>
-    <div class="g-row"><span id="gPct">LOADING 000</span><button class="g-enter" id="gEnter">ENTER THE FLOOR</button></div>
+    <div class="g-sub" id="gSub">the table is opening ...</div>
   </div>
 </div>
 
 <!-- ─────────── bar / menu ─────────── -->
 <header class="bar">
-  <a class="bar-logo" href="#top">LE MIRAGE</a>
+  <a class="bar-logo" href="#top">Le Mirage</a>
   <button class="ham" id="ham" aria-label="메뉴 열기" aria-expanded="false"><i></i><i></i></button>
 </header>
 <nav class="side" id="side" aria-label="목차">
@@ -415,9 +460,9 @@ body::after{
     <p class="hero-place">무법도시의, 카지노. 라미라주에서.</p>
     <h1 class="hero-title">Le Mirage</h1>
     <p class="hero-pair">이현<b>×</b>에밀 로랑</p>
-    <div class="hero-quote">
-      <p>“네 목숨을 사고 싶군.”</p>
-      <small>칩 한 닢을 꺼내며, 이현</small>
+    <div class="hero-talk">
+      <div><p>“어때? 모든 것을 가지던 이가<br>나까지 가지게 된 기분은.”</p><small>이현</small></div>
+      <div><p>“질문에 대한 대답부터 해야 할까요?<br>이보다 더 만족감 있는 소유를 해본 적이 없어요.”</p><small>에밀 로랑</small></div>
     </div>
   </div>
 </section>
@@ -427,48 +472,46 @@ body::after{
   <div class="wrap cage-grid">
     <div class="cage-copy fade">
       <span class="label">Cage Receipt · No. 0614</span>
-      <h2>칩 한 닢으로<br><em>목숨 하나</em>를 샀다.</h2>
-      <p>라미라주의 계산대에는 영수증이 한 장 남아 있다. 손님은 흰 가운의 히어로, 주인은 검은 장갑의 빌런. 처음엔 말을 텄다는 증거로 건넨 칩이었다.</p>
-      <p>마지막 줄의 합계는 <b>본명 두 개</b>. 서로 가짜 이름으로 앉은 테이블이었으니까.</p>
-      <span class="cage-hint">검게 지워진 칸을 눌러보세요</span>
+      <h2>칩 한 닢으로<br><em>목숨 하나</em>를 샀노라면,</h2>
+      <p>라미라주 계산대에 남아있는 영수증 한 장. …손님은 흰 가운의, 바에 어울리지 않는 손님. 주인은 검은 장갑의 오너.</p>
+      <p>마지막 줄의 합계는 어째서인지 그 둘의 <b>본명 두 개</b>였다. 서로 가짜 이름으로 앉은 테이블이었으니까.</p>
+      <p class="trail">진실되게 서로를 보게 된 둘은.</p>
+      <span class="cage-hint glitch" data-text="검게 지워진 칸을 눌러보세요">검게 지워진 칸을 눌러보세요</span>
     </div>
 
-    <article class="receipt fade" aria-label="라미라주 영수증">
-      <div class="r-head"><b>LE MIRAGE</b><span>무법도시의, 카지노. 라미라주에서.</span></div>
+    <article class="receipt fade" id="receipt" aria-label="라미라주 영수증">
+      <div class="r-head"><b>Le Mirage</b><span>무법도시의, 카지노. 라미라주에서.</span></div>
       <hr class="r-cut">
       <div class="r-row"><span class="r-k">CAGE RECEIPT</span><span>No. 0614</span></div>
       <div class="r-row r-dim"><span>06 / 14 · PM 07:54</span><span>MAIN HALL</span></div>
       <hr class="r-cut">
       <div class="r-who">
-        <span class="r-k">GUEST</span><b>이현</b><span class="side-tag">H</span>
-        <span class="r-dim">히어로 · 이능관리국 · 야매 의사 · 32</span>
+        <b>이현</b><span class="hv" aria-label="히어로">H</span>
+        <span class="r-dim"><span class="glitch" data-text="야매? 의사">야매? 의사</span></span>
       </div>
       <div class="r-who">
-        <span class="r-k">HOUSE</span><b>에밀 로랑</b><span class="side-tag">V</span>
-        <span class="r-dim">빌런 · 라미라주 오너 · 30</span>
+        <b>에밀 로랑</b><span class="hv" aria-label="빌런">V</span>
+        <span class="r-dim">라미라주 오너</span>
       </div>
       <hr class="r-cut">
       <div class="r-row r-k"><span>ITEM</span><span>QTY</span></div>
       <div class="r-items">
-        <div class="r-row"><span>전용 칩 · 색이 다른 것</span><span>1</span></div>
-        <div class="r-row"><span>비싼 레드와인 · 약속만</span><span>1</span></div>
-        <div class="r-row"><span>메스로 그은 엄지</span><span>1</span></div>
+        <div class="r-row"><span>이현만을 위한 전용 칩, 색이 다른 것.</span><span>1</span></div>
+        <div class="r-row"><span>약속했던 비싼 레드와인.</span><span>1</span></div>
+        <div class="r-row"><span>엄지를 살짝 그었던 메스.</span><span>1</span></div>
+        <div class="r-note">(게스트의 피가 살짝 남아있다)</div>
         <div class="r-row"><span>벗겨진 검은 장갑</span><span>1</span></div>
-        <div class="r-row"><span>이마의 입맞춤 · 받고, 돌려줌</span><span>2</span></div>
         <div class="r-row"><span>표식 · TAG</span><span>3</span></div>
       </div>
       <hr class="r-cut">
-      <div class="r-row"><span class="r-k">EXCHANGE</span><span><b>칩 1 → 목숨 1</b></span></div>
+      <div class="r-row"><span class="r-k">EXCHANGE</span></div>
+      <p class="r-ex">칩을 돌려주는 대신, 원하는 건…</p>
       <p class="r-quote">“목숨이라고 했다면 전부 포함되는 말이었는데. 몸과 마음 전부.”</p>
       <hr class="r-cut">
-      <div class="r-row r-total"><span>TOTAL</span><span>본명 2</span></div>
-      <div class="r-row" style="margin-top:6px">
-        <span class="r-dim">GUEST</span>
-        <span><button class="redact" aria-label="이현의 본명 보기">지우연</button></span>
-      </div>
-      <div class="r-row">
-        <span class="r-dim">HOUSE</span>
-        <span><button class="redact" aria-label="에밀 로랑의 본명 보기">마티외 뒤랑</button></span>
+      <div class="r-row r-total"><span>TOTAL</span><span>본명</span></div>
+      <div class="r-names">
+        <button class="redact" aria-label="이현의 본명 보기">지우연</button>
+        <button class="redact" aria-label="에밀 로랑의 본명 보기">마티외 뒤랑</button>
       </div>
       <hr class="r-cut">
       <p class="r-dim" style="font-size:11px">* 환불 불가.<br>“이미 너를 내가 칩으로 샀잖아? 그러니 주지 말았어야지.”</p>
@@ -720,7 +763,7 @@ body::after{
 
 <footer class="foot">
   <button class="foot-secret" id="lastChip" aria-label="숨은 대사 열기">♠</button>
-  <div class="foot-title">LE MIRAGE</div>
+  <div class="foot-title">Le Mirage</div>
   <p class="foot-credit">
     이현 × 에밀 로랑<br>
     illust. @NEDH_NANA<br>
@@ -769,41 +812,70 @@ bgm.addEventListener('play', syncBgm);
 
 /* ── loading ── */
 const gate = document.getElementById('gate');
-const gLine = document.getElementById('gLine');
 const gBar = document.getElementById('gBar');
-const gPct = document.getElementById('gPct');
-let d = 0;
-gLine.querySelectorAll('.w').forEach(w => {
-  const t = w.textContent; w.textContent = '';
-  [...t].forEach(ch => {
-    const s = document.createElement('span');
-    s.className = 'c'; s.textContent = ch === ' ' ? ' ' : ch;
-    s.style.transitionDelay = (d++ * 0.045) + 's';
-    w.appendChild(s);
-  });
-});
-requestAnimationFrame(() => requestAnimationFrame(() => gLine.classList.add('on')));
+const gSub = document.getElementById('gSub');
+const fx = document.getElementById('gateFx');
+const ctx = fx.getContext('2d');
+const SUITS = ['♠','♥','♦','♣'];
+let W = 0, H = 0, dpr = 1, motes = [], burst = [], fxOn = true;
+function sizeFx(){
+  dpr = Math.min(devicePixelRatio || 1, 2);
+  W = fx.clientWidth; H = fx.clientHeight;
+  fx.width = W * dpr; fx.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const n = Math.round(Math.min(110, W * H / 9000));
+  motes = Array.from({length:n}, () => newMote(true));
+}
+function newMote(anywhere){
+  const suit = Math.random() < .07;
+  return {
+    x: Math.random() * W, y: anywhere ? Math.random() * H : H + 10,
+    r: suit ? 9 + Math.random() * 7 : .5 + Math.random() * 1.6,
+    vy: .15 + Math.random() * .45, vx: (Math.random() - .5) * .2,
+    tw: Math.random() * Math.PI * 2, suit: suit ? SUITS[Math.random() * 4 | 0] : null
+  };
+}
+function drawFx(){
+  if (!fxOn) return;
+  ctx.clearRect(0, 0, W, H);
+  for (const m of motes) {
+    m.y -= m.vy; m.x += m.vx + Math.sin(m.tw) * .15; m.tw += .03;
+    if (m.y < -20) Object.assign(m, newMote(false));
+    const a = .25 + .55 * (0.5 + 0.5 * Math.sin(m.tw * 1.7));
+    if (m.suit) {
+      ctx.font = m.r + 'px serif'; ctx.fillStyle = `rgba(191,160,103,${a * .35})`; ctx.fillText(m.suit, m.x, m.y);
+    } else {
+      ctx.beginPath(); ctx.arc(m.x, m.y, m.r, 0, 7);
+      ctx.fillStyle = `rgba(226,205,156,${a})`; ctx.shadowColor = 'rgba(226,205,156,.8)'; ctx.shadowBlur = 6; ctx.fill(); ctx.shadowBlur = 0;
+    }
+  }
+  burst = burst.filter(b => (b.life -= .02) > 0);
+  for (const b of burst) {
+    b.x += b.vx; b.y += b.vy; b.vy += .03;
+    ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, 7); ctx.fillStyle = `rgba(226,205,156,${b.life})`; ctx.fill();
+  }
+  requestAnimationFrame(drawFx);
+}
+sizeFx(); addEventListener('resize', sizeFx);
+if (!matchMedia('(prefers-reduced-motion:reduce)').matches) requestAnimationFrame(drawFx); else drawFx();
 
-const loaded = Promise.all([
-  new Promise(r => document.readyState === 'complete' ? r() : addEventListener('load', r)),
-  document.fonts ? document.fonts.ready : Promise.resolve()
-]);
-let isLoaded = false; loaded.then(() => { isLoaded = true; });
-setTimeout(() => { isLoaded = true; }, 8000);
-const t0 = performance.now(), MIN = 2600;
+const LOAD_MS = 3000, t0 = performance.now();
 (function tick(now){
-  const timeP = Math.min(1, (now - t0) / MIN);
-  const p = isLoaded ? timeP : Math.min(timeP, .9);
-  gBar.style.transform = `scaleX(${p})`;
-  gPct.textContent = 'LOADING ' + String(Math.round(p * 100)).padStart(3, '0');
+  const p = Math.min(1, (now - t0) / LOAD_MS);
+  gBar.style.width = (p * 100) + '%';
   if (p < 1) requestAnimationFrame(tick);
-  else { gate.classList.add('ready'); gPct.textContent = 'FAITES VOS JEUX'; }
+  else { gate.classList.add('ready'); gSub.textContent = '— tap to enter —'; }
 })(t0);
 
-function enter(){
+function enter(e){
   if (!gate.classList.contains('ready') || gate.classList.contains('gone')) return;
+  const cx = e && e.clientX != null ? e.clientX : W / 2, cy = e && e.clientY != null ? e.clientY : H / 2;
+  for (let i = 0; i < 40; i++) {
+    const a = Math.random() * Math.PI * 2, s = 1 + Math.random() * 4;
+    burst.push({x:cx, y:cy, vx:Math.cos(a) * s, vy:Math.sin(a) * s - 1, r:.6 + Math.random() * 1.8, life:1});
+  }
   gate.classList.add('gone');
   playBgm(); flashLabel();
+  setTimeout(() => { fxOn = false; }, 1200);
 }
 gate.addEventListener('click', enter);
 
@@ -818,7 +890,22 @@ document.querySelectorAll('.side a').forEach(a => a.addEventListener('click', ()
 }));
 
 /* ── receipt redactions ── */
-document.querySelectorAll('.redact').forEach(b => b.addEventListener('click', () => b.classList.toggle('open')));
+document.querySelectorAll('.redact').forEach(b => b.addEventListener('click', () => {
+  if (b.classList.contains('open') || b.classList.contains('glitching')) return;
+  b.classList.add('glitching');
+  b.addEventListener('animationend', () => { b.classList.remove('glitching'); b.classList.add('open'); }, {once:true});
+  if (matchMedia('(prefers-reduced-motion:reduce)').matches) { b.classList.remove('glitching'); b.classList.add('open'); }
+}));
+
+/* ── H · V: 영수증이 보이면 10초에 걸쳐 천천히 나타남 ── */
+const receipt = document.getElementById('receipt');
+if ('IntersectionObserver' in window) {
+  const ro = new IntersectionObserver(es => es.forEach(en => {
+    if (en.isIntersecting && gate.classList.contains('gone')) { receipt.classList.add('seen'); ro.disconnect(); }
+  }), {threshold:.35});
+  ro.observe(receipt);
+  gate.addEventListener('transitionend', () => { ro.unobserve(receipt); ro.observe(receipt); });
+} else { receipt.classList.add('seen'); }
 
 /* ── secrets ── */
 document.querySelectorAll('.reveal-btn').forEach(btn => {
