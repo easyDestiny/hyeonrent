@@ -384,6 +384,7 @@ body::after{
 .g-group:first-of-type{margin-top:0}
 .g-group small{font-family:var(--f-gothic);font-weight:300;font-size:11px;letter-spacing:.2em;color:var(--text-faint)}
 .pics{columns:3 240px;column-gap:clamp(10px,1.6vw,16px)}
+.span-all{column-span:all}
 .pic{break-inside:avoid;margin:0 0 clamp(10px,1.6vw,16px);display:flex;flex-direction:column;gap:8px;position:relative}
 .pic .pic-box{position:relative;display:block;width:100%;padding:0;border:1px solid var(--line-soft);background:var(--ink-2);cursor:zoom-in;overflow:hidden}
 .pic img{width:100%;height:auto;transition:transform .6s ease,filter .5s ease}
@@ -445,8 +446,11 @@ body::after{
 
 /* ───── scenarios ───── */
 .tk-no{font-family:var(--f-gothic);font-size:10.5px;letter-spacing:.32em;color:var(--gold);font-variant-numeric:tabular-nums}
-.snow-card{position:relative;isolation:isolate;overflow:hidden;min-height:clamp(300px,42vw,420px);border:1px solid var(--line);display:flex;align-items:flex-end;padding:clamp(26px,5vw,48px)}
-.snow-card::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--bg,url(assets/mood-gothic.jpg)) center 30%/cover;filter:saturate(.75) brightness(.55)}
+.snow-card{position:relative;isolation:isolate;overflow:hidden;border:1px solid var(--line);display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:clamp(22px,4vw,48px);align-items:end;padding:clamp(22px,4.5vw,48px)}
+.poster{position:relative;z-index:1;padding:0;border:1px solid var(--line);background:none;cursor:zoom-in;box-shadow:0 24px 50px rgba(0,0,0,.5)}
+.poster img{width:100%;height:auto}
+@media (max-width:640px){.snow-card{grid-template-columns:1fr}.poster{max-width:280px}}
+.snow-card::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--bg,url(assets/mood-gothic.jpg)) center 30%/cover;filter:blur(14px) saturate(.8) brightness(.45);transform:scale(1.15)}
 .snow-card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(13,11,9,.88),rgba(13,11,9,.35) 70%,rgba(13,11,9,.15))}
 .snow{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .snow-in{position:relative;z-index:1;display:flex;flex-direction:column;gap:12px;max-width:30em}
@@ -851,30 +855,29 @@ body::after{
 
     <h3 class="g-group">커미션</h3>
     <div class="pics fade">
-      <figure class="pic" data-src="" data-ibb="xtnJ5mmR"><figcaption>깡헤굥님 @Z0Os8OXC cm</figcaption></figure>
-      <figure class="pic" data-src="" data-ibb="JjnQSM8R"><figcaption>몽 @GGumong (애착 커미션주님) cm</figcaption></figure>
-      <figure class="pic" data-src="" data-ibb="4wRCB4zx"><figcaption>텍미홈님 cm</figcaption></figure>
-      <figure class="pic" data-src="" data-ibb="C582Yrmz"><figcaption>애착 커미션주님 cm</figcaption></figure>
-      <figure class="pic" data-src="" data-ibb="5gkpSs5p"><figcaption>ZOY님 @dlsgud221 (애착 커미션주님) cm</figcaption></figure>
-      <figure class="pic" data-src="" data-ibb="zWH42dDn"><figcaption>ZOY님 @dlsgud221 (애착 커미션주님) cm</figcaption></figure>
-      <figure class="pic" data-src="" data-ibb="BKHwrTkN"><figcaption>@V_uouvu 님 커미션</figcaption></figure>
-      <figure class="pic" data-src="" data-ibb="DDgFwm1f"><figcaption>고정광 그림</figcaption></figure>
-      <figure class="pic" data-src="" data-ibb="v4NmPZr2"><figcaption>카타탐 단체 커미션</figcaption></figure>
+      <figure class="pic" data-src="assets/gallery/cm-kkanghegyeong.webp" data-ibb="xtnJ5mmR"><figcaption>깡헤굥님 @Z0Os8OXC cm</figcaption></figure>
+      <figure class="pic" data-src="assets/gallery/cm-mong.webp" data-ibb="JjnQSM8R"><figcaption>몽 @GGumong (애착 커미션주님) cm</figcaption></figure>
+      <figure class="pic" data-src="assets/gallery/cm-takemehome.webp" data-ibb="4wRCB4zx"><figcaption>텍미홈님 cm</figcaption></figure>
+      <figure class="pic" data-src="assets/gallery/cm-aechak.webp" data-ibb="C582Yrmz"><figcaption>애착 커미션주님 cm</figcaption></figure>
+      <figure class="pic" data-src="assets/gallery/cm-zoy-1.webp" data-ibb="5gkpSs5p"><figcaption>ZOY님 @dlsgud221 (애착 커미션주님) cm</figcaption></figure>
+      <figure class="pic" data-src="assets/gallery/cm-zoy-2.webp" data-ibb="zWH42dDn"><figcaption>ZOY님 @dlsgud221 (애착 커미션주님) cm</figcaption></figure>
+      <figure class="pic" data-src="assets/gallery/cm-v-uouvu.webp" data-ibb="BKHwrTkN"><figcaption>@V_uouvu 님 커미션</figcaption></figure>
+      <figure class="pic" data-src="assets/gallery/gojeonggwang.webp" data-ibb="DDgFwm1f"><figcaption>고정광 그림</figcaption></figure>
+      <figure class="pic span-all" data-src="assets/gallery/katatam.webp" data-ibb="v4NmPZr2"><figcaption>카타탐 단체 커미션</figcaption></figure>
     </div>
 
     <h3 class="g-group">현랑 오오티디</h3>
     <div class="pics fade">
-      <figure class="pic" data-src="" data-ibb="v69gPwc6"><figcaption>현랑 오오티디</figcaption></figure>
+      <figure class="pic" data-src="assets/gallery/ootd.webp" data-ibb="v69gPwc6"><figcaption>현랑 오오티디</figcaption></figure>
     </div>
 
     <h3 class="g-group">앤오님 <small>단후님의 그림</small></h3>
     <div class="pics fade">
-      <figure class="pic" data-src="" data-ibb="tfKZVJ5"><figcaption>단후님의 그림</figcaption></figure>
-      <figure class="pic" data-src="" data-ibb="h1hXxLd4"><figcaption>단후님의 그림</figcaption></figure>
-      <figure class="pic" data-src="" data-ibb="BKHwrTkN"><figcaption>단후님의 그림</figcaption></figure>
-      <figure class="pic" data-src="" data-ibb="Sw2qkdwr"><figcaption>단후님의 그림</figcaption></figure>
-      <figure class="pic secret-pic" data-src="" data-ibb="QjH9w709"><figcaption>나만 보는 단후님의 섹시 로랑</figcaption></figure>
-      <figure class="pic" data-src="" data-ibb="NgRjGzSN"><figcaption>오늘 함단테 갈 생각에 신난 이현</figcaption></figure>
+      <figure class="pic" data-src="assets/gallery/danhu-1.webp" data-ibb="tfKZVJ5"><figcaption>단후님의 그림</figcaption></figure>
+      <figure class="pic" data-src="assets/gallery/danhu-2.webp" data-ibb="h1hXxLd4"><figcaption>단후님의 그림</figcaption></figure>
+      <figure class="pic" data-src="assets/gallery/danhu-3.webp" data-ibb="Sw2qkdwr"><figcaption>단후님의 그림</figcaption></figure>
+      <figure class="pic secret-pic" data-src="assets/gallery/secret-laurent.webp" data-ibb="QjH9w709"><figcaption>나만 보는 단후님의 섹시 로랑</figcaption></figure>
+      <figure class="pic" data-src="assets/gallery/hamdante-hyeon.webp" data-ibb="NgRjGzSN"><figcaption>오늘 함단테 갈 생각에 신난 이현</figcaption></figure>
     </div>
 
     <div class="hundred fade">
@@ -918,8 +921,9 @@ body::after{
       <h2>다녀온 시나리오</h2>
       <span class="label">Scenarios</span>
     </header>
-    <article class="snow-card fade" data-bg="" data-ibb="nMrF07Tg">
+    <article class="snow-card fade" data-bg="assets/gallery/hamdante-poster.webp" data-ibb="nMrF07Tg">
       <canvas class="snow" id="snow" aria-hidden="true"></canvas>
+      <button class="poster" type="button" aria-label="함박눈 안단테 포스터 크게 보기"><img src="assets/gallery/hamdante-poster.webp" alt="함박눈 안단테 포스터. PC 에밀 로랑, KPC 이현" loading="lazy"></button>
       <div class="snow-in">
         <span class="tk-no">ADMIT ONE · 07.17 — 08.01</span>
         <h3>함박눈 안단테</h3>
@@ -1195,6 +1199,7 @@ document.querySelectorAll('.pic[data-src]').forEach(fig => {
 });
 
 /* ── 시나리오 그림 ── */
+document.querySelectorAll('.poster').forEach(b => b.addEventListener('click', () => { const i = b.querySelector('img'); lbImg.src = i.src; lbImg.alt = i.alt; lb.classList.add('show'); }));
 document.querySelectorAll('.snow-card[data-bg]').forEach(c => { if (c.dataset.bg) c.style.setProperty('--bg', `url("${c.dataset.bg}")`); });
 
 /* ── hidden line ── */
