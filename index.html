@@ -4,32 +4,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Le Mirage · 이현 × 에밀 로랑</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/BookkMyungjo-Light.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-/* Layout: 카지노 테이블 위에 놓인 칩과 메스. 흑(로랑)과 백(이현)이 뒤집히는 판, 금빛은 로랑의 눈 한쪽에서만 온다. */
+@font-face{font-family:"Bookk Myungjo";src:url(assets/fonts/BookkMyungjo-Light.woff2) format("woff2");font-weight:300;font-display:swap}
+@font-face{font-family:"Bookk Myungjo";src:url(assets/fonts/BookkMyungjo-Bold.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Bookk Gothic";src:url(assets/fonts/BookkGothic-Light.woff2) format("woff2");font-weight:300;font-display:swap}
+@font-face{font-family:"Bookk Gothic";src:url(assets/fonts/BookkGothic-Bold.woff2) format("woff2");font-weight:700;font-display:swap}
+
+/* Layout: 무법도시 카지노의 밤. 검은 펠트 위에 영수증 한 장, 하우스 룰, 손님 명부, 세 번의 판. 금빛은 로랑의 눈 한쪽에서만 온다. */
 :root{
-  --ink:#0d0b09;          /* 검은 코트, 밤 */
-  --ink-2:#17130f;        /* 테이블 그늘 */
-  --ink-3:#221c16;
-  --paper:#f1ebdf;        /* 흰 가운 */
-  --paper-2:#e4dccb;
-  --gold:#c9a45c;         /* 로랑의 금안, 칩 */
-  --gold-2:#e8cf92;
-  --blood:#8e2a22;        /* 쇠 맛, 피 맛 */
+  --ink:#0d0b09;
+  --ink-2:#17130f;
+  --ink-3:#231d17;
+  --paper:#f1ebdf;
+  --paper-2:#e2d9c6;
+  --gold:#bfa067;
+  --gold-2:#e2cd9c;
   --text:#ece4d4;
   --text-dim:rgba(236,228,212,.66);
-  --text-faint:rgba(236,228,212,.38);
-  --line:rgba(201,164,92,.24);
+  --text-faint:rgba(236,228,212,.4);
+  --line:rgba(191,160,103,.26);
   --line-soft:rgba(236,228,212,.10);
   --ink-on-paper:#1a1612;
-  --dim-on-paper:rgba(26,22,18,.62);
-  --line-on-paper:rgba(26,22,18,.16);
+  --dim-on-paper:rgba(26,22,18,.64);
+  --line-on-paper:rgba(26,22,18,.18);
+  --brass-on-paper:#7d6230;
 
-  --f-display:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
-  --f-label:"Cormorant Garamond","Garamond",Georgia,serif;
-  --f-body:"Noto Serif KR","Apple SD Gothic Neo","Malgun Gothic",serif;
+  --f-myungjo:"Bookk Myungjo","Nanum Myeongjo","Apple Myungjo",serif;
+  --f-gothic:"Bookk Gothic","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
 
   --gutter:clamp(16px,5vw,48px);
   color-scheme:dark;
@@ -38,65 +40,58 @@
 html{scroll-behavior:smooth}
 body{
   margin:0;background:var(--ink);color:var(--text);
-  font-family:var(--f-body);font-weight:300;font-size:15px;line-height:1.85;
+  font-family:var(--f-myungjo);font-weight:300;font-size:15px;line-height:1.9;
   -webkit-font-smoothing:antialiased;overflow-x:hidden;
 }
 img{max-width:100%;display:block}
 button{font:inherit;color:inherit}
 a{color:inherit}
 :focus-visible{outline:1px solid var(--gold);outline-offset:3px}
-h1,h2,h3{text-wrap:balance;margin:0;font-weight:400}
+h1,h2,h3{text-wrap:balance;margin:0;font-weight:700}
 p{margin:0}
+.label{font-family:var(--f-gothic);font-weight:300;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
 
-/* grain */
 body::after{
   content:"";position:fixed;inset:0;pointer-events:none;z-index:9000;opacity:.08;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ───── common type ───── */
-.eyebrow{font-family:var(--f-label);font-style:italic;font-size:13px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
-.sec{padding-block:clamp(72px,12vw,140px);padding-inline:var(--gutter);position:relative}
-.wrap{max-width:1040px;margin:0 auto}
-.sec-head{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;margin-bottom:clamp(40px,7vw,72px)}
-.sec-title{font-family:var(--f-display);font-size:clamp(34px,6vw,58px);line-height:1.05;letter-spacing:.02em}
-.sec-title em{font-style:italic;color:var(--gold-2)}
-.sec-sub{font-size:14px;color:var(--text-dim);max-width:34em}
-.rule{width:1px;height:48px;background:linear-gradient(var(--gold),transparent)}
-
-/* ───── casino chip ───── */
-.chip{
-  --size:150px;width:var(--size);aspect-ratio:1;border-radius:50%;position:relative;flex:none;
-  background:
-    radial-gradient(circle at 50% 50%, var(--ink) 0 55%, transparent 55.5%),
-    repeating-conic-gradient(from 7.5deg, var(--gold) 0 15deg, var(--ink-3) 15deg 30deg);
-  box-shadow:0 0 0 2px var(--gold), 0 18px 40px rgba(0,0,0,.55), inset 0 0 0 calc(var(--size)*.04) var(--ink);
-}
-.chip::before{content:"";position:absolute;inset:22%;border-radius:50%;border:1px dashed rgba(201,164,92,.55)}
-.chip-face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center}
-.chip-face b{font-family:var(--f-display);font-weight:400;font-size:calc(var(--size)*.2);color:var(--gold-2);letter-spacing:.04em;line-height:1}
-.chip-face small{font-family:var(--f-label);font-style:italic;font-size:calc(var(--size)*.075);letter-spacing:.24em;color:var(--text-dim)}
-
-/* ───── gate ───── */
+/* ───── loading ───── */
 #gate{
-  position:fixed;inset:0;z-index:8000;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;padding:24px;text-align:center;
-  transition:opacity 1.1s ease,visibility 1.1s ease;
+  position:fixed;inset:0;z-index:8000;background:var(--ink);cursor:default;
+  display:grid;grid-template-rows:auto 1fr auto;padding:calc(22px + env(safe-area-inset-top,0px)) var(--gutter) calc(26px + env(safe-area-inset-bottom,0px));
+  clip-path:inset(0 0 0 0);transition:clip-path 1.2s cubic-bezier(.7,0,.2,1);
 }
-#gate.gone{opacity:0;visibility:hidden}
-#gate .chip{--size:clamp(150px,40vw,190px);cursor:pointer;border:0;padding:0;transition:transform .9s cubic-bezier(.5,0,.2,1)}
-#gate .chip:hover{transform:translateY(-4px) rotate(8deg)}
-#gate.open .chip{transform:rotateY(540deg) scale(.6)}
-.gate-title{font-family:var(--f-display);font-size:clamp(30px,7vw,52px);letter-spacing:.14em;color:var(--text)}
-.gate-hint{font-family:var(--f-label);font-style:italic;color:var(--text-faint);letter-spacing:.3em;font-size:13px;animation:breathe 2.4s ease-in-out infinite}
-@keyframes breathe{50%{opacity:.35}}
+#gate.ready{cursor:pointer}
+#gate.gone{clip-path:inset(0 0 100% 0)}
+.g-top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.g-top span{font-family:var(--f-gothic);font-size:11px;letter-spacing:.34em;color:var(--text-faint)}
+.g-mid{align-self:center;display:flex;flex-direction:column;gap:clamp(14px,3vw,26px)}
+.g-line{font-family:var(--f-myungjo);font-weight:300;font-size:clamp(46px,11vw,128px);line-height:1;letter-spacing:-.01em;color:var(--text)}
+.g-line .w{display:block;white-space:nowrap}
+.g-line .w:nth-child(2){padding-left:clamp(28px,12vw,180px);color:var(--gold-2)}
+.g-line .c{display:inline-block;opacity:0;transform:translateY(.35em);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.g-line.on .c{opacity:1;transform:none}
+.g-sub{font-family:var(--f-gothic);font-size:12px;letter-spacing:.28em;color:var(--text-dim);opacity:0;transition:opacity 1s ease 1.4s}
+.g-line.on + .g-sub{opacity:1}
+.g-bot{display:flex;flex-direction:column;gap:14px}
+.g-bar{height:1px;background:var(--line-soft);position:relative;overflow:hidden}
+.g-bar i{position:absolute;inset:0;background:var(--gold);transform-origin:left;transform:scaleX(0)}
+.g-row{display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:var(--f-gothic);font-size:11px;letter-spacing:.34em;color:var(--text-faint);font-variant-numeric:tabular-nums}
+.g-enter{
+  background:none;border:0;padding:6px 0;cursor:pointer;font-family:var(--f-gothic);font-weight:700;font-size:12px;letter-spacing:.4em;color:var(--gold-2);
+  opacity:0;pointer-events:none;transition:opacity .6s;
+}
+#gate.ready .g-enter{opacity:1;pointer-events:auto;animation:breathe 2.2s ease-in-out infinite}
+@keyframes breathe{50%{opacity:.4}}
 
-/* ───── top bar & menu ───── */
+/* ───── bar & menu ───── */
 .bar{
   position:fixed;top:0;left:0;right:0;z-index:600;display:flex;align-items:center;justify-content:space-between;
   padding:calc(10px + env(safe-area-inset-top,0px)) var(--gutter) 10px;
-  background:linear-gradient(rgba(13,11,9,.9),rgba(13,11,9,0));
+  background:linear-gradient(rgba(13,11,9,.92),rgba(13,11,9,0));
 }
-.bar-logo{font-family:var(--f-display);letter-spacing:.3em;font-size:13px;text-decoration:none;color:var(--gold-2)}
+.bar-logo{font-family:var(--f-myungjo);font-weight:700;letter-spacing:.32em;font-size:12px;text-decoration:none;color:var(--gold-2)}
 .ham{width:42px;height:42px;background:none;border:0;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:flex-end;gap:6px}
 .ham i{display:block;height:1px;background:var(--gold-2);transition:.3s}
 .ham i:nth-child(1){width:24px}.ham i:nth-child(2){width:16px}
@@ -108,81 +103,125 @@ body::after{
   padding:calc(90px + env(safe-area-inset-top,0px)) 34px 40px;display:flex;flex-direction:column;
 }
 .menu-open .side{transform:none}
-.side a{display:flex;align-items:baseline;gap:14px;padding:14px 0;border-bottom:1px solid var(--line-soft);text-decoration:none;font-size:15px;color:var(--text-dim);transition:color .2s}
+.side a{display:flex;flex-direction:column;padding:14px 0;border-bottom:1px solid var(--line-soft);text-decoration:none;font-size:15px;color:var(--text-dim);transition:color .2s}
 .side a:hover{color:var(--gold-2)}
-.side a span{font-family:var(--f-label);font-style:italic;font-size:13px;color:var(--gold);width:22px}
-.side-foot{margin-top:auto;font-family:var(--f-label);font-style:italic;font-size:13px;letter-spacing:.2em;color:var(--text-faint)}
+.side a span{font-family:var(--f-gothic);font-size:10px;letter-spacing:.3em;color:var(--gold)}
+.side-foot{margin-top:auto;font-family:var(--f-gothic);font-size:10px;letter-spacing:.3em;color:var(--text-faint)}
 
 /* ───── bgm ───── */
-.bgm{position:fixed;right:calc(var(--gutter) - 4px);bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:700;display:flex;align-items:center;gap:12px;flex-direction:row-reverse}
+.bgm{position:fixed;right:var(--gutter);bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:700;display:flex;align-items:center;gap:12px;flex-direction:row-reverse}
 .bgm-btn{
-  --size:54px;border:0;padding:0;cursor:pointer;transition:transform .3s;
+  width:46px;height:46px;border-radius:50%;cursor:pointer;flex:none;
+  background:rgba(13,11,9,.85);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;gap:3px;
 }
-.bgm-btn .chip-face b{font-size:20px}
-.bgm.playing .bgm-btn{animation:spin 9s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
+.bgm-btn i{width:2px;height:6px;background:var(--gold-2);border-radius:1px;transition:height .3s}
+.bgm.playing .bgm-btn i{animation:eq 1.1s ease-in-out infinite}
+.bgm.playing .bgm-btn i:nth-child(2){animation-delay:-.35s}
+.bgm.playing .bgm-btn i:nth-child(3){animation-delay:-.7s}
+.bgm.playing .bgm-btn i:nth-child(4){animation-delay:-.2s}
+@keyframes eq{0%,100%{height:5px}50%{height:17px}}
 .bgm-label{
-  font-family:var(--f-label);font-size:14px;line-height:1.35;text-align:right;color:var(--text);
-  background:rgba(13,11,9,.88);border:1px solid var(--line);padding:9px 14px;max-width:min(260px,62vw);
+  font-family:var(--f-myungjo);font-size:13.5px;line-height:1.45;text-align:right;color:var(--text);
+  background:rgba(13,11,9,.9);border:1px solid var(--line);padding:9px 14px;max-width:min(260px,62vw);
   opacity:0;transform:translateX(8px);pointer-events:none;transition:opacity .3s,transform .3s;
 }
-.bgm-label i{display:block;font-size:12px;letter-spacing:.14em;color:var(--gold)}
+.bgm-label i{display:block;font-style:normal;font-family:var(--f-gothic);font-size:10px;letter-spacing:.24em;color:var(--gold);margin-bottom:2px}
+.bgm-label span{display:block;color:var(--text-dim);font-size:12px}
 .bgm:hover .bgm-label,.bgm.show .bgm-label,.bgm-btn:focus-visible + .bgm-label{opacity:1;transform:none}
 
 /* ───── tag meter ───── */
 .tagmeter{
-  position:fixed;left:calc(var(--gutter) - 6px);top:50%;transform:translateY(-50%);z-index:500;display:flex;flex-direction:column;align-items:center;gap:12px;
+  position:fixed;left:calc(var(--gutter) - 8px);top:50%;transform:translateY(-50%);z-index:500;display:flex;flex-direction:column;align-items:center;gap:12px;
   opacity:0;pointer-events:none;transition:opacity .5s;
 }
 .tagmeter.on{opacity:1}
-.tagmeter small{font-family:var(--f-label);font-style:italic;font-size:11px;letter-spacing:.3em;color:var(--gold);writing-mode:vertical-rl}
-.tagmeter i{width:11px;height:11px;border-radius:50%;border:1px solid var(--gold);transition:background .5s,box-shadow .5s}
-.tagmeter i.lit{background:var(--gold);box-shadow:0 0 12px rgba(201,164,92,.8)}
-@media (max-width:720px){.tagmeter{left:6px}.tagmeter i{width:8px;height:8px}}
+.tagmeter small{font-family:var(--f-gothic);font-size:9px;letter-spacing:.34em;color:var(--gold);writing-mode:vertical-rl}
+.tagmeter i{width:10px;height:10px;border-radius:50%;border:1px solid var(--gold);transition:background .5s,box-shadow .5s}
+.tagmeter i.lit{background:var(--gold);box-shadow:0 0 12px rgba(191,160,103,.8)}
+@media (max-width:720px){.tagmeter{left:5px}.tagmeter i{width:7px;height:7px}}
 
 /* ───── hero ───── */
 .hero{
-  position:relative;min-height:min(100svh,900px);display:flex;align-items:center;justify-content:center;
-  padding:120px var(--gutter) 90px;text-align:center;overflow:hidden;isolation:isolate;
+  position:relative;min-height:min(100svh,880px);display:flex;align-items:center;justify-content:center;
+  padding:120px var(--gutter) 100px;text-align:center;overflow:hidden;isolation:isolate;
 }
 .hero-bg{position:absolute;inset:0;z-index:-1;background:url(assets/mood-street.jpg) center/cover;filter:saturate(.8) brightness(.42)}
 .hero-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center, rgba(13,11,9,.15), var(--ink) 78%)}
-.hero-in{display:flex;flex-direction:column;align-items:center;gap:22px}
-.hero-title{font-family:var(--f-display);font-size:clamp(54px,14vw,150px);line-height:.92;letter-spacing:.04em}
-.hero-title em{display:block;font-size:.34em;letter-spacing:.5em;margin-top:.5em;color:var(--gold-2);font-style:italic}
-.hero-pair{display:flex;align-items:center;gap:18px;font-size:clamp(15px,3.6vw,19px);letter-spacing:.2em}
-.hero-pair span{font-family:var(--f-label);font-style:italic;color:var(--gold);font-size:1.3em}
-.hero-quote{font-family:var(--f-body);font-size:clamp(17px,3.8vw,22px);font-weight:400;margin-top:14px}
-.hero-quote + small{font-family:var(--f-label);font-style:italic;color:var(--text-dim);letter-spacing:.14em;font-size:14px}
+.hero-in{display:flex;flex-direction:column;align-items:center;gap:24px}
+.hero-place{font-family:var(--f-myungjo);font-weight:300;font-size:clamp(14px,3.4vw,17px);letter-spacing:.24em;color:var(--gold-2)}
+.hero-title{font-family:var(--f-myungjo);font-weight:700;font-size:clamp(56px,14vw,148px);line-height:.95;letter-spacing:.02em}
+.hero-pair{font-family:var(--f-myungjo);font-weight:300;font-size:clamp(15px,3.6vw,19px);letter-spacing:.3em;color:var(--text-dim)}
+.hero-pair b{font-weight:300;color:var(--gold);margin:0 .5em}
+.hero-quote{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:22px}
+.hero-quote p{font-size:clamp(17px,3.8vw,22px)}
+.hero-quote small{font-family:var(--f-gothic);font-size:11px;letter-spacing:.24em;color:var(--text-faint)}
 
-.flip{perspective:900px;border:0;background:none;padding:0;cursor:pointer;margin-top:18px;display:flex;flex-direction:column;align-items:center}
-.flip-in{display:block;width:var(--size);height:var(--size);position:relative;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.5,0,.2,1)}
-.flip.turned .flip-in{transform:rotateY(180deg)}
-.flip .chip{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.flip .chip.back{transform:rotateY(180deg)}
-.flip .chip.back .chip-face b{font-family:var(--f-body);font-weight:400;font-size:calc(var(--size)*.1);letter-spacing:.06em}
-.flip-hint{display:block;white-space:nowrap;margin-top:14px;font-family:var(--f-label);font-style:italic;font-size:12px;letter-spacing:.3em;color:var(--text-faint)}
-.scroll-cue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-family:var(--f-label);font-style:italic;font-size:12px;letter-spacing:.4em;color:var(--text-faint)}
+/* ───── section header ───── */
+.sec{padding-block:clamp(76px,12vw,140px);padding-inline:var(--gutter);position:relative}
+.wrap{max-width:1040px;margin:0 auto}
+.sh{display:grid;grid-template-columns:auto 1fr auto;align-items:end;gap:clamp(14px,3vw,28px);margin-bottom:clamp(36px,6vw,64px)}
+.sh h2{font-family:var(--f-myungjo);font-weight:700;font-size:clamp(28px,5.4vw,50px);line-height:1.1}
+.sh::after{content:"";grid-column:2;grid-row:1;height:1px;background:var(--line);align-self:center;margin-top:.6em}
+.sh .label{grid-column:3;grid-row:1;text-align:right;line-height:1.7}
+.sh-sub{grid-column:1/-1;font-size:14px;color:var(--text-dim);max-width:36em}
+@media (max-width:560px){
+  .sh{grid-template-columns:1fr}
+  .sh::after{display:none}
+  .sh .label{grid-column:1;grid-row:auto;text-align:left;order:-1}
+}
 
-/* ───── pair ───── */
-.pair{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line)}
-.pair-card{padding:clamp(28px,5vw,52px);display:flex;flex-direction:column;gap:16px;min-width:0}
-.pair-card.white{background:var(--paper);color:var(--ink-on-paper)}
-.pair-card.black{background:var(--ink-2)}
-.pair-card .eyebrow{font-size:12px}
-.pair-card.white .eyebrow{color:#8a6a2c}
-.pair-name{font-family:var(--f-display);font-size:clamp(30px,5vw,44px);line-height:1.1}
-.pair-name small{display:block;font-family:var(--f-label);font-style:italic;font-size:15px;letter-spacing:.14em;margin-top:6px;opacity:.65}
-.pair-card p{font-size:14.5px}
-.pair-card.white p{color:var(--dim-on-paper)}
-.pair-card.black p{color:var(--text-dim)}
-.pair-to{margin-top:auto;padding-top:18px;border-top:1px solid var(--line-on-paper);font-size:14px}
-.pair-card.black .pair-to{border-color:var(--line)}
-.pair-to small{display:block;font-family:var(--f-label);font-style:italic;letter-spacing:.14em;font-size:13px;opacity:.6;margin-bottom:4px}
-.pair-quote{text-align:center;margin-top:clamp(48px,8vw,80px);display:flex;flex-direction:column;align-items:center;gap:18px}
-.pair-quote p{font-size:clamp(17px,3.4vw,22px);line-height:1.9;font-weight:400}
-.pair-quote small{font-family:var(--f-label);font-style:italic;color:var(--gold);letter-spacing:.2em;font-size:13px}
-@media (max-width:720px){.pair{grid-template-columns:1fr}}
+/* ───── receipt ───── */
+.cage{background:var(--ink);overflow:hidden;isolation:isolate}
+.cage::before{content:"";position:absolute;inset:0;z-index:-1;background:url(assets/mood-marble.jpg) center/cover;opacity:.22}
+.cage::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(var(--ink),rgba(13,11,9,.5) 25%,rgba(13,11,9,.5) 75%,var(--ink))}
+.cage-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);gap:clamp(36px,7vw,90px);align-items:center}
+.cage-copy{display:flex;flex-direction:column;gap:20px;min-width:0}
+.cage-copy h2{font-family:var(--f-myungjo);font-weight:700;font-size:clamp(30px,5.6vw,54px);line-height:1.2}
+.cage-copy h2 em{font-style:normal;color:var(--gold-2)}
+.cage-copy p{font-size:15px;color:var(--text-dim);max-width:30em}
+.cage-copy p b{font-weight:700;color:var(--text)}
+.cage-hint{font-family:var(--f-gothic);font-size:11px;letter-spacing:.24em;color:var(--text-faint)}
+
+.receipt{
+  --edge:10px;position:relative;background:var(--paper);color:var(--ink-on-paper);
+  font-family:var(--f-gothic);font-weight:300;font-size:12.5px;line-height:1.65;
+  padding:calc(var(--edge) + 26px) clamp(20px,5vw,30px);transform:rotate(1.4deg);
+  box-shadow:0 30px 60px rgba(0,0,0,.55);
+  -webkit-mask:
+    radial-gradient(circle at 50% 0, transparent 5px, #000 5.5px) top/var(--edge) 51% repeat-x,
+    radial-gradient(circle at 50% 100%, transparent 5px, #000 5.5px) bottom/var(--edge) 51% repeat-x;
+  mask:
+    radial-gradient(circle at 50% 0, transparent 5px, #000 5.5px) top/var(--edge) 51% repeat-x,
+    radial-gradient(circle at 50% 100%, transparent 5px, #000 5.5px) bottom/var(--edge) 51% repeat-x;
+}
+.r-head{text-align:center;display:flex;flex-direction:column;gap:2px}
+.r-head b{font-family:var(--f-myungjo);font-weight:700;font-size:22px;letter-spacing:.3em}
+.r-head span{font-size:11px;color:var(--dim-on-paper)}
+.r-cut{border:0;border-top:1px dashed var(--line-on-paper);margin:14px 0}
+.r-row{display:flex;justify-content:space-between;gap:12px;font-variant-numeric:tabular-nums}
+.r-row > :last-child{text-align:right}
+.r-k{font-weight:700;letter-spacing:.2em;font-size:10.5px}
+.r-dim{color:var(--dim-on-paper)}
+.r-who{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:2px 10px;margin-bottom:8px}
+.r-who b{font-family:var(--f-myungjo);font-weight:700;font-size:15px}
+.r-who .side-tag{font-weight:700;font-size:13px;color:var(--brass-on-paper)}
+.r-who .r-dim{grid-column:2/4;font-size:11px}
+.r-items{display:flex;flex-direction:column;gap:2px}
+.r-items .r-row span:first-child{min-width:0}
+.r-quote{font-family:var(--f-myungjo);font-size:12.5px;color:var(--dim-on-paper);margin-top:6px}
+.r-total{font-family:var(--f-myungjo);font-weight:700;font-size:15px}
+.redact{
+  background:var(--ink-on-paper);color:transparent;border:0;padding:0 4px;cursor:pointer;border-radius:1px;
+  font:inherit;transition:background .4s,color .4s;
+}
+.redact.open{background:transparent;color:var(--ink-on-paper)}
+.r-bar{height:42px;margin:16px auto 6px;max-width:240px;
+  background:repeating-linear-gradient(90deg,var(--ink-on-paper) 0 2px,transparent 2px 4px,var(--ink-on-paper) 4px 5px,transparent 5px 8px,var(--ink-on-paper) 8px 11px,transparent 11px 12px,var(--ink-on-paper) 12px 13px,transparent 13px 17px)}
+.r-foot{text-align:center;font-size:10px;letter-spacing:.32em;font-weight:700}
+@media (max-width:820px){
+  .cage-grid{grid-template-columns:1fr}
+  .receipt{max-width:400px;width:100%;margin:0 auto;transform:rotate(.8deg)}
+}
 
 /* ───── world ───── */
 .world{background:var(--ink-2);overflow:hidden;isolation:isolate}
@@ -191,163 +230,134 @@ body::after{
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2.4vw,24px)}
 .pcard{
   position:relative;background:rgba(13,11,9,.82);border:1px solid var(--line);padding:clamp(26px,4vw,40px) clamp(22px,4vw,38px);
-  display:flex;flex-direction:column;gap:14px;backdrop-filter:blur(4px);min-width:0;
+  display:flex;flex-direction:column;gap:14px;min-width:0;
 }
-.pcard::before,.pcard::after{position:absolute;font-family:var(--f-display);color:var(--gold);font-size:18px;line-height:1;content:attr(data-suit)}
+.pcard::before,.pcard::after{position:absolute;color:var(--gold);font-size:16px;line-height:1;content:attr(data-suit)}
 .pcard::before{top:14px;left:16px}
 .pcard::after{bottom:14px;right:16px;transform:rotate(180deg)}
-.pcard h3{font-family:var(--f-body);font-weight:600;font-size:19px;letter-spacing:.06em;padding-left:18px}
-.pcard h3 small{font-family:var(--f-label);font-style:italic;font-weight:400;font-size:14px;letter-spacing:.2em;color:var(--gold);margin-left:10px}
+.pcard h3{font-size:19px;letter-spacing:.06em;padding-left:18px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.pcard h3 .label{font-size:10px}
 .pcard p{font-size:14.5px;color:var(--text-dim)}
 @media (max-width:720px){.cards{grid-template-columns:1fr}}
 
-/* ───── profiles ───── */
-.profiles{display:flex;flex-direction:column;gap:clamp(40px,7vw,72px)}
-.prof{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);border:1px solid var(--line)}
+/* ───── players ───── */
+.sheet{margin:0 0 clamp(40px,7vw,72px);display:flex;flex-direction:column;gap:10px}
+.sheet img{width:100%;border:1px solid var(--line-soft)}
+.sheet figcaption{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--f-gothic);font-size:11px;letter-spacing:.2em;color:var(--text-faint)}
+.profiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,3vw,28px);align-items:start}
+.prof{padding:clamp(26px,4.5vw,44px);display:flex;flex-direction:column;gap:20px;min-width:0;border:1px solid var(--line)}
 .prof.white{background:var(--paper);color:var(--ink-on-paper);border-color:var(--paper-2)}
 .prof.black{background:var(--ink-2)}
-.prof-side{padding:clamp(24px,4vw,36px);display:flex;flex-direction:column;align-items:center;gap:18px;border-right:1px solid var(--line-on-paper)}
-.prof.black .prof-side{border-color:var(--line)}
-.prof-faces{display:flex;gap:10px;justify-content:center}
-.prof-faces img{width:min(108px,24vw);aspect-ratio:1;object-fit:cover;border-radius:50%;border:1px solid var(--line-on-paper);background:#fff}
-.prof.black .prof-faces img{border-color:var(--gold)}
-.prof-chibi{width:min(220px,60vw);border-radius:2px;background:#f6f4ef}
-.prof.black .prof-chibi{filter:none}
-.prof-swatch{display:flex;gap:10px;font-family:var(--f-label);font-style:italic;font-size:12px;letter-spacing:.14em}
-.prof-swatch span{display:flex;align-items:center;gap:6px}
-.prof-swatch i{width:14px;height:14px;border-radius:50%;border:1px solid rgba(128,128,128,.4)}
-.credit{font-family:var(--f-label);font-style:italic;font-size:12px;letter-spacing:.14em;opacity:.55}
-
-.prof-main{padding:clamp(26px,4.5vw,48px);display:flex;flex-direction:column;gap:22px;min-width:0}
 .prof-head{display:flex;flex-direction:column;gap:6px}
-.prof-head .eyebrow{font-size:12px}
-.prof.white .eyebrow{color:#8a6a2c}
-.prof-name{font-family:var(--f-display);font-size:clamp(34px,5.4vw,52px);line-height:1.05}
-.prof-name small{font-family:var(--f-label);font-style:italic;font-size:.38em;letter-spacing:.14em;margin-left:12px;opacity:.6}
-.prof-meta{font-family:var(--f-label);font-size:15px;letter-spacing:.12em;opacity:.7;font-variant-numeric:tabular-nums}
-.prof-line{font-size:16px;font-weight:400;padding:14px 0 14px 18px;border-left:1px solid #8a6a2c}
+.prof.white .label{color:var(--brass-on-paper)}
+.prof-name{font-size:clamp(32px,5vw,46px);line-height:1.08}
+.prof-name small{display:block;font-family:var(--f-gothic);font-weight:300;font-size:12px;letter-spacing:.24em;margin-top:8px;opacity:.6}
+.prof-meta{font-family:var(--f-gothic);font-size:12px;letter-spacing:.16em;opacity:.7;font-variant-numeric:tabular-nums}
+.prof-line{font-size:16px;padding:12px 0 12px 16px;border-left:1px solid var(--brass-on-paper)}
 .prof.black .prof-line{border-color:var(--gold)}
 .tags{display:flex;flex-wrap:wrap;gap:8px}
-.tags span{font-size:12.5px;padding:3px 12px;border:1px solid var(--line-on-paper);letter-spacing:.06em}
+.tags span{font-family:var(--f-gothic);font-size:12px;padding:3px 12px;border:1px solid var(--line-on-paper)}
 .prof.black .tags span{border-color:var(--line);color:var(--gold-2)}
-.rows{display:flex;flex-direction:column}
-.row{display:grid;grid-template-columns:76px minmax(0,1fr);gap:16px;padding:13px 0;border-top:1px solid var(--line-on-paper);font-size:14px}
+.rows{display:flex;flex-direction:column;margin:0}
+.row{display:grid;grid-template-columns:62px minmax(0,1fr);gap:14px;padding:13px 0;border-top:1px solid var(--line-on-paper);font-size:14px}
 .prof.black .row{border-color:var(--line-soft)}
-.row dt{font-family:var(--f-label);font-style:italic;letter-spacing:.14em;font-size:13.5px;color:#8a6a2c;padding-top:1px}
+.row dt{font-family:var(--f-gothic);font-weight:700;letter-spacing:.14em;font-size:11.5px;color:var(--brass-on-paper);padding-top:3px}
 .prof.black .row dt{color:var(--gold)}
 .row dd{margin:0}
 .prof.white .row dd{color:var(--dim-on-paper)}
 .prof.black .row dd{color:var(--text-dim)}
-.row dd b{font-weight:600}
+.row dd b{font-weight:700}
 .prof.white .row dd b{color:var(--ink-on-paper)}
 .prof.black .row dd b{color:var(--text)}
 .tagtable{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px;margin-top:8px}
-.tagtable span:nth-child(odd){font-family:var(--f-display);color:var(--gold)}
-
+.tagtable span:nth-child(odd){font-weight:700;color:var(--gold)}
 .reveal-btn{
   align-self:flex-start;background:none;border:0;border-bottom:1px solid currentColor;padding:2px 0;cursor:pointer;
-  font-family:var(--f-label);font-style:italic;font-size:14px;letter-spacing:.24em;opacity:.75;transition:opacity .2s;
+  font-family:var(--f-gothic);font-size:12px;letter-spacing:.24em;opacity:.75;transition:opacity .2s;
 }
 .reveal-btn:hover{opacity:1}
 .secret{display:flex;flex-direction:column;gap:12px;padding:22px 24px;font-size:14px}
 .prof.white .secret{background:var(--ink-on-paper);color:var(--paper)}
+.prof.white .secret .label{color:var(--gold)}
 .prof.black .secret{background:var(--paper);color:var(--ink-on-paper)}
-.secret .eyebrow{font-size:12px}
-.prof.black .secret .eyebrow{color:#8a6a2c}
-.secret-name{font-family:var(--f-display);font-size:28px;line-height:1.1}
-.secret-name small{font-family:var(--f-label);font-style:italic;font-size:.5em;letter-spacing:.14em;margin-left:10px;opacity:.6}
+.prof.black .secret .label{color:var(--brass-on-paper)}
+.secret-name{font-size:26px;line-height:1.15}
+.secret-name small{font-family:var(--f-gothic);font-weight:300;font-size:12px;letter-spacing:.16em;margin-left:10px;opacity:.6}
 .secret p{opacity:.85}
 .secret ul{margin:4px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:4px;opacity:.85}
 .secret[hidden]{display:none}
 .secret:not([hidden]){animation:rise .6s ease both}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}}
-@media (max-width:760px){
-  .prof{grid-template-columns:1fr}
-  .prof-side{border-right:0;border-bottom:1px solid var(--line-on-paper)}
-  .prof.black .prof-side{border-color:var(--line)}
-}
+@media (max-width:820px){.profiles{grid-template-columns:1fr}}
 
 /* ───── story ───── */
-.story{background:var(--ink)}
 .rounds{display:flex;flex-direction:column;gap:clamp(70px,11vw,120px)}
 .round{display:grid;grid-template-columns:120px minmax(0,1fr);gap:clamp(20px,4vw,48px)}
-.round-mark{display:flex;flex-direction:column;align-items:center;gap:12px;position:sticky;top:96px;align-self:start}
-.round-mark .chip{--size:92px}
-.round-mark .chip-face b{font-size:28px}
-.round-mark small{font-family:var(--f-label);font-style:italic;letter-spacing:.3em;font-size:12px;color:var(--gold)}
+.round-mark{display:flex;flex-direction:column;gap:6px;position:sticky;top:96px;align-self:start}
+.round-mark b{font-size:clamp(54px,8vw,84px);line-height:1;color:var(--gold);font-weight:300}
 .round-body{display:flex;flex-direction:column;gap:20px;max-width:640px;min-width:0}
-.round-body h3{font-family:var(--f-display);font-size:clamp(28px,4.6vw,40px);line-height:1.15}
-.round-body h3 small{display:block;font-family:var(--f-body);font-size:14px;font-weight:300;color:var(--text-dim);letter-spacing:.08em;margin-top:8px}
+.round-body h3{font-size:clamp(28px,4.6vw,40px);line-height:1.15}
+.round-body h3 small{display:block;font-weight:300;font-size:14px;color:var(--text-dim);letter-spacing:.06em;margin-top:10px}
 .round-body > p{font-size:15px;color:var(--text-dim)}
-.round-body > p b{color:var(--text);font-weight:400}
-.q{font-size:clamp(16px,3vw,19px);font-weight:400;color:var(--text);padding-left:20px;border-left:1px solid var(--gold);line-height:1.9}
-.q small{display:block;font-family:var(--f-label);font-style:italic;font-size:13px;letter-spacing:.16em;color:var(--gold);margin-top:6px}
-.note{font-family:var(--f-label);font-style:italic;font-size:15px;color:var(--text-faint);letter-spacing:.04em}
-.round-photo{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;border:1px solid var(--line-soft)}
+.round-body > p b,.beat p b{color:var(--text);font-weight:700}
+.q{font-size:clamp(16px,3vw,18.5px);color:var(--text);padding-left:20px;border-left:1px solid var(--gold);line-height:1.9}
+.q small{display:block;font-family:var(--f-gothic);font-size:11px;letter-spacing:.2em;color:var(--gold);margin-top:6px}
+.note{font-size:14px;color:var(--text-faint)}
+.round-photo{position:relative;margin:0;aspect-ratio:16/9;max-width:100%;overflow:hidden;border:1px solid var(--line-soft)}
 .round-photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05) brightness(.85)}
-.round-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(13,11,9,.8))}
-.round-photo figcaption{position:absolute;left:16px;bottom:12px;z-index:1;font-family:var(--f-label);font-style:italic;font-size:13px;letter-spacing:.2em;color:var(--text-dim)}
 .beat{display:flex;flex-direction:column;gap:12px;padding:22px 0 22px 22px;border-left:1px dashed var(--line);position:relative}
 .beat::before{content:"";position:absolute;left:-6px;top:30px;width:11px;height:11px;border-radius:50%;border:1px solid var(--gold);background:var(--ink);transition:background .5s,box-shadow .5s}
-.beat.lit::before{background:var(--gold);box-shadow:0 0 10px rgba(201,164,92,.8)}
-.beat-label{font-family:var(--f-label);font-style:italic;font-size:13px;letter-spacing:.24em;color:var(--gold)}
+.beat.lit::before{background:var(--gold);box-shadow:0 0 10px rgba(191,160,103,.8)}
 .beat p{font-size:15px;color:var(--text-dim)}
-.beat p b{color:var(--text);font-weight:400}
 .finale{margin-top:clamp(70px,10vw,110px);text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px}
-.finale p{font-size:clamp(19px,4vw,26px);font-weight:400;line-height:1.7}
-.finale small{font-family:var(--f-label);font-style:italic;color:var(--gold);letter-spacing:.2em;font-size:14px}
+.finale .rule{width:1px;height:48px;background:linear-gradient(var(--gold),transparent)}
+.finale p{font-size:clamp(19px,4vw,26px);line-height:1.7}
+.finale small{font-family:var(--f-gothic);color:var(--gold);letter-spacing:.24em;font-size:11px}
 @media (max-width:720px){
   .round{grid-template-columns:1fr}
-  .round-mark{position:static;flex-direction:row;align-items:center}
-  .round-mark .chip{--size:64px}
-  .round-mark .chip-face b{font-size:20px}
+  .round-mark{position:static;flex-direction:row;align-items:baseline;gap:14px}
+  .round-mark b{font-size:46px}
 }
 
-/* ───── tokens ───── */
-.tokens{background:var(--ink-2);overflow:hidden;isolation:isolate}
-.tokens::before{content:"";position:absolute;inset:0;z-index:-1;background:url(assets/mood-marble.jpg) center/cover;opacity:.2}
-.tokens::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(var(--ink-2),rgba(23,19,15,.6) 30%,rgba(23,19,15,.6) 70%,var(--ink))}
+/* ───── felt ───── */
+.felt{background:var(--ink-2);overflow:hidden;isolation:isolate}
 .tok-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
 .tok{padding:clamp(22px,3.4vw,34px);border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:10px;background:rgba(13,11,9,.55);min-width:0}
-.tok svg{width:34px;height:34px;stroke:var(--gold);fill:none;stroke-width:1.2}
-.tok h3{font-family:var(--f-body);font-weight:600;font-size:16.5px;letter-spacing:.06em}
-.tok h3 small{font-family:var(--f-label);font-style:italic;font-weight:400;font-size:13px;color:var(--gold);letter-spacing:.18em;margin-left:8px}
+.tok svg{width:32px;height:32px;stroke:var(--gold);fill:none;stroke-width:1.2}
+.tok h3{font-size:16.5px;display:flex;align-items:baseline;gap:10px}
+.tok h3 .label{font-size:9.5px}
 .tok p{font-size:14px;color:var(--text-dim)}
 @media (max-width:860px){.tok-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:520px){.tok-grid{grid-template-columns:1fr}}
-
 .mirror{margin-top:clamp(56px,9vw,90px);overflow-x:auto}
 .mirror table{width:100%;min-width:520px;border-collapse:collapse;font-size:14px}
 .mirror th,.mirror td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
-.mirror thead th{font-family:var(--f-display);font-weight:400;font-size:20px;border-bottom:1px solid var(--line)}
+.mirror thead th{font-size:19px;border-bottom:1px solid var(--line)}
 .mirror thead th:nth-child(2){color:var(--paper)}
 .mirror thead th:nth-child(3){color:var(--gold-2)}
-.mirror tbody th{font-family:var(--f-label);font-style:italic;font-weight:400;letter-spacing:.14em;color:var(--gold);width:96px}
+.mirror tbody th{font-family:var(--f-gothic);font-weight:700;letter-spacing:.16em;font-size:11.5px;color:var(--gold);width:92px}
 .mirror td{color:var(--text-dim)}
 
 /* ───── footer ───── */
-.foot{padding-block:clamp(70px,10vw,110px) calc(90px + env(safe-area-inset-bottom,0px));padding-inline:var(--gutter);text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px;border-top:1px solid var(--line-soft)}
-.foot .chip{--size:84px;cursor:pointer;border:0;padding:0;transition:transform .4s}
-.foot .chip:hover{transform:rotate(-14deg)}
-.foot .chip-face b{font-size:16px}
-.foot-title{font-family:var(--f-display);letter-spacing:.3em;font-size:18px}
-.foot-credit{font-family:var(--f-label);font-style:italic;font-size:14px;color:var(--text-faint);letter-spacing:.06em;line-height:1.9}
+.foot{padding-block:clamp(70px,10vw,110px) calc(96px + env(safe-area-inset-bottom,0px));padding-inline:var(--gutter);text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;border-top:1px solid var(--line-soft)}
+.foot-secret{background:none;border:0;cursor:pointer;font-size:22px;color:var(--gold);transition:transform .4s}
+.foot-secret:hover{transform:rotate(-14deg)}
+.foot-title{font-weight:700;letter-spacing:.32em;font-size:16px}
+.foot-credit{font-family:var(--f-gothic);font-size:11.5px;color:var(--text-faint);letter-spacing:.08em;line-height:2}
 
-/* ───── secret overlay ───── */
 .over{position:fixed;inset:0;z-index:7500;background:rgba(8,6,5,.97);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:32px var(--gutter);text-align:center;opacity:0;visibility:hidden;transition:opacity .8s,visibility .8s}
 .over.show{opacity:1;visibility:visible}
-.over p{font-size:clamp(17px,3.6vw,22px);line-height:2;font-weight:400}
-.over p.dim{font-size:14px;color:var(--text-dim);font-weight:300}
-.over button{background:none;border:0;cursor:pointer;font-family:var(--f-label);font-style:italic;letter-spacing:.3em;color:var(--text-faint);font-size:13px}
+.over p{font-size:clamp(17px,3.6vw,22px);line-height:2}
+.over p.dim{font-size:14px;color:var(--text-dim)}
+.over button{background:none;border:0;cursor:pointer;font-family:var(--f-gothic);letter-spacing:.32em;color:var(--text-faint);font-size:11px}
 
-/* ───── reveal on scroll (visible at rest) ───── */
+/* reveal on scroll (visible at rest) */
 .fade{transition:opacity .9s ease,transform .9s ease}
 .js .fade.pending{opacity:.001;transform:translateY(18px)}
 
-/* custom cursor */
-.cursor{position:fixed;left:0;top:0;width:26px;height:26px;margin:-13px 0 0 -13px;border:1px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9500;transition:width .25s,height .25s,margin .25s,opacity .3s;opacity:0}
-@media (pointer:fine){.cursor{opacity:.8}}
-.cursor.big{width:46px;height:46px;margin:-23px 0 0 -23px}
+.cursor{position:fixed;left:0;top:0;width:26px;height:26px;margin:-13px 0 0 -13px;border:1px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9500;transition:width .25s,height .25s,margin .25s;opacity:0}
+@media (pointer:fine){.cursor{opacity:.75}}
+.cursor.big{width:44px;height:44px;margin:-22px 0 0 -22px}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
@@ -357,14 +367,17 @@ body::after{
 </head>
 <body>
 
-<!-- ─────────── gate ─────────── -->
-<div id="gate" role="dialog" aria-label="입장">
-  <span class="eyebrow">Faites vos jeux</span>
-  <button class="chip" id="gateChip" aria-label="칩을 눌러 입장하기">
-    <span class="chip-face"><b>H×V</b><small>LE MIRAGE</small></span>
-  </button>
-  <div class="gate-title">LE MIRAGE</div>
-  <div class="gate-hint">— 칩을 눌러 입장하세요 —</div>
+<!-- ─────────── loading ─────────── -->
+<div id="gate" role="dialog" aria-label="Loading">
+  <div class="g-top"><span>LE MIRAGE</span><span>LAWLESS CITY — AFTER MIDNIGHT</span></div>
+  <div class="g-mid">
+    <h1 class="g-line" id="gLine"><span class="w">The house</span><span class="w">always wins.</span></h1>
+    <p class="g-sub">Ladies and gentlemen, the table is open.</p>
+  </div>
+  <div class="g-bot">
+    <div class="g-bar"><i id="gBar"></i></div>
+    <div class="g-row"><span id="gPct">LOADING 000</span><button class="g-enter" id="gEnter">ENTER THE FLOOR</button></div>
+  </div>
 </div>
 
 <!-- ─────────── bar / menu ─────────── -->
@@ -373,30 +386,25 @@ body::after{
   <button class="ham" id="ham" aria-label="메뉴 열기" aria-expanded="false"><i></i><i></i></button>
 </header>
 <nav class="side" id="side" aria-label="목차">
-  <a href="#pair"><span>♠</span>두 사람</a>
-  <a href="#world"><span>✦</span>세계관</a>
-  <a href="#people"><span>♣</span>인물</a>
-  <a href="#story"><span>♥</span>서사</a>
-  <a href="#tokens"><span>♦</span>판 위의 것들</a>
-  <div class="side-foot">H × V · 2026</div>
+  <a href="#cage"><span>CAGE RECEIPT</span>영수증 한 장</a>
+  <a href="#world"><span>HOUSE RULES</span>이 도시의 규칙</a>
+  <a href="#players"><span>PLAYERS</span>테이블의 두 사람</a>
+  <a href="#story"><span>THREE HANDS</span>세 번의 판</a>
+  <a href="#felt"><span>ON THE FELT</span>판 위에 놓인 것들</a>
+  <div class="side-foot">H × V</div>
 </nav>
 
 <!-- ─────────── bgm ─────────── -->
 <div class="bgm" id="bgm">
-  <button class="chip bgm-btn" id="bgmBtn" aria-label="음악 재생: It Don't Mean a Thing">
-    <span class="chip-face"><b id="bgmIcon">♪</b></span>
-  </button>
-  <div class="bgm-label" id="bgmLabel" aria-hidden="true">
-    <i id="bgmState">♪ 눌러서 재생</i>
-    It Don't Mean a Thing<br>
-    <span style="opacity:.7">Duke Ellington · piano by Sangah Noona</span>
+  <button class="bgm-btn" id="bgmBtn" aria-label="음악 재생: It Don't Mean a Thing"><i></i><i></i><i></i><i></i></button>
+  <div class="bgm-label" aria-hidden="true">
+    <i id="bgmState">눌러서 재생</i>
+    It Don't Mean a Thing
+    <span>Duke Ellington · piano by Sangah Noona</span>
   </div>
 </div>
 
-<!-- ─────────── tag meter ─────────── -->
-<div class="tagmeter" id="tagmeter" aria-hidden="true">
-  <small>TAG</small><i></i><i></i><i></i>
-</div>
+<div class="tagmeter" id="tagmeter" aria-hidden="true"><small>TAG</small><i></i><i></i><i></i></div>
 
 <main id="top">
 
@@ -404,82 +412,99 @@ body::after{
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-in">
-    <span class="eyebrow">무법도시 · 카지노 라 미라주</span>
-    <h1 class="hero-title">Le Mirage<em>hero × villain</em></h1>
-    <div class="hero-pair">이현 <span>×</span> 에밀 로랑</div>
-    <p class="hero-quote">“네 목숨을 사고 싶군.”</p>
-    <small>— 칩 한 닢을 꺼내며, 이현</small>
-    <button class="flip" id="heroFlip" style="--size:120px" aria-label="칩 뒤집기">
-      <span class="flip-in">
-        <span class="chip front"><span class="chip-face"><b>H×V</b><small>ONE CHIP</small></span></span>
-        <span class="chip back"><span class="chip-face"><b>지우연<br>×<br>마티외 뒤랑</b></span></span>
-      </span>
-      <span class="flip-hint">tap the chip</span>
-    </button>
+    <p class="hero-place">무법도시의, 카지노. 라미라주에서.</p>
+    <h1 class="hero-title">Le Mirage</h1>
+    <p class="hero-pair">이현<b>×</b>에밀 로랑</p>
+    <div class="hero-quote">
+      <p>“네 목숨을 사고 싶군.”</p>
+      <small>칩 한 닢을 꺼내며, 이현</small>
+    </div>
   </div>
-  <span class="scroll-cue">scroll</span>
 </section>
 
-<!-- ─────────── pair ─────────── -->
-<section class="sec" id="pair">
-  <div class="wrap">
-    <div class="sec-head fade">
-      <span class="eyebrow">Pair</span>
-      <h2 class="sec-title">두 사람에 <em>대하여</em></h2>
+<!-- ─────────── cage receipt ─────────── -->
+<section class="sec cage" id="cage">
+  <div class="wrap cage-grid">
+    <div class="cage-copy fade">
+      <span class="label">Cage Receipt · No. 0614</span>
+      <h2>칩 한 닢으로<br><em>목숨 하나</em>를 샀다.</h2>
+      <p>라미라주의 계산대에는 영수증이 한 장 남아 있다. 손님은 흰 가운의 히어로, 주인은 검은 장갑의 빌런. 처음엔 말을 텄다는 증거로 건넨 칩이었다.</p>
+      <p>마지막 줄의 합계는 <b>본명 두 개</b>. 서로 가짜 이름으로 앉은 테이블이었으니까.</p>
+      <span class="cage-hint">검게 지워진 칸을 눌러보세요</span>
     </div>
 
-    <div class="pair fade">
-      <article class="pair-card white">
-        <span class="eyebrow">白 · 메스 · Hero</span>
-        <h3 class="pair-name">이현<small>지우연 · 32</small></h3>
-        <p>이능관리국 소속 히어로이자 야매 의사. 성경 한 권을 품고 다니며 좀처럼 감정을 드러내지 않는다. 사람을 가장 건강했던 시기로 되돌릴 수 있지만, 치료해 달라는 말에는 그게 성경에 있느냐고 되묻는다.</p>
-        <p>끝맺어지지 않은 이야기에는 흥미가 없다.</p>
-        <div class="pair-to"><small>그에게 에밀 로랑은</small>옛날의 나를 보는 것 같은 사람. 나와 같은 눈을 가진 사람.</div>
-      </article>
-      <article class="pair-card black">
-        <span class="eyebrow">黑 · 칩 · Villain</span>
-        <h3 class="pair-name">에밀 로랑<small>Émile Laurent · 30</small></h3>
-        <p>관리국에 속하지 않은 각성자. 무법도시의 카지노 라 미라주의 오너. 누구에게나 웃으며 먼저 손을 내밀지만, 그 손은 늘 검은 장갑 안에 있다.</p>
-        <p>사람을 좋아하지만, 사람을 믿지는 않는다.</p>
-        <div class="pair-to"><small>그에게 이현은</small>속을 읽을 수 없는 사람. 자기가 건넨 칩 한 닢으로 자신을 사 간 사람.</div>
-      </article>
-    </div>
-
-    <div class="pair-quote fade">
-      <div class="rule"></div>
-      <p>“쇠는 차갑고 날카로운 느낌이고,<br>피는 거기에 온기가 섞인 거죠.”</p>
-      <small>— 이현</small>
-    </div>
+    <article class="receipt fade" aria-label="라미라주 영수증">
+      <div class="r-head"><b>LE MIRAGE</b><span>무법도시의, 카지노. 라미라주에서.</span></div>
+      <hr class="r-cut">
+      <div class="r-row"><span class="r-k">CAGE RECEIPT</span><span>No. 0614</span></div>
+      <div class="r-row r-dim"><span>06 / 14 · PM 07:54</span><span>MAIN HALL</span></div>
+      <hr class="r-cut">
+      <div class="r-who">
+        <span class="r-k">GUEST</span><b>이현</b><span class="side-tag">H</span>
+        <span class="r-dim">히어로 · 이능관리국 · 야매 의사 · 32</span>
+      </div>
+      <div class="r-who">
+        <span class="r-k">HOUSE</span><b>에밀 로랑</b><span class="side-tag">V</span>
+        <span class="r-dim">빌런 · 라미라주 오너 · 30</span>
+      </div>
+      <hr class="r-cut">
+      <div class="r-row r-k"><span>ITEM</span><span>QTY</span></div>
+      <div class="r-items">
+        <div class="r-row"><span>전용 칩 · 색이 다른 것</span><span>1</span></div>
+        <div class="r-row"><span>비싼 레드와인 · 약속만</span><span>1</span></div>
+        <div class="r-row"><span>메스로 그은 엄지</span><span>1</span></div>
+        <div class="r-row"><span>벗겨진 검은 장갑</span><span>1</span></div>
+        <div class="r-row"><span>이마의 입맞춤 · 받고, 돌려줌</span><span>2</span></div>
+        <div class="r-row"><span>표식 · TAG</span><span>3</span></div>
+      </div>
+      <hr class="r-cut">
+      <div class="r-row"><span class="r-k">EXCHANGE</span><span><b>칩 1 → 목숨 1</b></span></div>
+      <p class="r-quote">“목숨이라고 했다면 전부 포함되는 말이었는데. 몸과 마음 전부.”</p>
+      <hr class="r-cut">
+      <div class="r-row r-total"><span>TOTAL</span><span>본명 2</span></div>
+      <div class="r-row" style="margin-top:6px">
+        <span class="r-dim">GUEST</span>
+        <span><button class="redact" aria-label="이현의 본명 보기">지우연</button></span>
+      </div>
+      <div class="r-row">
+        <span class="r-dim">HOUSE</span>
+        <span><button class="redact" aria-label="에밀 로랑의 본명 보기">마티외 뒤랑</button></span>
+      </div>
+      <hr class="r-cut">
+      <p class="r-dim" style="font-size:11px">* 환불 불가.<br>“이미 너를 내가 칩으로 샀잖아? 그러니 주지 말았어야지.”</p>
+      <div class="r-bar" aria-hidden="true"></div>
+      <p class="r-foot">THE HOUSE ALWAYS WINS</p>
+    </article>
   </div>
 </section>
 
 <!-- ─────────── world ─────────── -->
 <section class="sec world" id="world">
   <div class="wrap">
-    <div class="sec-head fade">
-      <span class="eyebrow">World</span>
-      <h2 class="sec-title">별의 잔해 <em>아래에서</em></h2>
-      <p class="sec-sub">약 50년 전, 알 수 없는 에너지를 품은 유성이 떨어졌다.</p>
-    </div>
+    <header class="sh fade">
+      <h2>이 도시의 규칙</h2>
+      <span class="label">House Rules</span>
+      <p class="sh-sub">약 50년 전, 알 수 없는 에너지를 품은 유성이 떨어졌다.</p>
+    </header>
 
     <div class="cards">
       <article class="pcard fade" data-suit="✦">
-        <h3>별의 잔해<small>Meteor</small></h3>
+        <h3>별의 잔해<span class="label">Meteor</span></h3>
         <p>약 50년 전 떨어진 유성. 알 수 없는 에너지를 품고 있었으며, 그 에너지에 영향을 받은 이들은 각성자가 되기 시작했다. 현재는 에너지를 잃어버린 파편만이 박물관에 보관되어 있다.</p>
         <p>각성자는 몸 안의 에너지를 통해 능력을 사용할 수 있으며, 사람에 따라 그 한계가 정해져 있다. 에너지가 남아 있는 한 계속해서 살아날 수 있으나, 부활 시 부작용을 겪게 된다.</p>
       </article>
       <article class="pcard fade" data-suit="♠">
-        <h3>히어로<small>Hero</small></h3>
+        <h3>히어로<span class="label">Hero</span></h3>
         <p>이능관리국에 소속된 인원을 통칭하는 단어. 주로 이능력을 통해 시민들을 돕고, 빌런들을 제압하는 일을 맡고 있다.</p>
         <p>초창기와 달리 한 명의 각성자로 대우받고 있으나, 여전히 그들을 두려워하는 일반인들 또한 많은 편이다.</p>
       </article>
       <article class="pcard fade" data-suit="♣">
-        <h3>빌런<small>Villain</small></h3>
+        <h3>빌런<span class="label">Villain</span></h3>
         <p>초기에는 이능을 통한 범죄를 저지르는 이들을 빌런이라 칭하였으나, 폭주 사건 이후에는 이능관리국에 소속되지 않은 각성자들을 모두 빌런이라 지칭하고 있다.</p>
         <p>빌런 중에서는 폭주 사건 당시 이능관리국을 나와 빌런이 된 케이스도 적잖이 존재한다.</p>
       </article>
       <article class="pcard fade" data-suit="♦">
-        <h3>무법도시<small>Lawless City</small></h3>
+        <h3>무법도시<span class="label">Lawless City</span></h3>
         <p>폭주 사건이 일어난 폐허에 세워진 도시. 바깥의 법이 적용되지는 않으나, 구역마다 지켜야 할 규칙이 존재하는 경우도 있어 주의가 필요하다.</p>
         <p>일반적인 도시의 모습과 비슷하나, 싸움이 잦은 만큼 건물이나 주변 환경을 복구해 주는 직업이 인기를 끌고 있다.</p>
       </article>
@@ -487,96 +512,77 @@ body::after{
   </div>
 </section>
 
-<!-- ─────────── people ─────────── -->
-<section class="sec" id="people">
+<!-- ─────────── players ─────────── -->
+<section class="sec" id="players">
   <div class="wrap">
-    <div class="sec-head fade">
-      <span class="eyebrow">Characters</span>
-      <h2 class="sec-title">테이블의 <em>두 사람</em></h2>
-    </div>
+    <header class="sh fade">
+      <h2>테이블의 두 사람</h2>
+      <span class="label">Players</span>
+    </header>
+
+    <figure class="sheet fade">
+      <img src="assets/sheet.jpg" alt="이현과 에밀 로랑의 캐릭터 시트. 왼쪽은 흰 가운의 이현, 오른쪽은 검은 코트의 에밀 로랑" loading="lazy">
+      <figcaption><span>이현 × 에밀 로랑</span><span>illust. @NEDH_NANA</span></figcaption>
+    </figure>
 
     <div class="profiles">
-      <!-- 이현 -->
       <article class="prof white fade">
-        <div class="prof-side">
-          <div class="prof-faces">
-            <img src="assets/hyeon-1.jpg" alt="이현 흑백 일러스트, 안경을 쓰고 웃는 얼굴">
-            <img src="assets/hyeon-2.jpg" alt="이현 흑백 일러스트, 옆으로 기댄 얼굴">
-          </div>
-          <img class="prof-chibi" src="assets/hyeon-chibi.jpg" alt="이현 SD 일러스트, 흰 의사 가운과 검은 셔츠">
-          <div class="prof-swatch"><span><i style="background:#111"></i>머리</span><span><i style="background:#111"></i>눈</span></div>
-          <span class="credit">illust. @NEDH_NANA</span>
+        <div class="prof-head">
+          <span class="label">H · 이능관리국 · 야매 의사</span>
+          <h3 class="prof-name">이현</h3>
+          <span class="prof-meta">32 · XY · 188cm / 68kg</span>
         </div>
-        <div class="prof-main">
-          <div class="prof-head">
-            <span class="eyebrow">H · 이능관리국 · 야매 의사</span>
-            <h3 class="prof-name">이현</h3>
-            <span class="prof-meta">32 · XY · 188cm / 68kg</span>
-          </div>
-          <p class="prof-line">“너를 치료해 달라고? 그거 성경에 있어요?”</p>
-          <div class="tags"><span>#능글맞은</span><span>#심오한</span><span>#유희적인</span></div>
-          <dl class="rows">
-            <div class="row"><dt>외관</dt><dd>왼쪽 눈을 살짝 가리는 검은 앞머리, 검은 눈. 둥근 안경과 안경줄, 오른쪽 눈물점, 오른쪽 귀의 십자가 귀걸이. 흰 의사 가운 아래 검은 셔츠, 깔끔한 검은 정장 바지와 검은 구두. 기본적으로 깔보는 눈.</dd></div>
-            <div class="row"><dt>이능력</dt><dd><b>노스탤지어</b> · 누군가를 예전의 가장 건강했던 시기로 되돌릴 수 있다.</dd></div>
-            <div class="row"><dt>성격</dt><dd>“아아, 겁낼 필요는 없어. 사람은 생각보다 쉽게 망가지지 않거든요.” 성경 한 권을 고이 품은 채 좀처럼 감정을 과하게 드러내지 않는다. 표정과 태도에는 늘 잔잔한 미소와 안정감이 배어 있다. 하지만 무의식적으로 내뱉는 말들은 어딘가 기이하고, 지나치리만치 심오하다. 끝맺어지지 않은 이야기에는 흥미를 두지 않는다. 뭐, 그게 나쁜 건 아니잖아요?</dd></div>
-            <div class="row"><dt>소지품</dt><dd>쓰지 않은 주사기 · 십자가 · 성경 · 메스 · 몬타나 스폴리아띠네 글라사떼</dd></div>
-          </dl>
-          <button class="reveal-btn" data-target="secretHyeon" aria-expanded="false">— 본명을 묻는다 —</button>
-          <div class="secret" id="secretHyeon" hidden>
-            <span class="eyebrow">Secret</span>
-            <div class="secret-name">지우연<small>池偶然</small></div>
-            <p>그는 우연(偶然)히 태어난 인간이었으므로 애초부터 살아야 할 거창한 연유가 존재하지 않았다. 그저 사람들 사이 어딘가에 끼어 그 우연성을 악착같이 증명하던 이였다. 그러나 그 ‘끼어 있음’이 실존을 의미하는가에 대해서는, 그 자신조차 오래 의문을 품고 있었다. 그렇기에 그는 히어로이면서도 의문을 품고 있다.</p>
-            <ul>
-              <li>입양되었다.</li>
-              <li>극작을 하고 싶어 한다.</li>
-              <li>“그런데 모두 나가더라.”</li>
-            </ul>
-          </div>
+        <p class="prof-line">“너를 치료해 달라고? 그거 성경에 있어요?”</p>
+        <div class="tags"><span>#능글맞은</span><span>#심오한</span><span>#유희적인</span></div>
+        <dl class="rows">
+          <div class="row"><dt>외관</dt><dd>왼쪽 눈을 살짝 가리는 검은 앞머리, 검은 눈. 둥근 안경과 안경줄, 오른쪽 눈물점, 오른쪽 귀의 십자가 귀걸이. 흰 의사 가운 아래 검은 셔츠, 검은 정장 바지와 검은 구두. 기본적으로 깔보는 눈.</dd></div>
+          <div class="row"><dt>이능력</dt><dd><b>노스탤지어</b> · 누군가를 예전의 가장 건강했던 시기로 되돌릴 수 있다.</dd></div>
+          <div class="row"><dt>성격</dt><dd>“아아, 겁낼 필요는 없어. 사람은 생각보다 쉽게 망가지지 않거든요.” 성경 한 권을 고이 품은 채 좀처럼 감정을 과하게 드러내지 않는다. 표정과 태도에는 늘 잔잔한 미소와 안정감이 배어 있다. 하지만 무의식적으로 내뱉는 말들은 어딘가 기이하고, 지나치리만치 심오하다. 끝맺어지지 않은 이야기에는 흥미를 두지 않는다. 뭐, 그게 나쁜 건 아니잖아요?</dd></div>
+          <div class="row"><dt>소지품</dt><dd>쓰지 않은 주사기 · 십자가 · 성경 · 메스 · 몬타나 스폴리아띠네 글라사떼</dd></div>
+        </dl>
+        <button class="reveal-btn" data-target="secretHyeon" aria-expanded="false">본명을 묻는다</button>
+        <div class="secret" id="secretHyeon" hidden>
+          <span class="label">Secret</span>
+          <div class="secret-name">지우연<small>池偶然</small></div>
+          <p>그는 우연(偶然)히 태어난 인간이었으므로 애초부터 살아야 할 거창한 연유가 존재하지 않았다. 그저 사람들 사이 어딘가에 끼어 그 우연성을 악착같이 증명하던 이였다. 그러나 그 ‘끼어 있음’이 실존을 의미하는가에 대해서는, 그 자신조차 오래 의문을 품고 있었다. 그렇기에 그는 히어로이면서도 의문을 품고 있다.</p>
+          <ul>
+            <li>입양되었다.</li>
+            <li>극작을 하고 싶어 한다.</li>
+            <li>“그런데 모두 나가더라.”</li>
+          </ul>
         </div>
       </article>
 
-      <!-- 에밀 로랑 -->
       <article class="prof black fade">
-        <div class="prof-side">
-          <div class="prof-faces">
-            <img src="assets/laurent-1.jpg" alt="에밀 로랑 컬러 일러스트, 금안이 보이는 웃는 얼굴">
-            <img src="assets/laurent-2.jpg" alt="에밀 로랑 선화, 눈을 감고 웃는 얼굴">
-          </div>
-          <img class="prof-chibi" src="assets/laurent-chibi.jpg" alt="에밀 로랑 SD 일러스트, 검은 롱코트와 검은 장갑">
-          <div class="prof-swatch"><span><i style="background:#f3ead2"></i>머리</span><span><i style="background:#111"></i>흑안</span><span><i style="background:#e0a92a"></i>금안</span></div>
-          <span class="credit">illust. @NEDH_NANA</span>
+        <div class="prof-head">
+          <span class="label">V · 무소속 · 라미라주 오너</span>
+          <h3 class="prof-name">에밀 로랑<small>ÉMILE LAURENT</small></h3>
+          <span class="prof-meta">30 · M · 183(+3)cm / 81kg</span>
         </div>
-        <div class="prof-main">
-          <div class="prof-head">
-            <span class="eyebrow">V · 무소속 · 라 미라주 오너</span>
-            <h3 class="prof-name">에밀 로랑<small>Émile Laurent</small></h3>
-            <span class="prof-meta">30 · M · 183(+3)cm / 81kg</span>
-          </div>
-          <p class="prof-line">“우와~ 좋게 가자구요. 왜 못 잡아먹어서 안달이람.”</p>
-          <div class="tags"><span>#친절한</span><span>#여유로운</span><span>#사교적인</span></div>
-          <dl class="rows">
-            <div class="row"><dt>외관</dt><dd>부스스한 연한 금발 로우포니테일, 한쪽 눈을 가린 앞머리. 긴 속눈썹과 언더래쉬. 오드아이로, 가려진 쪽은 흑안, 보이는 쪽은 금안이다. 흑안은 문제가 있는 건 아니지만 보기 흉할지도 모르니 그저 가리고 다닌다고. 검은 롱코트 아래 단정한 정장 바지와 구두, 그리고 <b>검은 가죽 장갑</b>.</dd></div>
-            <div class="row"><dt>이능력</dt><dd><b>Tag</b> · 맨손이 닿는 상대의 몸에 표식을 남긴다. 최대 3개, 대상은 최대 2명. 오래 전 연결된 순으로 표식이 사라지며, 술자의 의지로 지울 수 있다.
-              <div class="tagtable">
-                <span>1</span><span>상대의 위치와 상태를 멀리서도 파악한다.</span>
-                <span>2</span><span>상대와 감각을 공유한다. 동의는 필요 없다. 고통도 함께 연결된다.</span>
-                <span>3</span><span>상대의 감각 하나를 일시적으로 앗아간다.</span>
-              </div>
-            </dd></div>
-            <div class="row"><dt>성격</dt><dd>항상 밝은 미소를 띠고 누구에게나 호의적이다. 이야기를 잘 들어주고 먼저 손을 내미는 경우가 많아 첫인상은 대체로 좋다. 웬만한 상황에서도 침착함을 잃지 않으며, 능청스러운 농담으로 분위기를 환기시키는 데 능하다.</dd></div>
-            <div class="row"><dt>특징</dt><dd>새벽에 직접 홀을 순찰해 잠이 부족하고, 잘 때는 수면제를 한 알씩 먹는다. 얇은 담배를 즐기는 애연가, 술은 강하지만 즐기지는 않는다. 프랑스식 인사처럼 가벼운 신체 접촉이 자연스럽다. 눈에 든 상대에게 직접 만든 카지노 칩을 하나씩 선물한다. 그냥 기념품처럼 받아주면 편하다.</dd></div>
-          </dl>
-          <button class="reveal-btn" data-target="secretLaurent" aria-expanded="false">— 앞머리를 넘긴다 —</button>
-          <div class="secret" id="secretLaurent" hidden>
-            <span class="eyebrow">Secret</span>
-            <div class="secret-name">마티외 뒤랑<small>Mathieu Durand</small></div>
-            <p>도박 중독인 아버지와 무관심한 어머니 아래에서 자랐다. 고등학교를 졸업한 직후 어머니마저 말없이 사라졌고, 생계를 위해 아버지를 따라 카지노를 드나들다 딜러 제안을 받는다. 사람들의 표정과 습관에서 심리를 읽어내는 재능은 각성한 이능 《Tag》로 더욱 날카로워졌다. 인맥과 자금을 쌓아 독립한 그는 지금 무법도시에서 카지노를 운영한다.</p>
-            <p>가난했던 시절에는 돈을 좇았다. 원하는 만큼의 돈을 손에 넣은 지금, 그는 사람에게서 즐거움을 찾는다. 떠보고, 흔들고, 예상대로 움직이는 모습을 지켜보는 것. 그에게 사람은 신뢰의 대상이 아니라 무료함을 달래 줄 도파민에 가깝다.</p>
-            <ul>
-              <li>딜러 시절, 욕을 제일 많이 먹었다. 그래서 웬만한 말에는 상처받지 않는다.</li>
-              <li>“정을 주는 방법 같은 건 배우지 못했으니까요.”</li>
-            </ul>
-          </div>
+        <p class="prof-line">“우와~ 좋게 가자구요. 왜 못 잡아먹어서 안달이람.”</p>
+        <div class="tags"><span>#친절한</span><span>#여유로운</span><span>#사교적인</span></div>
+        <dl class="rows">
+          <div class="row"><dt>외관</dt><dd>부스스한 연한 금발 로우포니테일, 한쪽 눈을 가린 앞머리. 긴 속눈썹과 언더래쉬. 오드아이로, 가려진 쪽은 흑안, 보이는 쪽은 금안이다. 흑안은 문제가 있는 건 아니지만 보기 흉할지도 모르니 그저 가리고 다닌다고. 검은 롱코트 아래 단정한 정장 바지와 구두, 그리고 <b>검은 가죽 장갑</b>.</dd></div>
+          <div class="row"><dt>이능력</dt><dd><b>Tag</b> · 맨손이 닿는 상대의 몸에 표식을 남긴다. 최대 3개, 대상은 최대 2명. 오래 전 연결된 순으로 표식이 사라지며, 술자의 의지로 지울 수 있다.
+            <div class="tagtable">
+              <span>1</span><span>상대의 위치와 상태를 멀리서도 파악한다.</span>
+              <span>2</span><span>상대와 감각을 공유한다. 동의는 필요 없다. 고통도 함께 연결된다.</span>
+              <span>3</span><span>상대의 감각 하나를 일시적으로 앗아간다.</span>
+            </div>
+          </dd></div>
+          <div class="row"><dt>성격</dt><dd>항상 밝은 미소를 띠고 누구에게나 호의적이다. 이야기를 잘 들어주고 먼저 손을 내미는 경우가 많아 첫인상은 대체로 좋다. 웬만한 상황에서도 침착함을 잃지 않으며, 능청스러운 농담으로 분위기를 환기시키는 데 능하다.</dd></div>
+          <div class="row"><dt>특징</dt><dd>새벽에 직접 홀을 순찰해 잠이 부족하고, 잘 때는 수면제를 한 알씩 먹는다. 얇은 담배를 즐기는 애연가, 술은 강하지만 즐기지는 않는다. 프랑스식 인사처럼 가벼운 신체 접촉이 자연스럽다. 눈에 든 상대에게 직접 만든 카지노 칩을 하나씩 선물한다. 그냥 기념품처럼 받아주면 편하다.</dd></div>
+        </dl>
+        <button class="reveal-btn" data-target="secretLaurent" aria-expanded="false">앞머리를 넘긴다</button>
+        <div class="secret" id="secretLaurent" hidden>
+          <span class="label">Secret</span>
+          <div class="secret-name">마티외 뒤랑<small>MATHIEU DURAND</small></div>
+          <p>도박 중독인 아버지와 무관심한 어머니 아래에서 자랐다. 고등학교를 졸업한 직후 어머니마저 말없이 사라졌고, 생계를 위해 아버지를 따라 카지노를 드나들다 딜러 제안을 받는다. 사람들의 표정과 습관에서 심리를 읽어내는 재능은 각성한 이능 《Tag》로 더욱 날카로워졌다. 인맥과 자금을 쌓아 독립한 그는 지금 무법도시에서 카지노를 운영한다.</p>
+          <p>가난했던 시절에는 돈을 좇았다. 원하는 만큼의 돈을 손에 넣은 지금, 그는 사람에게서 즐거움을 찾는다. 떠보고, 흔들고, 예상대로 움직이는 모습을 지켜보는 것. 그에게 사람은 신뢰의 대상이 아니라 무료함을 달래 줄 도파민에 가깝다.</p>
+          <ul>
+            <li>딜러 시절, 욕을 제일 많이 먹었다. 그래서 웬만한 말에는 상처받지 않는다.</li>
+            <li>“정을 주는 방법 같은 건 배우지 못했으니까요.”</li>
+          </ul>
         </div>
       </article>
     </div>
@@ -584,36 +590,34 @@ body::after{
 </section>
 
 <!-- ─────────── story ─────────── -->
-<section class="sec story" id="story">
+<section class="sec" id="story">
   <div class="wrap">
-    <div class="sec-head fade">
-      <span class="eyebrow">Story</span>
-      <h2 class="sec-title">세 번의 <em>판</em></h2>
-      <p class="sec-sub">가짜 이름으로 만나, 칩 한 닢으로 시작해서, 세 개의 표식을 지나 본명을 주고받기까지.</p>
-    </div>
+    <header class="sh fade">
+      <h2>세 번의 판</h2>
+      <span class="label">Three Hands</span>
+      <p class="sh-sub">가짜 이름으로 만나, 칩 한 닢으로 시작해서, 세 개의 표식을 지나 본명을 주고받기까지.</p>
+    </header>
 
     <div class="rounds">
-      <!-- I -->
       <article class="round">
-        <div class="round-mark"><div class="chip"><span class="chip-face"><b>I</b></span></div><small>ROUND ONE</small></div>
+        <div class="round-mark"><b>I</b><span class="label">First hand</span></div>
         <div class="round-body fade">
           <h3>칩<small>서로의 진영을 모르던 밤, 카지노 홀에서</small></h3>
-          <p class="q">“칩, 코인이죠. 저랑 만나서 말을 텄다는 증거이기도 하고. 저한테 부탁이 있을 때 써도 괜찮아요.”<small>— 에밀 로랑</small></p>
+          <p class="q">“칩, 코인이죠. 저랑 만나서 말을 텄다는 증거이기도 하고. 저한테 부탁이 있을 때 써도 괜찮아요.”<small>에밀 로랑</small></p>
           <p>로랑은 따로 만든 자기만의 칩을 이현에게 건넨다. 일반 코인과는 색이 다른 칩이다. 이현은 그 손을 톡톡 치며 떠본다. <b>“너는 직급이 뭔데요. 딜러? 매니저? …보스?”</b> 로랑은 손가락을 감싸 쥐고 웃는다. 맞혀볼래요?</p>
           <p>서로 왜 여기 있느냐고 묻는 사이, 이현은 원하는 사람을 말한다. 바라는 것 없이 즐겨주는 사람도, 급이 맞는 사람도 아니다. <b>솔직하면서도 무슨 생각을 하는지 모르겠는 사람.</b> 로랑은 그 조건이라면 자기가 어울릴 것 같다고 답한다.</p>
-          <p class="q">“너무 어렵게 생각하지 말아요. 나는 지금까지 당신한테 한 번도 거짓말한 것이 없거든요.”<small>— 에밀 로랑</small></p>
+          <p class="q">“너무 어렵게 생각하지 말아요. 나는 지금까지 당신한테 한 번도 거짓말한 것이 없거든요.”<small>에밀 로랑</small></p>
           <p class="note">로랑은 이현을 스물여덟, 아홉쯤으로 봤다. 이현은 서른둘이었다.</p>
         </div>
       </article>
 
-      <!-- II -->
       <article class="round">
-        <div class="round-mark"><div class="chip"><span class="chip-face"><b>II</b></span></div><small>ROUND TWO</small></div>
+        <div class="round-mark"><b>II</b><span class="label">Second hand</span></div>
         <div class="round-body fade">
           <h3>메스<small>쇠 맛과 피 맛</small></h3>
-          <p class="q">“제가 아픈 건 싫은데. 그쪽이 아픈 건 어때요? 그걸 구경하는 취미는 있거든요.”<small>— 에밀 로랑</small></p>
+          <p class="q">“제가 아픈 건 싫은데. 그쪽이 아픈 건 어때요? 그걸 구경하는 취미는 있거든요.”<small>에밀 로랑</small></p>
           <p>이현은 싱글싱글 웃으며 메스로 제 엄지를 긋는다. 보고 싶다고 했으니 보여주겠다고. 로랑은 피에 희열을 느끼는 사람은 아니라며 <b>장갑 낀 손</b>으로 상처를 쓸고, 이현은 피 묻은 손가락을 로랑의 입에 밀어 넣는다. 로랑은 기침을 하고 고개를 뺀다. “말이라도 하지.”</p>
-          <figure class="round-photo"><img src="assets/mood-shirt.jpg" alt="피가 튄 흰 셔츠를 입은 사람의 흑백 사진" loading="lazy"><figcaption>white shirt, red iron</figcaption></figure>
+          <figure class="round-photo"><img src="assets/mood-shirt.jpg" alt="피가 튄 흰 셔츠를 입은 사람의 흑백 사진" loading="lazy"></figure>
           <p>둘은 피 맛을 두고 오래 이야기한다. 쇠 맛이라고 하는 것과 피 맛이라고 하는 것은 다르다고. 쇠는 차갑고 날카롭고, 피에는 온기가 섞여 있다고. 이현은 <b>온기 있는 쪽, 살아 있는 쪽이 더 재밌다</b>고 말한다.</p>
           <p class="q">“죽어본 적 있어요?”<br>“죽을 뻔한 적은 있어요. 야매 의사라.”</p>
           <p>로랑은 처음으로 장갑의 이유를 말한다. <b>맨손이 능력의 매개체라서.</b> 엮여도 된다고 허락하면 알려주겠느냐는 물음에 이현은 “엮여도 돼요” 하고 로랑의 이마에 입을 맞춘다. 그 의미는 옛날의 나를 보는 것 같아서, 나와 닮아서. 로랑도 그 입맞춤을 이현의 이마에 돌려준다.</p>
@@ -621,27 +625,26 @@ body::after{
         </div>
       </article>
 
-      <!-- III -->
-      <article class="round" id="round3">
-        <div class="round-mark"><div class="chip"><span class="chip-face"><b>III</b></span></div><small>ROUND THREE</small></div>
+      <article class="round">
+        <div class="round-mark"><b>III</b><span class="label">Third hand</span></div>
         <div class="round-body fade">
           <h3>장갑<small>진영이 드러난 밤, 로랑의 손에는 권총이 들려 있다</small></h3>
           <p>이현이 주머니에서 그 칩을 꺼낸다. 로랑에게 받은 칩이다.</p>
-          <p class="q">“적어도 그대는 나쁜 사람이 아니겠지만… 나쁜 사람이어도 좋겠다고 생각하는 건 우스운 일인가? …네 목숨을 사고 싶군.”<small>— 이현</small></p>
+          <p class="q">“적어도 그대는 나쁜 사람이 아니겠지만… 나쁜 사람이어도 좋겠다고 생각하는 건 우스운 일인가? …네 목숨을 사고 싶군.”<small>이현</small></p>
           <p>로랑은 총구로 이현의 턱을 톡톡 두드리며 웃는다. <b>“현재의 나에 대한 것은 당신에게 한 치의 거짓말도 하지 않았어요. 나는 여전히 에밀 로랑일 것이고, 당신을 보며 웃어줄 테니까요.”</b> 이현은 답한다. 나는 거짓 투성이인데.</p>
 
           <div class="beat" data-tag="1">
-            <span class="beat-label">Tag · 1</span>
+            <span class="label">Tag · 1</span>
             <p>이현은 권총을 쥔 로랑의 손을 끌어당겨 <b>장갑을 벗기고</b>, 그 맨손을 제 가슴팍에 댄다. 장갑을 보고 이미 알고 있었다. “당신이 태그를 한다는 빌런이지? 그리고 네 모든 것을 내게 줘.” 첫 번째 표식이 생긴다.</p>
           </div>
           <div class="beat" data-tag="2">
-            <span class="beat-label">Tag · 2</span>
+            <span class="label">Tag · 2</span>
             <p>가려진 머리카락에 손을 대려던 이현이 뚝 멈춘다. “…네가 보여주고 싶은 부분까지만.” 로랑은 그 손을 잡아 <b>직접 앞머리를 넘긴다.</b> 손등 위로 두 번째 표식. 작은 흉과 새까만 흑안이 드러난다. 이현은 그 눈커풀에 짧게 입을 맞춘다. <b>“…나와 같은 눈을 가졌네.”</b></p>
           </div>
           <div class="beat" data-tag="3">
-            <span class="beat-label">Tag · 3</span>
+            <span class="label">Tag · 3</span>
             <p>“겁쟁이.” 로랑의 단호한 한마디에, 이현은 처음으로 자기 이야기를 꺼낸다. <b>“저는 지우연이에요. …입양됐고, 나는 극작을 하고 싶어.”</b> 꿈지럭거리는 손을 로랑이 감싸 쥔다. 세 번째 표식. 이제는 그닥 신경 쓰이지도 않는다.</p>
-            <p class="q">“지우연, 우연. 예쁜 이름인데요. 나는, 마티외 뒤랑… 돈을 좇아 성공했을 뿐 정을 주는 방법 같은 건 배우지 못했으니까. 그러니 어떻게 나에게 정을 줄 수 있나요?”<small>— 에밀 로랑</small></p>
+            <p class="q">“지우연, 우연. 예쁜 이름인데요. 나는, 마티외 뒤랑… 돈을 좇아 성공했을 뿐 정을 주는 방법 같은 건 배우지 못했으니까. 그러니 어떻게 나에게 정을 줄 수 있나요?”<small>에밀 로랑</small></p>
           </div>
         </div>
       </article>
@@ -650,55 +653,55 @@ body::after{
     <div class="finale fade">
       <div class="rule"></div>
       <p>“극작이 하고 싶다면 해요.<br>원하는 대로 살아도 괜찮잖아요.”</p>
-      <small>— 마티외 뒤랑</small>
+      <small>마티외 뒤랑</small>
     </div>
   </div>
 </section>
 
-<!-- ─────────── tokens ─────────── -->
-<section class="sec tokens" id="tokens">
+<!-- ─────────── felt ─────────── -->
+<section class="sec felt" id="felt">
   <div class="wrap">
-    <div class="sec-head fade">
-      <span class="eyebrow">On the table</span>
-      <h2 class="sec-title">판 위에 <em>놓인 것들</em></h2>
-    </div>
+    <header class="sh fade">
+      <h2>판 위에 놓인 것들</h2>
+      <span class="label">On the Felt</span>
+    </header>
 
     <div class="tok-grid">
       <div class="tok fade">
         <svg viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="15"/><circle cx="17" cy="17" r="9" stroke-dasharray="2 2"/><path d="M17 2v5M17 27v5M2 17h5M27 17h5"/></svg>
-        <h3>칩<small>chip</small></h3>
+        <h3>칩<span class="label">Chip</span></h3>
         <p>로랑이 눈에 든 사람에게만 건네는 자기만의 칩. 말을 텄다는 증거였던 것이, 그의 목숨을 사는 값이 되었다.</p>
       </div>
       <div class="tok fade">
         <svg viewBox="0 0 34 34" aria-hidden="true"><path d="M5 29 22 12l4 4L9 33z"/><path d="M22 12 30 4"/></svg>
-        <h3>메스<small>scalpel</small></h3>
+        <h3>메스<span class="label">Scalpel</span></h3>
         <p>이현이 제 엄지를 그은 칼. 아픈 걸 구경하고 싶다는 사람에게, 보여주겠다며.</p>
       </div>
       <div class="tok fade">
         <svg viewBox="0 0 34 34" aria-hidden="true"><path d="M10 31V15l-3-4V6M14 15V4M18 15V3M22 15V4M26 17v-8"/><path d="M10 31h14l2-14"/></svg>
-        <h3>검은 장갑<small>glove</small></h3>
+        <h3>검은 장갑<span class="label">Glove</span></h3>
         <p>맨손이 능력의 매개체라서 끼는 장갑. 그것을 벗긴 사람은 표식을 스스로 받아들였다.</p>
       </div>
       <div class="tok fade">
-        <svg viewBox="0 0 34 34" aria-hidden="true"><path d="M2 17s6-9 15-9 15 9 15 9-6 9-15 9S2 17 2 17z"/><circle cx="17" cy="17" r="5" fill="currentColor" style="fill:var(--gold)"/></svg>
-        <h3>흑안<small>black eye</small></h3>
+        <svg viewBox="0 0 34 34" aria-hidden="true"><path d="M2 17s6-9 15-9 15 9 15 9-6 9-15 9S2 17 2 17z"/><circle cx="17" cy="17" r="5" style="fill:var(--gold)"/></svg>
+        <h3>흑안<span class="label">Black eye</span></h3>
         <p>흉할까 봐 가려온 로랑의 한쪽 눈. 이현의 눈과 같은 색이었다.</p>
       </div>
       <div class="tok fade">
         <svg viewBox="0 0 34 34" aria-hidden="true"><path d="M5 22c4-8 20-8 24 0"/><path d="M11 14c2-6 10-6 12 0"/><path d="M14 27c1 2 5 2 6 0"/></svg>
-        <h3>이마의 입맞춤<small>forehead</small></h3>
+        <h3>이마의 입맞춤<span class="label">Forehead</span></h3>
         <p>옛날의 나를 보는 것 같아서, 나와 닮아서. 한 번 받고, 한 번 돌려준 것.</p>
       </div>
       <div class="tok fade">
         <svg viewBox="0 0 34 34" aria-hidden="true"><rect x="5" y="8" width="24" height="18"/><path d="M5 13h24M10 19h10M10 22h6"/></svg>
-        <h3>이름<small>name</small></h3>
+        <h3>이름<span class="label">Name</span></h3>
         <p>이현과 에밀 로랑. 마지막에 서로에게 내민 것은 지우연과 마티외 뒤랑이었다.</p>
       </div>
     </div>
 
     <div class="mirror fade">
       <table>
-        <thead><tr><th scope="col"><span class="eyebrow">Mirror</span></th><th scope="col">이현</th><th scope="col">에밀 로랑</th></tr></thead>
+        <thead><tr><th scope="col"><span class="label">Mirror</span></th><th scope="col">이현</th><th scope="col">에밀 로랑</th></tr></thead>
         <tbody>
           <tr><th scope="row">진영</th><td>히어로, 이능관리국</td><td>빌런, 무소속</td></tr>
           <tr><th scope="row">겉옷</th><td>흰 의사 가운</td><td>검은 롱코트</td></tr>
@@ -715,22 +718,21 @@ body::after{
 
 </main>
 
-<!-- ─────────── footer ─────────── -->
 <footer class="foot">
-  <button class="chip" id="lastChip" aria-label="마지막 칩 열기"><span class="chip-face"><b>♠</b></span></button>
+  <button class="foot-secret" id="lastChip" aria-label="숨은 대사 열기">♠</button>
   <div class="foot-title">LE MIRAGE</div>
   <p class="foot-credit">
-    이현 × 에밀 로랑 · H × V<br>
+    이현 × 에밀 로랑<br>
     illust. @NEDH_NANA<br>
     BGM · It Don't Mean a Thing (Duke Ellington), piano by Sangah Noona
   </p>
 </footer>
 
-<div class="over" id="over" role="dialog" aria-label="마지막 칩">
-  <span class="eyebrow">— the last chip —</span>
+<div class="over" id="over" role="dialog" aria-label="숨은 대사">
+  <span class="label">The last chip</span>
   <p>“나는 여전히 에밀 로랑일 것이고,<br>당신을 보며 웃어줄 테니까요.”</p>
   <p class="dim">사람을 좋아하지만 믿지는 않던 남자가, 처음으로 칩이 아닌 이름을 건넸다.</p>
-  <button id="overClose">— close —</button>
+  <button id="overClose">CLOSE</button>
 </div>
 
 <div class="cursor" id="cursor" aria-hidden="true"></div>
@@ -744,13 +746,11 @@ bgm.loop = true; bgm.volume = 0.55;
 const bgmBox = document.getElementById('bgm');
 const bgmBtn = document.getElementById('bgmBtn');
 const bgmState = document.getElementById('bgmState');
-const bgmIcon = document.getElementById('bgmIcon');
 let labelTimer;
 function syncBgm(){
   const on = !bgm.paused;
   bgmBox.classList.toggle('playing', on);
-  bgmState.textContent = on ? '♪ 재생 중 · 눌러서 멈춤' : '♪ 눌러서 재생';
-  bgmIcon.textContent = on ? '♪' : '♪';
+  bgmState.textContent = on ? '재생 중 · 눌러서 멈춤' : '눌러서 재생';
   bgmBtn.setAttribute('aria-label', (on ? '음악 멈추기' : '음악 재생') + ": It Don't Mean a Thing");
 }
 function flashLabel(){
@@ -767,14 +767,45 @@ bgmBtn.addEventListener('touchstart', flashLabel, {passive:true});
 bgm.addEventListener('pause', syncBgm);
 bgm.addEventListener('play', syncBgm);
 
-/* ── gate ── */
+/* ── loading ── */
 const gate = document.getElementById('gate');
-document.getElementById('gateChip').addEventListener('click', () => {
-  gate.classList.add('open');
-  playBgm();
-  flashLabel();
-  setTimeout(() => gate.classList.add('gone'), 650);
+const gLine = document.getElementById('gLine');
+const gBar = document.getElementById('gBar');
+const gPct = document.getElementById('gPct');
+let d = 0;
+gLine.querySelectorAll('.w').forEach(w => {
+  const t = w.textContent; w.textContent = '';
+  [...t].forEach(ch => {
+    const s = document.createElement('span');
+    s.className = 'c'; s.textContent = ch === ' ' ? ' ' : ch;
+    s.style.transitionDelay = (d++ * 0.045) + 's';
+    w.appendChild(s);
+  });
 });
+requestAnimationFrame(() => requestAnimationFrame(() => gLine.classList.add('on')));
+
+const loaded = Promise.all([
+  new Promise(r => document.readyState === 'complete' ? r() : addEventListener('load', r)),
+  document.fonts ? document.fonts.ready : Promise.resolve()
+]);
+let isLoaded = false; loaded.then(() => { isLoaded = true; });
+setTimeout(() => { isLoaded = true; }, 8000);
+const t0 = performance.now(), MIN = 2600;
+(function tick(now){
+  const timeP = Math.min(1, (now - t0) / MIN);
+  const p = isLoaded ? timeP : Math.min(timeP, .9);
+  gBar.style.transform = `scaleX(${p})`;
+  gPct.textContent = 'LOADING ' + String(Math.round(p * 100)).padStart(3, '0');
+  if (p < 1) requestAnimationFrame(tick);
+  else { gate.classList.add('ready'); gPct.textContent = 'FAITES VOS JEUX'; }
+})(t0);
+
+function enter(){
+  if (!gate.classList.contains('ready') || gate.classList.contains('gone')) return;
+  gate.classList.add('gone');
+  playBgm(); flashLabel();
+}
+gate.addEventListener('click', enter);
 
 /* ── menu ── */
 const ham = document.getElementById('ham');
@@ -786,9 +817,8 @@ document.querySelectorAll('.side a').forEach(a => a.addEventListener('click', ()
   document.body.classList.remove('menu-open'); ham.setAttribute('aria-expanded', false);
 }));
 
-/* ── hero chip flip ── */
-const heroFlip = document.getElementById('heroFlip');
-heroFlip.addEventListener('click', () => heroFlip.classList.toggle('turned'));
+/* ── receipt redactions ── */
+document.querySelectorAll('.redact').forEach(b => b.addEventListener('click', () => b.classList.toggle('open')));
 
 /* ── secrets ── */
 document.querySelectorAll('.reveal-btn').forEach(btn => {
@@ -797,11 +827,11 @@ document.querySelectorAll('.reveal-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     panel.hidden = !panel.hidden;
     btn.setAttribute('aria-expanded', !panel.hidden);
-    btn.textContent = panel.hidden ? closed : '— 다시 가린다 —';
+    btn.textContent = panel.hidden ? closed : '다시 가린다';
   });
 });
 
-/* ── last chip ── */
+/* ── hidden line ── */
 const over = document.getElementById('over');
 document.getElementById('lastChip').addEventListener('click', () => over.classList.add('show'));
 document.getElementById('overClose').addEventListener('click', () => over.classList.remove('show'));
@@ -813,12 +843,11 @@ if ('IntersectionObserver' in window) {
     if (en.isIntersecting) { en.target.classList.remove('pending'); io.unobserve(en.target); }
   }), {rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.fade').forEach(el => {
-    const r = el.getBoundingClientRect();
-    if (r.top > innerHeight) { el.classList.add('pending'); io.observe(el); }
+    if (el.getBoundingClientRect().top > innerHeight) { el.classList.add('pending'); io.observe(el); }
   });
 }
 
-/* ── tag meter: lights up as round III unfolds ── */
+/* ── tag meter ── */
 const meter = document.getElementById('tagmeter');
 const dots = meter.querySelectorAll('i');
 const beats = [...document.querySelectorAll('.beat')];
@@ -832,7 +861,7 @@ function updateTags(){
     b.classList.toggle('lit', lit);
     if (lit) n = Math.max(n, +b.dataset.tag);
   });
-  dots.forEach((d, i) => d.classList.toggle('lit', i < n));
+  dots.forEach((dot, i) => dot.classList.toggle('lit', i < n));
 }
 addEventListener('scroll', updateTags, {passive:true});
 addEventListener('resize', updateTags);
