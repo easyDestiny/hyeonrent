@@ -352,7 +352,8 @@ body::after{
 .round-photo{position:relative;margin:0;aspect-ratio:16/9;max-width:100%;overflow:hidden;border:1px solid var(--line-soft)}
 .round-photo img{width:100%;height:100%;object-fit:cover;filter:brightness(.8)}
 .round-act{font-family:var(--f-gothic);font-size:11px;letter-spacing:.3em;color:var(--gold)}
-.pending-box{border:1px dashed var(--line);padding:22px 24px;font-size:14px;color:var(--text-faint);text-align:center}
+.after{display:flex;flex-direction:column;gap:18px;padding-top:26px;margin-top:6px;border-top:1px solid var(--line-soft)}
+.q.gold{color:var(--gold-2)}
 .beat{display:flex;flex-direction:column;gap:12px;padding:22px 0 22px 22px;border-left:1px dashed var(--line);position:relative}
 .beat::before{content:"";position:absolute;left:-6px;top:30px;width:11px;height:11px;border-radius:50%;border:1px solid var(--gold);background:var(--ink);transition:background .5s,box-shadow .5s}
 .beat.lit::before{background:var(--gold);box-shadow:0 0 10px rgba(191,160,103,.8)}
@@ -411,37 +412,40 @@ button.frame:hover img{transform:scale(1.04);filter:brightness(1.08)}
 .track.on .t-play{background:var(--gold);color:var(--ink)}
 
 /* ───── scenarios ───── */
-.tickets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,2vw,20px)}
-.ticket{position:relative;padding:26px 24px 26px 30px;border:1px solid var(--line);background:linear-gradient(135deg,rgba(191,160,103,.08),transparent 60%);display:flex;flex-direction:column;gap:8px;min-width:0}
-.ticket::before{content:"";position:absolute;left:14px;top:12px;bottom:12px;border-left:1px dashed var(--line)}
-.tk-no{font-family:var(--f-gothic);font-size:10px;letter-spacing:.32em;color:var(--gold)}
-.ticket h3{font-size:18px}
-.ticket p{font-size:13px;color:var(--text-dim)}
-.ticket.empty{border-style:dashed;background:none}
-.ticket.empty h3,.ticket.empty p{color:var(--text-faint);font-weight:300}
-@media (max-width:760px){.tickets{grid-template-columns:1fr}}
+.tk-no{font-family:var(--f-gothic);font-size:10.5px;letter-spacing:.32em;color:var(--gold);font-variant-numeric:tabular-nums}
+.snow-card{position:relative;isolation:isolate;overflow:hidden;min-height:clamp(300px,42vw,420px);border:1px solid var(--line);display:flex;align-items:flex-end;padding:clamp(26px,5vw,48px)}
+.snow-card::before{content:"";position:absolute;inset:0;z-index:-2;background:url(assets/mood-gothic.jpg) center 30%/cover;filter:saturate(.75) brightness(.55)}
+.snow-card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(13,11,9,.88),rgba(13,11,9,.35) 70%,rgba(13,11,9,.15))}
+.snow{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.snow-in{position:relative;z-index:1;display:flex;flex-direction:column;gap:12px;max-width:30em}
+.snow-in h3{font-size:clamp(30px,5.4vw,48px);line-height:1.15}
+.snow-in p{font-size:15px;color:var(--text-dim)}
 
 /* ───── confession ───── */
 .confession{overflow:hidden;isolation:isolate}
 .confession::before{content:"";position:absolute;inset:0;z-index:-1;background:url(assets/mood-highway.jpg) center/cover;opacity:.2}
 .confession::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(var(--ink),rgba(13,11,9,.55) 30%,rgba(13,11,9,.55) 70%,var(--ink))}
-.log{display:flex;flex-direction:column;gap:18px;max-width:640px;margin:0 auto}
-.msg{display:flex;flex-direction:column;gap:6px;max-width:82%}
-.msg .who{font-family:var(--f-gothic);font-size:10.5px;letter-spacing:.24em;color:var(--text-faint)}
-.msg p{padding:14px 18px;font-size:14.5px;line-height:1.8}
-.msg.h{align-self:flex-start}
-.msg.h p{background:rgba(241,235,223,.9);color:var(--ink-on-paper)}
-.msg.v{align-self:flex-end;align-items:flex-end}
-.msg.v p{background:rgba(23,19,15,.9);border:1px solid var(--line);color:var(--gold-2)}
-.msg p.empty{opacity:.55}
+.yts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2.6vw,26px)}
+.yt{display:flex;flex-direction:column;gap:10px;min-width:0}
+.yt-who{font-family:var(--f-myungjo);font-weight:700;font-size:15px;letter-spacing:.14em}
+.yt:nth-child(2) .yt-who{color:var(--gold-2)}
+.yt-box{position:relative;aspect-ratio:16/9;max-width:100%;border:1px solid var(--line);background:var(--ink-2) center/cover no-repeat;overflow:hidden;padding:0;cursor:pointer;display:block;width:100%}
+.yt-box::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(13,11,9,.7));transition:opacity .3s}
+.yt-box:hover::after{opacity:.4}
+.yt-play{position:absolute;left:50%;top:50%;z-index:1;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;border:1px solid var(--gold-2);background:rgba(13,11,9,.6);display:flex;align-items:center;justify-content:center;color:var(--gold-2);font-size:18px;padding-left:4px;transition:transform .3s,background .3s}
+.yt-box:hover .yt-play{transform:scale(1.08);background:rgba(191,160,103,.35)}
+.yt-box iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt-link{font-family:var(--f-gothic);font-size:10.5px;letter-spacing:.2em;color:var(--text-faint);text-decoration:none}
+.yt-link:hover{color:var(--gold-2)}
+@media (max-width:720px){.yts{grid-template-columns:1fr}}
 
 /* ───── dedication ───── */
-.dedi{max-width:560px;margin:0 auto;padding:clamp(34px,6vw,56px) clamp(24px,5vw,48px);border:1px solid var(--line);outline:1px solid var(--line-soft);outline-offset:6px;display:flex;flex-direction:column;gap:20px;text-align:center}
+.dedi{max-width:620px;margin:0 auto;padding:clamp(34px,6vw,56px) clamp(24px,5vw,48px);border:1px solid var(--line);outline:1px solid var(--line-soft);outline-offset:6px;display:flex;flex-direction:column;gap:20px;text-align:center}
 .d-to,.d-from{font-family:var(--f-script);font-size:22px;color:var(--gold-2);line-height:1.2}
 .d-to{align-self:flex-start}
 .d-from{align-self:flex-end}
-.dedi p{font-size:15px;line-height:2}
-.dedi p.empty{color:var(--text-faint)}
+.dedi p{font-size:15px;line-height:2;text-wrap:balance;word-break:keep-all}
+.dedi .d-love{font-weight:700;color:var(--gold-2)}
 
 /* ───── footer ───── */
 .foot{padding-block:clamp(70px,10vw,110px) calc(96px + env(safe-area-inset-bottom,0px));padding-inline:var(--gutter);text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;border-top:1px solid var(--line-soft)}
@@ -762,9 +766,11 @@ button.frame:hover img{transform:scale(1.04);filter:brightness(1.08)}
             <p class="q">“지우연, 우연. 예쁜 이름인데요. 나는, 마티외 뒤랑… 돈을 좇아 성공했을 뿐 정을 주는 방법 같은 건 배우지 못했으니까. 그러니 어떻게 나에게 정을 줄 수 있나요?”<small>에밀 로랑</small></p>
           </div>
           <p class="q">“극작이 하고 싶다면 해요. 원하는 대로 살아도 괜찮잖아요.”<small>마티외 뒤랑</small></p>
-          <figure class="round-photo"><img src="assets/mood-gothic.jpg" alt="밤에 금빛 조명을 받은 고딕 양식 건물" loading="lazy"></figure>
-          <!-- 사랑하게 된 뒤의 이야기가 생기면 아래 상자를 지우고 <p> 문단으로 이어 쓰면 돼요 -->
-          <p class="pending-box">사랑하게 된 뒤의 판은 아직 테이블 위에. 이야기가 쌓이면 이 자리에 이어집니다.</p>
+          <p>목숨을 사겠다던 칩은 끝내 돌려받지 못했다. 대신 표식 세 개가 남았고, 두 사람은 더 이상 가짜 이름으로 서로를 부르지 않는다.</p>
+          <div class="after">
+            <p class="q">“어때? 모든 것을 가지던 이가 나까지 가지게 된 기분은.”<small>이현</small></p>
+            <p class="q gold">“질문에 대한 대답부터 해야 할까요? 이보다 더 만족감 있는 소유를 해본 적이 없어요.”<small>에밀 로랑</small></p>
+          </div>
         </div>
       </article>
     </div>
@@ -782,8 +788,6 @@ button.frame:hover img{transform:scale(1.04);filter:brightness(1.08)}
     <!-- 소설 추가: <li> 하나를 복사해서 class="empty"를 지우고, href에 링크, 제목·작가·상태를 바꾸면 돼요 -->
     <ol class="ledger fade">
       <li class="empty"><a><span class="no">No. 001</span><span class="t">비어 있는 자리</span><span class="by">작가</span><span class="st">준비 중</span></a></li>
-      <li class="empty"><a><span class="no">No. 002</span><span class="t">비어 있는 자리</span><span class="by">작가</span><span class="st">준비 중</span></a></li>
-      <li class="empty"><a><span class="no">No. 003</span><span class="t">비어 있는 자리</span><span class="by">작가</span><span class="st">준비 중</span></a></li>
     </ol>
   </div>
 </section>
@@ -837,14 +841,15 @@ button.frame:hover img{transform:scale(1.04);filter:brightness(1.08)}
     <header class="sh fade">
       <h2>다녀온 시나리오</h2>
       <span class="label">Scenarios</span>
-      <p class="sh-sub">두 사람이 함께 앉았던 다른 테이블들.</p>
     </header>
-    <!-- 시나리오 추가: <article class="ticket empty"> 안의 글자를 바꾸고 class="empty"를 지우면 돼요 -->
-    <div class="tickets fade">
-      <article class="ticket empty"><span class="tk-no">ADMIT ONE</span><h3>시나리오 이름</h3><p>다녀온 날짜 · 한 줄 소개</p></article>
-      <article class="ticket empty"><span class="tk-no">ADMIT ONE</span><h3>시나리오 이름</h3><p>다녀온 날짜 · 한 줄 소개</p></article>
-      <article class="ticket empty"><span class="tk-no">ADMIT ONE</span><h3>시나리오 이름</h3><p>다녀온 날짜 · 한 줄 소개</p></article>
-    </div>
+    <article class="snow-card fade">
+      <canvas class="snow" id="snow" aria-hidden="true"></canvas>
+      <div class="snow-in">
+        <span class="tk-no">ADMIT ONE · 07.17 — 08.01</span>
+        <h3>함박눈 안단테</h3>
+        <p>정말 슬프고, 현랑 같고, 우울하고, 아름다운 시나리오였다.</p>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -854,13 +859,11 @@ button.frame:hover img{transform:scale(1.04);filter:brightness(1.08)}
     <header class="sh fade">
       <h2>고백 로그</h2>
       <span class="label">Confession</span>
-      <p class="sh-sub">그날 오간 말들.</p>
     </header>
-    <!-- 로그 추가: <div class="msg h">는 이현, <div class="msg v">는 로랑. <p> 안의 글을 바꾸면 돼요 -->
-    <div class="log fade">
-      <div class="msg h"><span class="who">이현</span><p class="empty">고백 로그가 들어갈 자리</p></div>
-      <div class="msg v"><span class="who">에밀 로랑</span><p class="empty">고백 로그가 들어갈 자리</p></div>
-      <div class="msg h"><span class="who">이현</span><p class="empty">…</p></div>
+    <!-- 영상 추가: <div class="yt" data-id="유튜브영상ID" data-who="이름"></div> 한 줄을 복사하면 돼요 -->
+    <div class="yts fade">
+      <div class="yt" data-id="hmx217HU2qA" data-who="이현"></div>
+      <div class="yt" data-id="nVtFuXFV1Ww" data-who="에밀 로랑"></div>
     </div>
   </div>
 </section>
@@ -872,11 +875,10 @@ button.frame:hover img{transform:scale(1.04);filter:brightness(1.08)}
       <h2>헌정사</h2>
       <span class="label">Dedication</span>
     </header>
-    <!-- 헌정사: To. 받는 사람, <p> 안에 글, From. 보내는 사람을 쓰면 돼요 -->
     <div class="dedi fade">
-      <span class="d-to">To.</span>
-      <p class="empty">헌정사가 들어갈 자리입니다.</p>
-      <span class="d-from">From.</span>
+      <span class="d-to">To. 앤오님</span>
+      <p>언제나 저와 함께 놀아주시는, 그리고 함께 해주시는 앤오님께 감사드립니다.<br>앤오님께서 없었다면 현랑은 없었을 겁니다…<br>제게 와주셔서 감사하고, 앞으로도 함께해주실 거라 믿습니다…</p>
+      <p class="d-love">사랑합니다!!!</p>
     </div>
   </div>
 </section>
@@ -887,8 +889,7 @@ button.frame:hover img{transform:scale(1.04);filter:brightness(1.08)}
   <button class="foot-secret" id="lastChip" aria-label="숨은 대사 열기">♠</button>
   <div class="foot-title">Le Mirage</div>
   <p class="foot-credit">
-    이현 × 에밀 로랑<br>
-    BGM · It Don't Mean a Thing (Duke Ellington), piano by Sangah Noona
+    이현 × 에밀 로랑
   </p>
 </footer>
 
@@ -1059,6 +1060,46 @@ function syncTrack(){
 trackBtn.addEventListener('click', () => { if (bgm.paused) playBgm(); else bgm.pause(); flashLabel(); });
 bgm.addEventListener('play', syncTrack);
 bgm.addEventListener('pause', syncTrack);
+
+/* ── youtube: 썸네일을 먼저 보여주고, 누르면 그 자리에서 재생 ── */
+document.querySelectorAll('.yt').forEach(el => {
+  const id = el.dataset.id, who = el.dataset.who;
+  el.innerHTML =
+    `<span class="yt-who">${who}</span>` +
+    `<button class="yt-box" aria-label="${who} 고백 영상 재생" style="background-image:url(https://i.ytimg.com/vi/${id}/hqdefault.jpg)"><span class="yt-play">▶</span></button>` +
+    `<a class="yt-link" href="https://youtu.be/${id}" target="_blank" rel="noopener">YOUTUBE에서 보기 ↗</a>`;
+  const box = el.querySelector('.yt-box');
+  box.addEventListener('click', () => {
+    if (box.querySelector('iframe')) return;
+    bgm.pause();
+    box.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1" title="${who} 고백 로그" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+    box.style.cursor = 'default';
+  });
+});
+
+/* ── 함박눈 ── */
+(() => {
+  const c = document.getElementById('snow'); if (!c) return;
+  const g = c.getContext('2d'); let w, h, flakes = [], run = false;
+  function size(){
+    const r = Math.min(devicePixelRatio || 1, 2); w = c.clientWidth; h = c.clientHeight;
+    c.width = w * r; c.height = h * r; g.setTransform(r, 0, 0, r, 0, 0);
+    flakes = Array.from({length: Math.round(w * h / 5000)}, () => ({x:Math.random()*w, y:Math.random()*h, r:.8+Math.random()*2.6, s:.3+Math.random()*.9, d:Math.random()*6}));
+  }
+  function draw(){
+    if (!run) return;
+    g.clearRect(0, 0, w, h);
+    for (const f of flakes) {
+      f.y += f.s; f.d += .01; f.x += Math.sin(f.d) * .4;
+      if (f.y > h + 4) { f.y = -4; f.x = Math.random() * w; }
+      g.beginPath(); g.arc(f.x, f.y, f.r, 0, 7); g.fillStyle = `rgba(255,250,240,${.35 + f.r / 6})`; g.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  size(); addEventListener('resize', size);
+  if (matchMedia('(prefers-reduced-motion:reduce)').matches) { run = true; draw(); run = false; return; }
+  new IntersectionObserver(es => { const v = es[0].isIntersecting; if (v && !run) { run = true; draw(); } else if (!v) run = false; }).observe(c);
+})();
 
 /* ── hidden line ── */
 const over = document.getElementById('over');
