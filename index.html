@@ -386,13 +386,20 @@ body::after{
 .g-group{font-size:17px;letter-spacing:.08em;margin:clamp(40px,6vw,64px) 0 18px;display:flex;align-items:baseline;gap:12px}
 .g-group:first-of-type{margin-top:0}
 .g-group small{font-family:var(--f-gothic);font-weight:300;font-size:11px;letter-spacing:.2em;color:var(--text-faint)}
-.pics{columns:3 240px;column-gap:clamp(10px,1.6vw,16px)}
+.pics{columns:2;column-gap:clamp(10px,1.6vw,16px)}
 .span-all{column-span:all}
 .pic{break-inside:avoid;margin:0 0 clamp(10px,1.6vw,16px);display:flex;flex-direction:column;gap:8px;position:relative}
 .pic .pic-box{position:relative;display:block;width:100%;padding:0;border:1px solid var(--line-soft);background:var(--ink-2);cursor:zoom-in;overflow:hidden}
 .pic img{width:100%;height:auto;transition:transform .6s ease,filter .5s ease}
 .pic .pic-box:hover img{transform:scale(1.03)}
-.pic figcaption{font-family:var(--f-gothic);font-size:11px;letter-spacing:.12em;color:var(--text-dim)}
+.pic figcaption{position:absolute;left:1px;right:1px;bottom:1px;padding:28px 14px 12px;pointer-events:none;
+  font-family:var(--f-gothic);font-size:12px;letter-spacing:.1em;color:var(--gold-2);text-align:left;
+  background:linear-gradient(rgba(13,11,9,0),rgba(13,11,9,.92) 55%);opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s}
+.pic figcaption::before{content:"illust. ";color:var(--text-faint);font-size:10.5px;letter-spacing:.2em}
+@media (hover:hover){.pic:hover figcaption{opacity:1;transform:none}}
+.pic.cap figcaption{opacity:1;transform:none}
+.pic.waiting figcaption{display:none}
+.lb-cap{font-family:var(--f-gothic);font-size:12px;letter-spacing:.14em;color:var(--gold-2);text-align:center}
 .pic.waiting .pic-box{aspect-ratio:4/5;cursor:default;border-style:dashed;border-color:var(--line);display:flex;align-items:center;justify-content:center}
 .pic.waiting .pic-box::before{content:"그림 연결 대기";font-family:var(--f-gothic);font-size:10.5px;letter-spacing:.24em;color:var(--text-faint)}
 .pic.wide.waiting .pic-box{aspect-ratio:16/9}
@@ -408,7 +415,7 @@ body::after{
 .secret-pic.waiting .pic-box::after{display:none}
 /* 100일: 한 장의 그림이 지직거리다가 자막이 있는 그림으로 바뀐다 */
 .hundred{margin-top:clamp(60px,9vw,100px);padding-top:clamp(40px,6vw,60px);border-top:1px solid var(--line);display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
-.moon{position:relative;display:block;width:100%;aspect-ratio:2000/1131;max-width:100%;padding:0;border:1px solid var(--line);background:#0e1620;overflow:hidden;cursor:zoom-in}
+.moon{position:relative;display:block;width:min(1240px,calc(100vw - 2*var(--gutter)));margin-inline:calc(50% - min(620px,50vw - var(--gutter)));aspect-ratio:2000/1131;max-width:100%;padding:0;border:1px solid var(--line);background:#0e1620;overflow:hidden;cursor:zoom-in}
 .moon img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .m-top{animation:mSwap 9s infinite steps(1)}
 .m-g1,.m-g2{position:absolute;inset:0;background:url(assets/gallery/hundred-2.webp) center/cover;opacity:0;pointer-events:none;mix-blend-mode:screen}
@@ -554,6 +561,20 @@ body::after{
 .cursor{position:fixed;left:0;top:0;width:26px;height:26px;margin:-13px 0 0 -13px;border:1px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9500;transition:width .25s,height .25s,margin .25s;opacity:0}
 @media (pointer:fine){.cursor{opacity:.75}}
 .cursor.big{width:44px;height:44px;margin:-22px 0 0 -22px}
+
+/* ── 글자에 살짝 숨 불어넣기 ── */
+@keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes sheen{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes glow{0%,100%{text-shadow:0 0 0 rgba(226,205,156,0)}50%{text-shadow:0 0 16px rgba(226,205,156,.45)}}
+@keyframes flicker{0%,100%{opacity:1}92%{opacity:1}93%{opacity:.55}94%{opacity:1}96%{opacity:.7}97%{opacity:1}}
+.hero-title{background:linear-gradient(100deg,var(--text) 35%,#fff6dc 48%,var(--gold-2) 52%,var(--text) 65%) 0 0/250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s linear infinite}
+.hero-place{animation:flicker 6s infinite}
+.sh .label{display:inline-block;animation:drift 4.5s ease-in-out infinite}
+.about-line,.cage-copy .trail,.finale p,.round-act{animation:glow 4s ease-in-out infinite}
+.hero-talk div{animation:drift 6s ease-in-out infinite}
+.hero-talk div:nth-child(2){animation-delay:-3s}
+.wave span{display:inline-block;animation:drift 3.2s ease-in-out infinite}
+.dday b{animation:glow 3s ease-in-out infinite}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
@@ -905,7 +926,7 @@ body::after{
     <header class="sh fade">
       <h2>갤러리</h2>
       <span class="label">Gallery</span>
-      <p class="sh-sub">눌러서 크게 보기.</p>
+      <p class="sh-sub">그림을 누르면 그려주신 분이, 한 번 더 누르면 크게 보여요.</p>
     </header>
     <!-- 그림 넣는 법: <figure class="pic" data-src="그림주소"> 의 data-src 에 그림 파일 주소를 넣으면 돼요 -->
 
@@ -1010,7 +1031,6 @@ body::after{
         <p>거칠게 떠밀린 사람처럼 앞으로 털썩 고꾸라지는</p>
         <p>소중한 연인. …이현 ···.</p>
       </div>
-      <a class="ex-more" href="https://easyrjm.tistory.com/m/46" target="_blank" rel="noopener">더 보러 가기 <span>함박눈 안단테 _ 현랑 ↗</span></a>
       <p class="ex-note">* 19금 씬이 있으므로, 보시길 원하는 분은 비밀번호를 제작자에게 문의 바랍니다.</p>
     </article>
   </div>
@@ -1063,7 +1083,7 @@ body::after{
   <button id="overClose">CLOSE</button>
 </div>
 
-<div class="lb" id="lb" role="dialog" aria-label="그림 크게 보기"><img id="lbImg" alt=""><button id="lbClose">CLOSE</button></div>
+<div class="lb" id="lb" role="dialog" aria-label="그림 크게 보기"><img id="lbImg" alt=""><p class="lb-cap" id="lbCap"></p><button id="lbClose">CLOSE</button></div>
 
 <div class="cursor" id="cursor" aria-hidden="true"></div>
 
@@ -1261,6 +1281,7 @@ document.querySelectorAll('.yt').forEach(el => {
   new IntersectionObserver(es => { const v = es[0].isIntersecting; if (v && !run) { run = true; draw(); } else if (!v) run = false; }).observe(c);
 })();
 
+const lbCap = document.getElementById('lbCap');
 /* ── gallery: data-src 가 있는 그림만 불러오고, 없으면 '연결 대기' 칸 ── */
 document.querySelectorAll('.pic[data-src]').forEach(fig => {
   const src = fig.dataset.src, cap = fig.querySelector('figcaption');
@@ -1272,17 +1293,23 @@ document.querySelectorAll('.pic[data-src]').forEach(fig => {
   img.alt = cap ? cap.textContent : '현랑 그림';
   box.appendChild(img);
   box.setAttribute('aria-label', fig.classList.contains('secret-pic') ? '블러 풀기' : '크게 보기');
+  const touchOnly = !matchMedia('(hover:hover)').matches;
   box.addEventListener('click', () => {
     if (fig.classList.contains('secret-pic') && !fig.classList.contains('shown')) {
-      fig.classList.add('shown'); box.setAttribute('aria-label', '크게 보기'); return;
+      fig.classList.add('shown', 'cap'); box.setAttribute('aria-label', '크게 보기'); return;
     }
-    lbImg.src = src; lbImg.alt = img.alt; lb.classList.add('show');
+    // 휴대폰: 첫 터치는 커미션주 이름, 두 번째 터치에 크게 보기
+    if (touchOnly && cap && !fig.classList.contains('cap')) {
+      document.querySelectorAll('.pic.cap').forEach(f => f.classList.remove('cap'));
+      fig.classList.add('cap'); return;
+    }
+    lbImg.src = src; lbImg.alt = img.alt; lbCap.textContent = cap ? 'illust. ' + cap.textContent : ''; lb.classList.add('show');
   });
 });
 
 /* ── 시나리오 그림 ── */
-document.querySelector('.moon').addEventListener('click', () => { lbImg.src = 'assets/gallery/hundred-2.webp'; lbImg.alt = '100일 축하해'; lb.classList.add('show'); });
-document.querySelectorAll('.poster').forEach(b => b.addEventListener('click', () => { const i = b.querySelector('img'); lbImg.src = i.src; lbImg.alt = i.alt; lb.classList.add('show'); }));
+document.querySelector('.moon').addEventListener('click', () => { lbImg.src = 'assets/gallery/hundred-2.webp'; lbImg.alt = '100일 축하해'; lbCap.textContent = ''; lb.classList.add('show'); });
+document.querySelectorAll('.poster').forEach(b => b.addEventListener('click', () => { const i = b.querySelector('img'); lbImg.src = i.src; lbImg.alt = i.alt; lbCap.textContent = ''; lb.classList.add('show'); }));
 document.querySelectorAll('.snow-card[data-bg]').forEach(c => { if (c.dataset.bg) c.style.setProperty('--bg', `url("${c.dataset.bg}")`); });
 
 /* ── 말풍선: 구역에 들어가면 두 사람이 한마디씩 ── */
@@ -1340,6 +1367,12 @@ let idleT, idleI = 0;
 function resetIdle(){ clearTimeout(idleT); idleT = setTimeout(() => { speak(IDLE[idleI++ % IDLE.length]); resetIdle(); }, 30000); }
 ['scroll','click','touchstart','mousemove','keydown'].forEach(ev => addEventListener(ev, resetIdle, {passive:true}));
 resetIdle();
+
+/* ── 물결 글자 ── */
+document.querySelectorAll('.about-line, .d-love, .snow-in h3').forEach(el => {
+  const t = el.textContent; el.textContent = ''; el.classList.add('wave');
+  [...t].forEach((ch, i) => { const sp = document.createElement('span'); sp.textContent = ch === ' ' ? '\u00a0' : ch; sp.style.animationDelay = (i * .08) + 's'; el.appendChild(sp); });
+});
 
 /* ── 함께한 날 (시작일을 바꾸려면 아래 날짜만 고치면 돼요) ── */
 const START = new Date(2026, 6, 6);    // 2026년 7월 6일 (월은 0부터 세서 7월 = 6)
