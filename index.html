@@ -150,6 +150,9 @@ body::after{
   padding:120px var(--gutter) 100px;text-align:center;overflow:hidden;isolation:isolate;
 }
 .hero-bg{position:absolute;inset:0;z-index:-1;background:url(assets/mood-street.jpg) center/cover;filter:saturate(.8) brightness(.42)}
+.hero-fx{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.dday{display:flex;align-items:baseline;gap:12px;font-family:var(--f-gothic);font-size:11px;letter-spacing:.3em;color:var(--text-faint);margin-top:6px}
+.dday b{font-family:var(--f-myungjo);font-weight:700;font-size:clamp(20px,4vw,26px);letter-spacing:.06em;color:var(--gold-2);font-variant-numeric:tabular-nums;text-shadow:0 0 18px rgba(226,205,156,.35)}
 .hero-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center, rgba(13,11,9,.15), var(--ink) 78%)}
 .hero-in{display:flex;flex-direction:column;align-items:center;gap:24px}
 .hero-place{font-family:var(--f-myungjo);font-weight:300;font-size:clamp(14px,3.4vw,17px);letter-spacing:.24em;color:var(--gold-2)}
@@ -425,6 +428,17 @@ body::after{
 .playlist{background:var(--ink-2);overflow:hidden;isolation:isolate}
 .playlist::before{content:"";position:absolute;inset:0;z-index:-1;background:url(assets/mood-street.jpg) center/cover;opacity:.12}
 .playlist::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(var(--ink),transparent 25%,transparent 75%,var(--ink))}
+.owner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:clamp(16px,3vw,32px);align-items:stretch;margin-bottom:clamp(30px,5vw,48px)}
+.owner-card{display:flex;flex-direction:column;gap:16px;padding:clamp(22px,3.5vw,34px);border:1px solid var(--gold);outline:1px solid var(--line);outline-offset:-7px;background:rgba(13,11,9,.75)}
+.owner-card h3{font-size:clamp(24px,3.6vw,32px);margin-top:4px}
+.owner-card p{font-size:14px;color:var(--text-dim);margin-top:8px}
+.owner-card .yt-link{margin-top:auto}
+.owner-chip{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle,var(--ink) 0 52%,transparent 53%),repeating-conic-gradient(var(--gold) 0 15deg,var(--ink-3) 15deg 30deg);box-shadow:0 0 0 1px var(--gold);animation:emblem 18s linear infinite}
+.owner-chip b{font-size:18px;color:var(--gold-2);font-weight:400}
+.owner-player{position:relative;aspect-ratio:16/9;max-width:100%;border:1px solid var(--line);background:var(--ink-2);overflow:hidden}
+.owner-player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+@media (max-width:760px){.owner{grid-template-columns:1fr}}
 .tracks{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
 .track{display:grid;grid-template-columns:40px 34px minmax(0,1fr) auto;gap:14px;align-items:center;padding:16px 6px;border-bottom:1px solid var(--line-soft)}
 .t-play{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--gold-2);font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center}
@@ -463,20 +477,31 @@ body::after{
 .ex-more:hover span{color:var(--ink)}
 .ex-note{font-size:12.5px;color:var(--text-faint)}
 
-/* ───── 말풍선 ───── */
-.talk{position:fixed;top:50%;z-index:650;display:flex;flex-direction:column;gap:6px;max-width:150px;opacity:0;transform:translateY(-50%) translateY(10px);transition:opacity .6s ease,transform .6s ease;pointer-events:none}
+/* ───── 말풍선: 이현은 진료 메모지, 로랑은 카지노 칩 카드 ───── */
+.talk{position:fixed;top:50%;z-index:650;display:flex;flex-direction:column;gap:7px;max-width:168px;opacity:0;transform:translateY(-50%) translateY(10px);transition:opacity .6s ease,transform .6s ease;pointer-events:none}
 .talk.on{opacity:1;transform:translateY(-50%)}
 #talkH{left:14px;align-items:flex-start}
 #talkV{right:14px;align-items:flex-end;text-align:right}
-.talk-who{font-family:var(--f-gothic);font-size:10.5px;letter-spacing:.24em}
+.talk-who{display:flex;align-items:center;gap:6px;font-family:var(--f-gothic);font-size:10px;letter-spacing:.22em}
 #talkH .talk-who{color:var(--paper)}
-#talkV .talk-who{color:var(--gold-2)}
-.talk-say{position:relative;padding:11px 14px;font-size:12.5px;line-height:1.75;word-break:keep-all;min-height:1.75em}
-#talkH .talk-say{background:rgba(241,235,223,.95);color:var(--ink-on-paper)}
-#talkV .talk-say{background:rgba(23,19,15,.95);border:1px solid var(--gold);color:var(--gold-2)}
-.talk-say::after{content:"";position:absolute;top:-6px;width:10px;height:6px;clip-path:polygon(50% 0,100% 100%,0 100%)}
-#talkH .talk-say::after{left:14px;background:rgba(241,235,223,.95)}
-#talkV .talk-say::after{right:14px;background:var(--gold)}
+#talkH .talk-who::before{content:"✝";font-size:12px;color:#b03a2e;letter-spacing:0}
+#talkV .talk-who{color:var(--gold-2);flex-direction:row-reverse}
+#talkV .talk-who::before{content:"♠";width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0;color:var(--gold-2);
+  background:radial-gradient(circle,var(--ink) 0 50%,transparent 52%),repeating-conic-gradient(var(--gold) 0 20deg,var(--ink-3) 20deg 40deg)}
+.talk-say{position:relative;font-size:12.5px;line-height:1.8;word-break:keep-all;min-height:1.8em}
+/* 이현: 줄 그어진 진료 메모, 왼쪽 빨간 여백선, 살짝 기울어짐 */
+#talkH .talk-say{padding:10px 14px 10px 20px;color:var(--ink-on-paper);transform:rotate(-1.4deg);
+  background:repeating-linear-gradient(transparent 0 21.5px,rgba(60,90,140,.22) 21.5px 22.5px) 0 9px/100% 100% no-repeat, #f6f2e8;
+  box-shadow:2px 3px 0 rgba(0,0,0,.25),0 10px 24px rgba(0,0,0,.35)}
+#talkH .talk-say::before{content:"";position:absolute;left:11px;top:0;bottom:0;width:1px;background:rgba(176,58,46,.55)}
+#talkH .talk-say::after{content:"";position:absolute;right:-6px;top:-7px;width:26px;height:12px;background:rgba(226,205,156,.55);transform:rotate(18deg)}
+/* 로랑: 펠트 위 금테 카드, 모서리에 ♠ ♦ */
+#talkV .talk-say{padding:11px 16px;color:var(--gold-2);transform:rotate(1.2deg);
+  background:radial-gradient(ellipse at 30% 20%,#1d2a22,#0f1712 70%);border:1px solid var(--gold);outline:1px solid rgba(191,160,103,.3);outline-offset:-5px;
+  box-shadow:0 10px 24px rgba(0,0,0,.45)}
+#talkV .talk-say::before,#talkV .talk-say::after{position:absolute;font-size:9px;color:var(--gold);line-height:1}
+#talkV .talk-say::before{content:"♠";left:6px;top:5px}
+#talkV .talk-say::after{content:"♦";right:6px;bottom:5px}
 @media (max-width:720px){.talk{top:auto;bottom:calc(80px + env(safe-area-inset-bottom,0px));max-width:44vw;transform:translateY(10px)}.talk.on{transform:none}#talkH{left:10px}#talkV{right:10px}}
 
 /* ───── confession ───── */
@@ -580,7 +605,7 @@ body::after{
   </div>
 </div>
 
-<div class="talk" id="talkH" aria-live="polite"><span class="talk-who">이현</span><p class="talk-say"></p></div>
+<div class="talk" id="talkH" aria-live="polite"><span class="talk-who">이현 · 진료 메모</span><p class="talk-say"></p></div>
 <div class="talk" id="talkV" aria-live="polite"><span class="talk-who">에밀 로랑</span><p class="talk-say"></p></div>
 
 <div class="tagmeter" id="tagmeter" aria-hidden="true"><small>TAG</small><i></i><i></i><i></i></div>
@@ -590,10 +615,12 @@ body::after{
 <!-- ─────────── hero ─────────── -->
 <section class="hero" id="hero">
   <div class="hero-bg"></div>
+  <canvas class="hero-fx" id="heroFx" aria-hidden="true"></canvas>
   <div class="hero-in">
     <p class="hero-place">무법도시의, 카지노. 라미라주에서.</p>
     <h1 class="hero-title">Le Mirage</h1>
     <p class="hero-pair">이현<b>×</b>에밀 로랑</p>
+    <p class="dday" aria-label="함께한 날"><span>TOGETHER</span><b class="dday-n">D+0</b><span class="dday-since">SINCE 2026.06.14</span></p>
     <div class="hero-talk">
       <div><p>“어때? 모든 것을 가지던 이가<br>나까지 가지게 된 기분은.”</p><small>이현</small></div>
       <div><p>“질문에 대한 대답부터 해야 할까요?<br>이보다 더 만족감 있는 소유를 해본 적이 없어요.”</p><small>에밀 로랑</small></div>
@@ -921,10 +948,24 @@ body::after{
   <div class="wrap">
     <header class="sh fade">
       <h2>음악</h2>
-      <span class="label">Playlist</span>
-      <p class="sh-sub">라미라주의 홀에 흐르는 곡들.</p>
+      <span class="label">Owner's Selection</span>
+      <p class="sh-sub">오너의 선곡. 에밀 로랑이 고른, 라미라주의 홀에 흐르는 곡들.</p>
     </header>
-    <!-- 곡 추가: 빈 <li class="track empty">를 복사해서 곡 제목·설명을 쓰면 돼요 -->
+
+    <div class="owner fade">
+      <div class="owner-card">
+        <span class="owner-chip" aria-hidden="true"><b>♠</b></span>
+        <div>
+          <span class="label">Playlist · Émile Laurent</span>
+          <h3>오너의 선곡</h3>
+          <p>“오늘 밤 홀에 틀 곡은 제가 골랐어요. 마음에 들면, 칩 하나 걸어요.”</p>
+        </div>
+        <a class="yt-link" href="https://youtube.com/playlist?list=PLD5H5tP-lVGA" target="_blank" rel="noopener">YOUTUBE에서 전체 보기 ↗</a>
+      </div>
+      <!-- 플레이리스트 바꾸는 법: data-list 에 list= 뒤의 글자를 넣으면 돼요 -->
+      <div class="owner-player" data-list="PLD5H5tP-lVGA"></div>
+    </div>
+
     <ol class="tracks fade">
       <li class="track" id="trackBgm">
         <button class="t-play" aria-label="It Don't Mean a Thing 재생">▶</button>
@@ -932,9 +973,6 @@ body::after{
         <span class="t-title">It Don't Mean a Thing<small>Duke Ellington · piano by Sangah Noona</small></span>
         <span class="t-tag">BGM</span>
       </li>
-      <li class="track empty"><span class="t-play">·</span><span class="t-no">02</span><span class="t-title">곡 자리<small>곡 설명</small></span><span class="t-tag"></span></li>
-      <li class="track empty"><span class="t-play">·</span><span class="t-no">03</span><span class="t-title">곡 자리<small>곡 설명</small></span><span class="t-tag"></span></li>
-      <li class="track empty"><span class="t-play">·</span><span class="t-no">04</span><span class="t-title">곡 자리<small>곡 설명</small></span><span class="t-tag"></span></li>
     </ol>
   </div>
 </section>
@@ -1009,7 +1047,7 @@ body::after{
   <button class="foot-secret" id="lastChip" aria-label="숨은 대사 열기">♠</button>
   <div class="foot-title">Le Mirage</div>
   <p class="foot-credit">
-    이현 × 에밀 로랑
+    이현 × 에밀 로랑 · <span class="dday-n">D+0</span>
   </p>
 </footer>
 
@@ -1297,6 +1335,72 @@ let idleT, idleI = 0;
 function resetIdle(){ clearTimeout(idleT); idleT = setTimeout(() => { speak(IDLE[idleI++ % IDLE.length]); resetIdle(); }, 30000); }
 ['scroll','click','touchstart','mousemove','keydown'].forEach(ev => addEventListener(ev, resetIdle, {passive:true}));
 resetIdle();
+
+/* ── 함께한 날 (시작일을 바꾸려면 아래 날짜만 고치면 돼요) ── */
+const START = new Date(2026, 5, 14);   // 2026년 6월 14일 (월은 0부터 세서 6월 = 5)
+(() => {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const n = Math.floor((today - START) / 86400000) + 1;
+  document.querySelectorAll('.dday-n').forEach(el => el.textContent = 'D+' + n);
+  const y = START.getFullYear(), m = String(START.getMonth()+1).padStart(2,'0'), d = String(START.getDate()).padStart(2,'0');
+  document.querySelectorAll('.dday-since').forEach(el => el.textContent = `SINCE ${y}.${m}.${d}`);
+})();
+
+/* ── 오너의 선곡: 유튜브 플레이리스트 미리보기 ── */
+document.querySelectorAll('.owner-player').forEach(el => {
+  const io = new IntersectionObserver(es => { if (es[0].isIntersecting) {
+    el.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=${el.dataset.list}&rel=0&playsinline=1" title="에밀 로랑 플레이리스트" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>`;
+    io.disconnect();
+  }}, {rootMargin:'300px'});
+  io.observe(el);
+});
+addEventListener('blur', () => { setTimeout(() => { const a = document.activeElement; if (a && a.tagName === 'IFRAME') bgm.pause(); }, 0); });
+
+/* ── 첫 화면 파티클: 금가루, 빗줄기, 카드 무늬, 커서를 따라 흩어지는 불티 ── */
+(() => {
+  const c = document.getElementById('heroFx'); if (!c) return;
+  const g = c.getContext('2d'), hero = c.parentElement;
+  let w, h, dust = [], rain = [], sparks = [], run = false;
+  const SUITS = ['♠','♥','♦','♣'];
+  function size(){
+    const r = Math.min(devicePixelRatio || 1, 2); w = c.clientWidth; h = c.clientHeight;
+    c.width = w * r; c.height = h * r; g.setTransform(r, 0, 0, r, 0, 0);
+    dust = Array.from({length: Math.round(Math.min(160, w * h / 6500))}, () => mk(true));
+    rain = Array.from({length: Math.round(w / 14)}, () => ({x: Math.random() * w, y: Math.random() * h, l: 8 + Math.random() * 16, s: 6 + Math.random() * 6}));
+  }
+  function mk(any){
+    const suit = Math.random() < .06;
+    return {x: Math.random() * w, y: any ? Math.random() * h : h + 10, r: suit ? 10 + Math.random() * 8 : .5 + Math.random() * 1.8,
+      vy: .2 + Math.random() * .6, vx: (Math.random() - .5) * .25, t: Math.random() * 7, suit: suit ? SUITS[Math.random() * 4 | 0] : null};
+  }
+  function draw(){
+    if (!run) return;
+    g.clearRect(0, 0, w, h);
+    g.strokeStyle = 'rgba(226,205,156,.10)'; g.lineWidth = 1;
+    for (const d of rain) { d.y += d.s; d.x -= d.s * .12; if (d.y > h) { d.y = -20; d.x = Math.random() * (w + 60); }
+      g.beginPath(); g.moveTo(d.x, d.y); g.lineTo(d.x - d.l * .12, d.y + d.l); g.stroke(); }
+    for (const m of dust) {
+      m.y -= m.vy; m.x += m.vx + Math.sin(m.t) * .2; m.t += .025;
+      if (m.y < -20) Object.assign(m, mk(false));
+      const a = .2 + .6 * (.5 + .5 * Math.sin(m.t * 1.8));
+      if (m.suit) { g.font = m.r + 'px serif'; g.fillStyle = `rgba(191,160,103,${a * .3})`; g.fillText(m.suit, m.x, m.y); }
+      else { g.beginPath(); g.arc(m.x, m.y, m.r, 0, 7); g.fillStyle = `rgba(226,205,156,${a})`; g.shadowColor = 'rgba(226,205,156,.9)'; g.shadowBlur = 8; g.fill(); g.shadowBlur = 0; }
+    }
+    sparks = sparks.filter(p => (p.life -= .025) > 0);
+    for (const p of sparks) { p.x += p.vx; p.y += p.vy; p.vy += .04;
+      g.beginPath(); g.arc(p.x, p.y, p.r, 0, 7); g.fillStyle = `rgba(232,207,146,${p.life})`; g.fill(); }
+    requestAnimationFrame(draw);
+  }
+  function burst(e){
+    const b = c.getBoundingClientRect(), x = e.clientX - b.left, y = e.clientY - b.top;
+    for (let i = 0; i < 3; i++) { const a = Math.random() * 7, s = .5 + Math.random() * 2;
+      sparks.push({x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s - .8, r: .6 + Math.random() * 1.4, life: 1}); }
+  }
+  hero.addEventListener('pointermove', burst);
+  size(); addEventListener('resize', size);
+  if (matchMedia('(prefers-reduced-motion:reduce)').matches) { run = true; draw(); run = false; return; }
+  new IntersectionObserver(es => { const v = es[0].isIntersecting; if (v && !run) { run = true; draw(); } else if (!v) run = false; }).observe(hero);
+})();
 
 /* ── hidden line ── */
 const over = document.getElementById('over');
