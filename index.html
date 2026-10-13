@@ -451,6 +451,34 @@ body::after{
 .snow-in h3{font-size:clamp(30px,5.4vw,48px);line-height:1.15}
 .snow-in p{font-size:15px;color:var(--text-dim)}
 
+.excerpt{margin-top:clamp(28px,5vw,48px);max-width:640px;margin-inline:auto;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center}
+.ex-dots{color:var(--gold);letter-spacing:.4em}
+.ex-body{display:flex;flex-direction:column;gap:14px;font-size:15.5px;line-height:2;color:var(--text-dim);word-break:keep-all}
+.ex-bang{font-size:18px;color:var(--text);font-weight:700}
+.ex-snow{color:#f4f1ea}
+.ex-blood{color:#c0392b;text-shadow:0 0 14px rgba(192,57,43,.35)}
+.ex-more{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 28px;border:1px solid var(--gold);color:var(--gold-2);text-decoration:none;font-family:var(--f-gothic);font-size:12px;letter-spacing:.3em;transition:background .3s,color .3s}
+.ex-more span{font-family:var(--f-myungjo);font-size:13px;letter-spacing:.06em;color:var(--text-dim)}
+.ex-more:hover{background:var(--gold);color:var(--ink)}
+.ex-more:hover span{color:var(--ink)}
+.ex-note{font-size:12.5px;color:var(--text-faint)}
+
+/* ───── 말풍선 ───── */
+.talk{position:fixed;top:50%;z-index:650;display:flex;flex-direction:column;gap:6px;max-width:150px;opacity:0;transform:translateY(-50%) translateY(10px);transition:opacity .6s ease,transform .6s ease;pointer-events:none}
+.talk.on{opacity:1;transform:translateY(-50%)}
+#talkH{left:14px;align-items:flex-start}
+#talkV{right:14px;align-items:flex-end;text-align:right}
+.talk-who{font-family:var(--f-gothic);font-size:10.5px;letter-spacing:.24em}
+#talkH .talk-who{color:var(--paper)}
+#talkV .talk-who{color:var(--gold-2)}
+.talk-say{position:relative;padding:11px 14px;font-size:12.5px;line-height:1.75;word-break:keep-all;min-height:1.75em}
+#talkH .talk-say{background:rgba(241,235,223,.95);color:var(--ink-on-paper)}
+#talkV .talk-say{background:rgba(23,19,15,.95);border:1px solid var(--gold);color:var(--gold-2)}
+.talk-say::after{content:"";position:absolute;top:-6px;width:10px;height:6px;clip-path:polygon(50% 0,100% 100%,0 100%)}
+#talkH .talk-say::after{left:14px;background:rgba(241,235,223,.95)}
+#talkV .talk-say::after{right:14px;background:var(--gold)}
+@media (max-width:720px){.talk{top:auto;bottom:calc(80px + env(safe-area-inset-bottom,0px));max-width:44vw;transform:translateY(10px)}.talk.on{transform:none}#talkH{left:10px}#talkV{right:10px}}
+
 /* ───── confession ───── */
 .confession{overflow:hidden;isolation:isolate}
 .confession::before{content:"";position:absolute;inset:0;z-index:-1;background:url(assets/mood-highway.jpg) center/cover;opacity:.2}
@@ -552,12 +580,15 @@ body::after{
   </div>
 </div>
 
+<div class="talk" id="talkH" aria-live="polite"><span class="talk-who">이현</span><p class="talk-say"></p></div>
+<div class="talk" id="talkV" aria-live="polite"><span class="talk-who">에밀 로랑</span><p class="talk-say"></p></div>
+
 <div class="tagmeter" id="tagmeter" aria-hidden="true"><small>TAG</small><i></i><i></i><i></i></div>
 
 <main id="top">
 
 <!-- ─────────── hero ─────────── -->
-<section class="hero">
+<section class="hero" id="hero">
   <div class="hero-bg"></div>
   <div class="hero-in">
     <p class="hero-place">무법도시의, 카지노. 라미라주에서.</p>
@@ -921,8 +952,23 @@ body::after{
       <div class="snow-in">
         <span class="tk-no">ADMIT ONE · 07.17 — 08.01</span>
         <h3>함박눈 안단테</h3>
-        <p>정말 슬프고, 현랑 같고, 우울하고, 아름다운 시나리오였다.</p>
+        <p>정말 슬프고, 우울하며 아름다운 현상의 현랑 이야기.</p>
       </div>
+    </article>
+
+    <article class="excerpt fade">
+      <span class="ex-dots" aria-hidden="true">···</span>
+      <div class="ex-body">
+        <p class="ex-bang">탕, 하고 총 소리가 이어집니다.</p>
+        <p>참 이상한 일이에요. 언제나 총 소리를 듣던 로랑. 당신이 이렇게 섬뜩한 기분을 느끼는 것이.</p>
+        <p>아, 동시에 이현이 울컥 피를 토해냅니다.</p>
+        <p class="ex-snow">하얀 도화지처럼 드넓게 펼쳐진 함박눈,</p>
+        <p class="ex-blood">그 위로 물감처럼 흩뿌려지는 새빨간 피.</p>
+        <p>거칠게 떠밀린 사람처럼 앞으로 털썩 고꾸라지는</p>
+        <p>소중한 연인. …이현 ···.</p>
+      </div>
+      <a class="ex-more" href="https://easyrjm.tistory.com/m/46" target="_blank" rel="noopener">더 보러 가기 <span>함박눈 안단테 _ 현랑 ↗</span></a>
+      <p class="ex-note">* 19금 씬이 있으므로, 보시길 원하는 분은 비밀번호를 제작자에게 문의 바랍니다.</p>
     </article>
   </div>
 </section>
@@ -1195,6 +1241,63 @@ document.querySelectorAll('.pic[data-src]').forEach(fig => {
 document.querySelector('.moon').addEventListener('click', () => { lbImg.src = 'assets/gallery/hundred-2.webp'; lbImg.alt = '100일 축하해'; lb.classList.add('show'); });
 document.querySelectorAll('.poster').forEach(b => b.addEventListener('click', () => { const i = b.querySelector('img'); lbImg.src = i.src; lbImg.alt = i.alt; lb.classList.add('show'); }));
 document.querySelectorAll('.snow-card[data-bg]').forEach(c => { if (c.dataset.bg) c.style.setProperty('--bg', `url("${c.dataset.bg}")`); });
+
+/* ── 말풍선: 구역에 들어가면 두 사람이 한마디씩 ── */
+const LINES = {
+  hero:      {h:'어서 와요. 겁낼 필요는 없어.', v:'우와~ 손님이네요. 좋게 가자구요.'},
+  cage:      {h:'영수증 같은 건 왜 남겨뒀어요?', v:'환불은 안 돼요. 이미 샀잖아요?'},
+  about:     {h:'그거 성경에 있어요?', v:'없으면 우리가 쓰면 되죠.'},
+  world:     {h:'이 도시엔 법이 없다던데.', v:'대신 우리 가게 규칙이 있죠.'},
+  players:   {h:'…그렇게 빤히 보지 마요.', v:'칩 하나 드릴까요?'},
+  story:     {h:'끝맺지 않은 이야기는 재미없거든요.', v:'그럼 끝까지 읽어줘요.'},
+  novels:    {h:'극작은… 아직 준비 중이에요.', v:'다 쓰면 제일 먼저 보여줘요.'},
+  gallery:   {h:'이런 걸 다 모아뒀어요?', v:'예쁘잖아요. 당신이.'},
+  playlist:  {h:'딜러가 고른 곡이에요?', v:'오너가 고른 곡이에요.'},
+  scenarios: {h:'…눈이 오네요.', v:'흰 눈이 오면, 돌아와줄 거죠?'},
+  confession:{h:'그날 한 말, 다 기억해요?', v:'한 마디도 거짓말 아니었어요.'},
+  dedication:{h:'고마워요, 앤오님.', v:'덕분에 우리가 있었네요.'}
+};
+const IDLE = [
+  {h:'…아직 거기 있어요?'}, {v:'자리 비우셨어요? 칩은 두고 가요.'},
+  {h:'조용하네요. 기도라도 할까.'}, {v:'졸리면 수면제 한 알 드릴까요?'}
+];
+const talkH = document.getElementById('talkH'), talkV = document.getElementById('talkV');
+const reduceMotion = matchMedia('(prefers-reduced-motion:reduce)').matches;
+let talkSeq = 0, lastSec = '';
+function typeInto(box, text, seq){
+  const say = box.querySelector('.talk-say');
+  box.classList.add('on');
+  if (reduceMotion) { say.textContent = text; return; }
+  say.textContent = ''; say.classList.add('typing');
+  let i = 0;
+  (function step(){
+    if (seq !== talkSeq) return;
+    say.textContent = text.slice(0, ++i);
+    if (i < text.length) setTimeout(step, 55); else say.classList.remove('typing');
+  })();
+}
+function speak(line){
+  const seq = ++talkSeq;
+  talkH.classList.remove('on'); talkV.classList.remove('on');
+  setTimeout(() => {
+    if (seq !== talkSeq) return;
+    if (line.h) typeInto(talkH, line.h, seq);
+    if (line.v) setTimeout(() => { if (seq === talkSeq) typeInto(talkV, line.v, seq); }, line.h ? 900 : 0);
+    setTimeout(() => { if (seq === talkSeq) { talkH.classList.remove('on'); talkV.classList.remove('on'); } }, 6500);
+  }, 250);
+}
+if ('IntersectionObserver' in window) {
+  const talkObs = new IntersectionObserver(es => es.forEach(en => {
+    const id = en.target.id;
+    if (en.isIntersecting && id !== lastSec && LINES[id] && gate.classList.contains('gone')) { lastSec = id; speak(LINES[id]); }
+  }), {threshold:.35});
+  Object.keys(LINES).forEach(id => { const el = document.getElementById(id); if (el) talkObs.observe(el); });
+  gate.addEventListener('click', () => setTimeout(() => { lastSec = 'hero'; speak(LINES.hero); }, 1300));
+}
+let idleT, idleI = 0;
+function resetIdle(){ clearTimeout(idleT); idleT = setTimeout(() => { speak(IDLE[idleI++ % IDLE.length]); resetIdle(); }, 30000); }
+['scroll','click','touchstart','mousemove','keydown'].forEach(ev => addEventListener(ev, resetIdle, {passive:true}));
+resetIdle();
 
 /* ── hidden line ── */
 const over = document.getElementById('over');
