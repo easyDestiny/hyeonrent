@@ -208,10 +208,10 @@ body::after{
 .cage-hint.glitch::after{color:var(--gold-2)}
 
 .receipt{
-  --edge:10px;position:relative;background:rgba(241,235,223,.8);color:var(--ink-on-paper);
+  --edge:10px;position:relative;background:rgba(241,235,223,.62);color:var(--ink-on-paper);
   -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
   font-family:var(--f-gothic);font-weight:300;font-size:12.5px;line-height:1.65;
-  padding:calc(var(--edge) + 26px) clamp(20px,5vw,30px);transform:rotate(1.4deg);
+  padding:calc(var(--edge) + 26px) clamp(20px,5vw,30px);transform:perspective(1100px) rotateY(-7deg) rotateX(2deg) rotate(2.2deg);
   box-shadow:0 30px 60px rgba(0,0,0,.55);
   -webkit-mask:
     radial-gradient(circle at 50% 0, transparent 5px, #000 5.5px) top/var(--edge) 51% repeat-x,
@@ -265,7 +265,7 @@ body::after{
 .r-foot{text-align:center;font-size:10px;letter-spacing:.32em;font-weight:700}
 @media (max-width:820px){
   .cage-grid{grid-template-columns:1fr}
-  .receipt{max-width:400px;width:100%;margin:0 auto;transform:rotate(.8deg)}
+  .receipt{max-width:400px;width:100%;margin:0 auto;transform:perspective(900px) rotateY(-5deg) rotate(1.6deg)}
 }
 
 /* ───── world ───── */
@@ -397,6 +397,8 @@ body::after{
 .pic.waiting .pic-box::before{content:"그림 연결 대기";font-family:var(--f-gothic);font-size:10.5px;letter-spacing:.24em;color:var(--text-faint)}
 .pic.wide.waiting .pic-box{aspect-ratio:16/9}
 .about-pic{max-width:820px;margin:0 auto}
+.about-pic:has(.waiting){display:none}
+.about-line{font-family:var(--f-myungjo);font-size:clamp(17px,3vw,22px);color:var(--gold-2);letter-spacing:.06em}
 .about-pic .pic img{width:100%}
 /* 블러 그림 */
 .secret-pic .pic-box img{filter:blur(22px) brightness(.7);transform:scale(1.1)}
@@ -464,6 +466,8 @@ body::after{
 .snow-in{position:relative;z-index:1;display:flex;flex-direction:column;gap:12px;max-width:30em}
 .snow-in h3{font-size:clamp(30px,5.4vw,48px);line-height:1.15}
 .snow-in p{font-size:15px;color:var(--text-dim)}
+.snow-link{align-self:flex-start;margin-top:4px;padding:9px 16px;border:1px solid var(--gold);color:var(--gold-2);text-decoration:none;font-family:var(--f-gothic);font-size:11.5px;letter-spacing:.16em;background:rgba(13,11,9,.5);transition:background .3s,color .3s}
+.snow-link:hover{background:var(--gold);color:var(--ink)}
 
 .excerpt{margin-top:clamp(28px,5vw,48px);max-width:640px;margin-inline:auto;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center}
 .ex-dots{color:var(--gold);letter-spacing:.4em}
@@ -484,7 +488,7 @@ body::after{
 #talkV{right:14px;align-items:flex-end;text-align:right}
 .talk-who{display:flex;align-items:center;gap:6px;font-family:var(--f-gothic);font-size:10px;letter-spacing:.22em}
 #talkH .talk-who{color:var(--paper)}
-#talkH .talk-who::before{content:"✝";font-size:12px;color:#b03a2e;letter-spacing:0}
+#talkH .talk-who::before{content:"☾";font-size:13px;color:#e8dcc0;letter-spacing:0;text-shadow:0 0 8px rgba(232,220,192,.7)}
 #talkV .talk-who{color:var(--gold-2);flex-direction:row-reverse}
 #talkV .talk-who::before{content:"♠";width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0;color:var(--gold-2);
   background:radial-gradient(circle,var(--ink) 0 50%,transparent 52%),repeating-conic-gradient(var(--gold) 0 20deg,var(--ink-3) 20deg 40deg)}
@@ -620,7 +624,7 @@ body::after{
     <p class="hero-place">무법도시의, 카지노. 라미라주에서.</p>
     <h1 class="hero-title">Le Mirage</h1>
     <p class="hero-pair">이현<b>×</b>에밀 로랑</p>
-    <p class="dday" aria-label="함께한 날"><span>TOGETHER</span><b class="dday-n">D+0</b><span class="dday-since">SINCE 2026.06.14</span></p>
+    <p class="dday" aria-label="함께한 날"><span class="dday-since">2026.07.06</span><b class="dday-n">D+0</b></p>
     <div class="hero-talk">
       <div><p>“어때? 모든 것을 가지던 이가<br>나까지 가지게 된 기분은.”</p><small>이현</small></div>
       <div><p>“질문에 대한 대답부터 해야 할까요?<br>이보다 더 만족감 있는 소유를 해본 적이 없어요.”</p><small>에밀 로랑</small></div>
@@ -688,10 +692,10 @@ body::after{
     <header class="sh fade">
       <h2>현랑이란?</h2>
       <span class="label">Hyeon × Laurent</span>
-      <p class="sh-sub">현랑에 대하여. 이런 관계의 캐릭터다.</p>
+      <p class="sh-sub about-line">바스라진 무법도시에서, 가장 바스라진 사랑.</p>
     </header>
     <div class="about-pic fade">
-      <figure class="pic wide" data-src="" data-ibb="TBCww6ns"><figcaption>현랑에 대하여</figcaption></figure>
+      <figure class="pic wide" data-src="" data-ibb="TBCww6ns"></figure>
     </div>
   </div>
 </section>
@@ -991,6 +995,7 @@ body::after{
         <span class="tk-no">ADMIT ONE · 07.17 — 08.01</span>
         <h3>함박눈 안단테</h3>
         <p>정말 슬프고, 우울하며 아름다운 현상의 현랑 이야기.</p>
+        <a class="snow-link" href="https://easyrjm.tistory.com/m/46" target="_blank" rel="noopener">함박눈 안단테 _ 현랑 읽으러 가기 ↗</a>
       </div>
     </article>
 
@@ -1337,13 +1342,13 @@ function resetIdle(){ clearTimeout(idleT); idleT = setTimeout(() => { speak(IDLE
 resetIdle();
 
 /* ── 함께한 날 (시작일을 바꾸려면 아래 날짜만 고치면 돼요) ── */
-const START = new Date(2026, 5, 14);   // 2026년 6월 14일 (월은 0부터 세서 6월 = 5)
+const START = new Date(2026, 6, 6);    // 2026년 7월 6일 (월은 0부터 세서 7월 = 6)
 (() => {
   const today = new Date(); today.setHours(0,0,0,0);
   const n = Math.floor((today - START) / 86400000) + 1;
   document.querySelectorAll('.dday-n').forEach(el => el.textContent = 'D+' + n);
   const y = START.getFullYear(), m = String(START.getMonth()+1).padStart(2,'0'), d = String(START.getDate()).padStart(2,'0');
-  document.querySelectorAll('.dday-since').forEach(el => el.textContent = `SINCE ${y}.${m}.${d}`);
+  document.querySelectorAll('.dday-since').forEach(el => el.textContent = `${y}.${m}.${d}`);
 })();
 
 /* ── 오너의 선곡: 유튜브 플레이리스트 미리보기 ── */
