@@ -404,7 +404,9 @@ body::after{
 .pic.waiting .pic-box::before{content:"그림 연결 대기";font-family:var(--f-gothic);font-size:10.5px;letter-spacing:.24em;color:var(--text-faint)}
 .pic.wide.waiting .pic-box{aspect-ratio:16/9}
 .about-pic{max-width:820px;margin:0 auto}
-.about-pic:has(.waiting){display:none}
+.about-show{position:relative;display:block;width:100%;max-width:880px;margin:0 auto;aspect-ratio:1600/971;padding:0;border:1px solid var(--line);background:var(--ink-2);overflow:hidden;cursor:zoom-in}
+.about-show img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity 1.2s ease}
+.about-show img.on{opacity:1}
 .about-line{font-family:var(--f-myungjo);font-size:clamp(17px,3vw,22px);color:var(--gold-2);letter-spacing:.06em}
 .about-pic .pic img{width:100%}
 /* 블러 그림 */
@@ -495,7 +497,7 @@ body::after{
 #talkV{right:14px;align-items:flex-end;text-align:right}
 .talk-who{display:flex;align-items:center;gap:6px;font-family:var(--f-gothic);font-size:10px;letter-spacing:.22em}
 #talkH .talk-who{color:var(--paper)}
-#talkH .talk-who::before{content:"☾";font-size:13px;color:#e8dcc0;letter-spacing:0;text-shadow:0 0 8px rgba(232,220,192,.7)}
+#talkH .talk-who::before{content:"♱";font-size:14px;color:#e8dcc0;letter-spacing:0;text-shadow:0 0 8px rgba(232,220,192,.6)}
 #talkV .talk-who{color:var(--gold-2);flex-direction:row-reverse}
 #talkV .talk-who::before{content:"♠";width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0;color:var(--gold-2);
   background:radial-gradient(circle,var(--ink) 0 50%,transparent 52%),repeating-conic-gradient(var(--gold) 0 20deg,var(--ink-3) 20deg 40deg)}
@@ -715,9 +717,11 @@ body::after{
       <span class="label">Hyeon × Laurent</span>
       <p class="sh-sub about-line">바스라진 무법도시에서, 가장 바스라진 사랑.</p>
     </header>
-    <div class="about-pic fade">
-      <figure class="pic wide" data-src="" data-ibb="TBCww6ns"></figure>
-    </div>
+    <!-- 그림 추가: <img> 한 줄을 복사해서 src 만 바꾸면 3초마다 차례로 바뀌어요 -->
+    <button class="about-show fade" type="button" aria-label="현랑 그림 크게 보기">
+      <img class="on" src="assets/gallery/about-sheet.webp" alt="이현과 에밀 로랑 캐릭터 시트">
+      <img src="assets/gallery/about-poster.webp" alt="Hyeonrent 포스터. 정말 너는 언제까지라도 내 옆에 있어줄 수 있을까">
+    </button>
   </div>
 </section>
 
@@ -1028,8 +1032,7 @@ body::after{
         <p>아, 동시에 이현이 울컥 피를 토해냅니다.</p>
         <p class="ex-snow">하얀 도화지처럼 드넓게 펼쳐진 함박눈,</p>
         <p class="ex-blood">그 위로 물감처럼 흩뿌려지는 새빨간 피.</p>
-        <p>거칠게 떠밀린 사람처럼 앞으로 털썩 고꾸라지는</p>
-        <p>소중한 연인. …이현 ···.</p>
+        <p>거칠게 떠밀린 사람처럼 앞으로 털썩 고꾸라지는···.</p>
       </div>
       <p class="ex-note">* 19금 씬이 있으므로, 보시길 원하는 분은 비밀번호를 제작자에게 문의 바랍니다.</p>
     </article>
@@ -1306,6 +1309,14 @@ document.querySelectorAll('.pic[data-src]').forEach(fig => {
     lbImg.src = src; lbImg.alt = img.alt; lbCap.textContent = cap ? 'illust. ' + cap.textContent : ''; lb.classList.add('show');
   });
 });
+
+/* ── 현랑이란? 그림: 3초마다 디졸브 ── */
+(() => {
+  const box = document.querySelector('.about-show'); if (!box) return;
+  const imgs = [...box.querySelectorAll('img')]; let i = 0;
+  if (imgs.length > 1) setInterval(() => { imgs[i].classList.remove('on'); i = (i + 1) % imgs.length; imgs[i].classList.add('on'); }, 3000);
+  box.addEventListener('click', () => { lbImg.src = imgs[i].src; lbImg.alt = imgs[i].alt; lbCap.textContent = ''; lb.classList.add('show'); });
+})();
 
 /* ── 시나리오 그림 ── */
 document.querySelector('.moon').addEventListener('click', () => { lbImg.src = 'assets/gallery/hundred-2.webp'; lbImg.alt = '100일 축하해'; lbCap.textContent = ''; lb.classList.add('show'); });
